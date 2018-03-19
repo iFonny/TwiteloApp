@@ -20,3 +20,4 @@ dist
 # Other
 \.DS_Store
 dump.rdb
+config/secret\.json
