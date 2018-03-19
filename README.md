@@ -4,6 +4,7 @@
 
 # Required
 
+> npm install -g vue-cli
 - RethinkDB
 
 ## Build Setup
