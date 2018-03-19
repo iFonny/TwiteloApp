@@ -1,0 +1,79 @@
+{
+  "locale": "fr",
+  "navbar": {
+    "close-popup": "Fermer",
+    "donate": "Faire un don",
+    "login-with-twitter": "Se connecter avec Twitter",
+    "stats": "Stats",
+    "statistics": "Statistiques",
+    "settings": "Paramètres",
+    "builder": {
+      "builder": "Éditeur",
+      "step-by-step": "Pas à pas",
+      "classic": "Classique"
+    },
+    "notification": {
+      "old-notifications-tooltip": "Afficher les anciennes notifications",
+      "no-notifications": "Vous n'avez aucune notification.",
+      "clear": "Archiver"
+    },
+    "switch": {
+      "tooltip": "Activer ou désactiver la mise a jour automatique"
+    },
+    "user": {
+      "about": "À propos",
+      "contact": "Contact",
+      "logout": "Se déconnecter"
+    }
+  },
+  "settings": {
+    "tab": {
+      "general": "Général",
+      "pp": "Photos de profil",
+      "notifications": "Notifications",
+      "api": "API"
+    },
+    "general": {
+      "delete-account": "Supprimer mon compte",
+      "global-switch-profile": "Activer les modifications automatiques du profil",
+      "description-switch-profile": "Activer les modifications automatiques de la DESCRIPTION twitter",
+      "location-switch-profile": "Activer les modifications automatiques de la POSITION twitter",
+      "name-switch-profile": "Activer les modifications automatiques du NOM twitter",
+      "url-switch-profile": "Activer les modifications automatiques de l'URL twitter",
+      "popup-delete-account": {
+        "deleting-account": "Supprimer mon compte",
+        "deleting-account-message": "Êtes-vous sûr de vouloir <b>supprimer</b> votre compte? Cette action ne peut pas être annulée.",
+        "deleting-account-confirm-text": "Supprimer mon compte",
+        "account-deleted": "Compte supprimé!"
+      }
+    },
+    "pp": {
+      "switch-profile-picture": "Activer les modifications automatiques de l'image de profil en fonction de déclencheurs",
+      "button-add-trigger": "Ajouter une photo de profil",
+      "no-pp-triggers": "Vous n'avez pas d'image de profil.",
+      "file-upload-limit": "GIF, JPG, ou PNG (max: 700kb)",
+      "file-upload-error": "trop grande ou format incorrect",
+      "trigger-save-error": "manquant(e)",
+      "save-button": "Sauvegarder",
+      "game": "Jeu",
+      "trigger": "Déclencheur",
+      "image": "Image"
+    },
+    "notifications": {
+      "send-mp-notifs": "Envoyer les notifications en messages privés twitter",
+      "send-mp-notifs-tooltip": "Vous devez suivre @TwiteloFR ou avoir des messages privés ouverts"
+    }
+  },
+  "error": {
+    "error": "Erreur",
+    "page-not-found": "Cette page n'a pas pu être trouvée",
+    "forbidden": "Vous n'êtes pas connecté.",
+    "gateway-time-out": "Le serveur n'a pas répondu.",
+    "service-unavailable": "Service temporairement indisponible ou en maintenance.",
+    "internal-server-error": "Erreur interne du serveur.",
+    "login-error-title": "Erreur d'identification",
+    "login-error-text": "Veuillez réessayer ou contactez un administrateur.",
+    "back-home": "Retour à la page d'accueil",
+    "unknown-error": "Une erreur est survenue"
+  }
+}

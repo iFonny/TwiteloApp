@@ -1,0 +1,20 @@
+{
+  "globalConfig": {
+    "server": {
+      "host": "http://localhost",
+      "port": 3021,
+      "baseURL": "https://twitelo.me"
+    },
+    "api": {
+      "host": "https://api.twitelo.me"
+    },
+    "db": {
+      "name": "twitelo"
+    },
+    "passport": {
+      "twitter": {
+        "callbackURL": "http://localhost:3021/auth/twitter/return"
+      }
+    }
+  }
+}

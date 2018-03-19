@@ -1,0 +1,22 @@
+# config
+## config/production.json (quand ready pour prod)
+
+# VScode
+.vscode/
+
+# dependencies
+node_modules
+
+# logs
+*.log
+npm-debug.log
+
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
+
+# Other
+\.DS_Store
+dump.rdb

@@ -1,0 +1,79 @@
+{
+  "locale": "en",
+  "navbar": {
+    "close-popup": "Close",
+    "donate": "Donate",
+    "login-with-twitter": "Login with Twitter",
+    "stats": "Stats",
+    "statistics": "Statistics",
+    "settings": "Settings",
+    "builder": {
+      "builder": "Builder",
+      "step-by-step": "Step by step",
+      "classic": "Classic"
+    },
+    "notification": {
+      "old-notifications-tooltip": "Show old notifications",
+      "no-notifications": "You have no notifications.",
+      "clear": "Clear"
+    },
+    "switch": {
+      "tooltip": "Enable or disable auto-updater"
+    },
+    "user": {
+      "about": "About me",
+      "contact": "Contact",
+      "logout": "Logout"
+    }
+  },
+  "settings": {
+    "tab": {
+      "general": "General",
+      "pp": "Profile pictures",
+      "notifications": "Notifications",
+      "api": "API"
+    },
+    "general": {
+      "delete-account": "Delete my account",
+      "global-switch-profile": "Enable automatic profile changes",
+      "description-switch-profile": "Enable automatic twitter DESCRIPTION changes",
+      "location-switch-profile": "Enable automatic twitter LOCATION changes",
+      "name-switch-profile": "Enable automatic twitter NAME changes",
+      "url-switch-profile": "Enable automatic twitter URL changes",
+      "popup-delete-account": {
+        "deleting-account": "Deleting account",
+        "deleting-account-message": "Are you sure you want to <b>delete</b> your account? This action cannot be undone.",
+        "deleting-account-confirm-text": "Delete Account",
+        "account-deleted": "Account deleted!"
+      }
+    },
+    "pp": {
+      "switch-profile-picture": "Enable automatic changes to the profile picture based on triggers",
+      "button-add-trigger": "Add a profile picture",
+      "no-pp-triggers": "You have no profile pictures.",
+      "file-upload-limit": "GIF, JPG, or PNG (max: 700kb)",
+      "file-upload-error": "too large or incorrect format",
+      "trigger-save-error": "missing",
+      "save-button": "Save",
+      "game": "Game",
+      "trigger": "Trigger",
+      "image": "Image"
+    },
+    "notifications": {
+      "send-mp-notifs": "Send notifications in private messages twitter",
+      "send-mp-notifs-tooltip": "You must follow @TwiteloFR or have private messages open"
+    }
+  },
+  "error": {
+    "error": "Error",
+    "page-not-found": "This page could not be found.",
+    "forbidden": "You are not connected.",
+    "gateway-time-out": "Gateway Time-out",
+    "service-unavailable": "Service Unavailable",
+    "internal-server-error": "Internal Server Error",
+    "login-error-title": "Login error",
+    "login-error-text": "Please try again or contact an administrator.",
+    "back-home": "Home page",
+    "unknown-error": "An error occurred."
+  }
+}
