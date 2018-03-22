@@ -1,5 +1,12 @@
 {
   "locale": "en",
+  "home": {
+    "twitelo-description-l1": "Link your twitter account and your favorite <b>online games</>!",
+    "twitelo-description-l2": "Display your <b>ranks</b>, <b>stats</b>, and more in your twitter profile. <b>Updated automatically.</b>",
+    "latest-users": "Latest users",
+    "start-now": "Start now !",
+    "more-informations": "More informations"
+  },
   "navbar": {
     "close-popup": "Close",
     "donate": "Donate",
