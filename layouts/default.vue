@@ -175,6 +175,37 @@ body {
 
 /* Perso */
 
+.footer.is-fixed-bottom {
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 30;
+}
+.footer.is-fixed-bottom {
+  bottom: 0;
+}
+
+.footer.is-fixed-bottom.has-shadow {
+  -webkit-box-shadow: 0 -2px 3px rgba(10, 10, 10, 0.1);
+  box-shadow: 0 -2px 3px rgba(10, 10, 10, 0.1);
+}
+
+@media screen and (max-width: 1023px) {
+  .footer.is-fixed-bottom-touch {
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 30;
+  }
+  .footer.is-fixed-bottom-touch {
+    bottom: 0;
+  }
+  .footer.is-fixed-bottom-touch.has-shadow {
+    -webkit-box-shadow: 0 -2px 3px rgba(10, 10, 10, 0.1);
+    box-shadow: 0 -2px 3px rgba(10, 10, 10, 0.1);
+  }
+}
+
 .text-overflow-is-ellipsis {
   white-space: nowrap;
   overflow: hidden;
