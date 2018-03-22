@@ -1,242 +1,150 @@
 <template>
-  <div class="container is-fluid">
-    <h1>HOME</h1>
-    <div v-if="$store.state.user.info">
-      Route : {{$nuxt.$route.name}} Hello {{ $store.state.user.info.username }}!
-      
-      <pre>I am the secret content, I am shown only when the use is connected.</pre>
-      <p>
-        <i>Langue : {{$t('locale')}}</i>
-      </p>
-      <button class="button badge" data-badge="8">Button</button>
-      <div class="is-divider" data-content="OR"></div>
-      <input class="slider is-fullwidth" step="1" min="0" max="100" value="50" type="range">
-
-      <input class="slider is-fullwidth is-success" step="1" min="0" max="100" value="50" type="range">
-
-      <input class="slider is-fullwidth is-warning" step="1" min="0" max="100" value="50" type="range">
-
-      <input class="slider is-fullwidth is-danger" step="1" min="0" max="100" value="50" type="range">
-
-      <input class="slider is-fullwidth is-info" step="1" min="0" max="100" value="50" type="range">
-
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <div class="timeline is-centered">
-        <header class="timeline-header">
-          <span class="tag is-medium is-primary">Start</span>
-        </header>
-        <div class="timeline-item is-primary">
-          <div class="timeline-marker is-primary"></div>
-          <div class="timeline-content">
-            <p class="heading">January 2016</p>
-            <p>Timeline content - Can include any HTML element</p>
-          </div>
+  <div class="has-footer">
+    <section class="hero">
+      <div class="hero-body twitelo-description">
+        <div class="container has-text-centered">
+          <a v-if="!$store.state.user.info" href="/auth/twitter" class="control align-vertical-center start-now-tags">
+            <b-taglist class="is-hidden-mobile" attached>
+              <b-tag type="is-large is-twitter">
+                <b-icon icon="twitter" type="is-dark"></b-icon>
+                <span>{{$t('home.start-now')}}</span>
+              </b-tag>
+              <b-tag type="is-large is-warning">
+                <span>Beta</span>
+                <b-icon icon="flask" type="is-dark"></b-icon>
+              </b-tag>
+            </b-taglist>
+            <b-tag type="is-large is-twitter is-hidden-tablet">
+              <span>{{$t('home.start-now')}}</span>
+              <b-icon icon="twitter" type="is-dark"></b-icon>
+            </b-tag>
+          </a>
+          <h1 class="title is-3 has-text-weight-light" v-html="$t('home.twitelo-description-l1')"> </h1>
+          <h1 class="title is-5 has-text-weight-light" v-html="$t('home.twitelo-description-l2')"> </h1>
         </div>
-        <div class="timeline-item is-warning">
-          <div class="timeline-marker is-warning is-image is-32x32">
-            <img src="http://bulma.io/images/placeholders/32x32.png">
-          </div>
-          <div class="timeline-content">
-            <p class="heading">February 2016</p>
-            <p>Timeline content - Can include any HTML element</p>
-          </div>
-        </div>
-        <header class="timeline-header">
-          <span class="tag is-primary">2017</span>
-        </header>
-        <div class="timeline-item is-danger">
-          <div class="timeline-marker is-danger is-icon">
-            <i class="fa fa-flag"></i>
-          </div>
-          <div class="timeline-content">
-            <p class="heading">March 2017</p>
-            <p>Timeline content - Can include any HTML element</p>
-          </div>
-        </div>
-        <header class="timeline-header">
-          <span class="tag is-medium is-primary">End</span>
-        </header>
       </div>
 
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <pre>I am the secret content, I am shown only when the use is connected.</pre>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
+      <examples />
 
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <pre>I am the secret content, I am shown only when the use is connected.</pre>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
+      <games-list :games-list="gamesList" />
 
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
-      </p>
+    </section>
 
-      <p>
-        <i>You can also refresh this page, you'll still be connected!</i>
+    <footer class="footer is-fixed-bottom has-text-centered">
+      <p class="sub-title is-6 has-text-weight-light">{{$t('home.latest-users')}}</p>
+      <div>
+        <a class="is-hidden-mobile no-select" v-for="(user) in latestUsers.slice(0,10)" :key='user.username' :href="'http://twitter.com/' + user.username">
+          <img :src="user.pp" onerror="/images/errors/default_profile.png" class="round-pp-user-footer no-select">
+        </a>
+      </div>
+      <div>
+        <a class="is-hidden-tablet no-select" v-for="user in latestUsers.slice(0,5)" :key='user.username' :href="'http://twitter.com/' + user.username">
+          <img :src="user.pp" onerror="/images/errors/default_profile.png" class="round-pp-user-footer no-select">
+        </a>
+      </div>
+      <p class="sub-title is-8 has-text-weight-light">
+        <b>Twitelo</b> by
+        <a>iFonny</a>
+        <a class="icon-footer-github">
+          <b-icon icon="github" pack="fab" size="is-small"></b-icon>
+        </a>
+        <a class="icon-footer-twitter">
+          <b-icon icon="twitter" size="is-small"></b-icon>
+        </a>-
+        <a>{{$t('home.more-informations')}}</a>
       </p>
-
-      <button @click="logout">Logout</button>
-    </div>
+    </footer>
   </div>
 </template>
 
 <script>
+import Examples from "~/components/home/Examples";
+import GamesList from "~/components/home/GamesList";
+
 export default {
+  components: {
+    Examples,
+    GamesList
+  },
   methods: {
     async logout() {
       await this.$store.dispatch("logout");
     }
+  },
+  data() {
+    return {
+      gamesList: [
+        {
+          icon: "/public/images/game/lol/icon.png",
+          id: "lol",
+          image: "/public/images/game/lol/image.png",
+          name: "League Of Legends",
+          small_name: "LoL"
+        },
+        {
+          icon: "/public/images/game/speedrun/icon.png",
+          id: "speedrun",
+          image: "/public/images/game/speedrun/image.png",
+          name: "Speedrun.com",
+          small_name: "Speedrun"
+        }
+      ],
+      latestUsers: [
+        {
+          username: "iFonny_",
+          pp:
+            "http://pbs.twimg.com/profile_images/963649016004272129/VhbWWXT__normal.jpg" // TODO: remplacer '_400x400' par '_normal' server-side
+        }
+      ]
+    };
   }
 };
 </script>
 
 <style scoped>
+.footer {
+  letter-spacing: 1px;
+  background-color: #363636fa;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 6rem;
+}
 
+.footer .icon-footer-github {
+  margin-left: 4px;
+  margin-right: 2px;
+}
+.footer .icon-footer-twitter {
+  margin-right: 4px;
+  margin-left: 2px;
+}
+
+a:hover {
+  color: #81d29d;
+}
+
+@media screen and (max-width: 768px) {
+  .start-now-tags {
+    padding-bottom: 2rem;
+  }
+}
+
+.round-pp-user-footer {
+  object-fit: cover;
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  border: 1px solid white;
+  cursor: pointer;
+  margin: 0 0.2rem;
+}
+
+.has-footer {
+  padding-bottom: 6rem;
+}
+
+.twitelo-description {
+  padding-bottom: 2rem;
+  padding-top: 2.5rem;
+}
 </style>

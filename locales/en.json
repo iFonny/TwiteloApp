@@ -1,11 +1,20 @@
 {
   "locale": "en",
   "home": {
-    "twitelo-description-l1": "Link your twitter account and your favorite <b>online games</>!",
+    "twitelo-description-l1": "Link your twitter account and your favorite <b>online games</b>!",
     "twitelo-description-l2": "Display your <b>ranks</b>, <b>stats</b>, and more in your twitter profile. <b>Updated automatically.</b>",
     "latest-users": "Latest users",
     "start-now": "Start now !",
-    "more-informations": "More informations"
+    "games-list": "Games/Platforms",
+    "more-informations": "More informations",
+    "example": "Example",
+    "preview": "Preview",
+    "description-example": {
+      "l1": "Speedrunner, Streamer & YouTuber passionate about video games.",
+      "l2": "Currently",
+      "l3": "on League Of Legends.",
+      "l4": "on twitch, sunday and monday night!"
+    }
   },
   "navbar": {
     "close-popup": "Close",
