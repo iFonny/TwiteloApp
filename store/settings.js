@@ -87,7 +87,7 @@ export const actions = {
     rootState
   }) {
     const token = rootState.user.info.twitelo_token;
-    await this.$axios.$delete('/api/user/me');
+    await this.$axios.$delete('/api/user/me/delete');
     await this.$axios.$get('/auth/logout');
     commit('user/SET_USER', null, {
       root: true
