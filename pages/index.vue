@@ -16,8 +16,6 @@
 </template>
 
 <script>
-import VueNotifications from "vue-notifications";
-
 import Examples from "~/components/home/Examples";
 import GamesList from "~/components/home/GamesList";
 import SiteDescription from "~/components/home/SiteDescription";
@@ -33,8 +31,14 @@ export default {
   async asyncData({ app }) {
     let gamesList = [];
     let latestUsers = [];
+
     try {
       gamesList = (await app.$axios.$get("/api/game/min")).data;
+    } catch (e) {
+      gamesList = [];
+      console.error(e);
+    }
+    try {
       latestUsers = [
         {
           username: "iFonny_",
@@ -43,8 +47,8 @@ export default {
         }
       ]; // TODO: REQUEST LATEST USERS
     } catch (e) {
-      gamesList = [];
       latestUsers = [];
+      console.error(e);
     }
 
     return { gamesList, latestUsers };
@@ -52,13 +56,6 @@ export default {
   methods: {
     async logout() {
       await this.$store.dispatch("logout");
-    }
-  },
-  notifications: {
-    showNotification: {
-      type: VueNotifications.types.success,
-      title: "Default",
-      message: "That's the success!"
     }
   }
 };
