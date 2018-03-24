@@ -14,6 +14,8 @@ module.exports = {
             r.table("user").indexCreate("username").run();
             r.table("user").indexCreate("twitelo_token").run();
             r.table("user").indexCreate("api_key").run();
+            r.table('user').indexCreate('created').run();
+            r.table('user').indexCreate('updated').run();
             console.log("RethinkDB: 'user' indexes created.");
           });
         }
@@ -24,6 +26,8 @@ module.exports = {
             r.table('deleted_user').indexCreate('username').run();
             r.table('deleted_user').indexCreate('twitelo_token').run();
             r.table('deleted_user').indexCreate('api_key').run();
+            r.table('deleted_user').indexCreate('created').run();
+            r.table('deleted_user').indexCreate('updated').run();
             console.log('RethinkDB: "deleted_user" indexes created.');
           });
         }
