@@ -4,12 +4,12 @@
         <p class="sub-title is-6 has-text-weight-light">{{$t('home.latest-users')}}</p>
         <div>
             <a class="is-hidden-mobile no-select" v-for="(user) in latestUsers.slice(0,10)" :key='user.username' :href="'http://twitter.com/' + user.username">
-                <img :src="user.pp" onerror="/images/errors/default_profile.png" class="round-pp-user-footer no-select">
+                <img :src="user.profile_image_url" onerror="/images/errors/default_profile.png" :alt="user.name" class="round-pp-user-footer no-select">
             </a>
         </div>
         <div>
             <a class="is-hidden-tablet no-select" v-for="user in latestUsers.slice(0,5)" :key='user.username' :href="'http://twitter.com/' + user.username">
-                <img :src="user.pp" onerror="/images/errors/default_profile.png" class="round-pp-user-footer no-select">
+                <img :src="user.profile_image_url" onerror="/images/errors/default_profile.png" :alt="user.name" class="round-pp-user-footer no-select">
             </a>
         </div>
         <p class="sub-title is-8 has-text-weight-light">

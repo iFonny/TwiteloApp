@@ -39,13 +39,7 @@ export default {
       console.error(e);
     }
     try {
-      latestUsers = [
-        {
-          username: "iFonny_",
-          pp:
-            "http://pbs.twimg.com/profile_images/963649016004272129/VhbWWXT__normal.jpg" // TODO: remplacer '_400x400' par '_normal' server-side
-        }
-      ]; // TODO: REQUEST LATEST USERS
+      latestUsers = (await app.$axios.$get("/api/user/latest")).data;
     } catch (e) {
       latestUsers = [];
       console.error(e);
