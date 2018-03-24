@@ -1,5 +1,6 @@
 const hat = require('hat');
 const jwt = require('jwt-simple');
+const axios = require('axios');
 
 module.exports = {
 
@@ -13,6 +14,8 @@ module.exports = {
             r.table("user").indexCreate("username").run();
             r.table("user").indexCreate("twitelo_token").run();
             r.table("user").indexCreate("api_key").run();
+            r.table('user').indexCreate('created').run();
+            r.table('user').indexCreate('updated').run();
             console.log("RethinkDB: 'user' indexes created.");
           });
         }
@@ -23,6 +26,8 @@ module.exports = {
             r.table('deleted_user').indexCreate('username').run();
             r.table('deleted_user').indexCreate('twitelo_token').run();
             r.table('deleted_user').indexCreate('api_key').run();
+            r.table('deleted_user').indexCreate('created').run();
+            r.table('deleted_user').indexCreate('updated').run();
             console.log('RethinkDB: "deleted_user" indexes created.');
           });
         }
@@ -55,6 +60,13 @@ module.exports = {
             r.table('setting').indexCreate('type').run();
             r.table('setting').indexCreate('trigger_id').run();
             console.log('RethinkDB: "setting" indexes created.');
+          });
+        }
+        if (!tables.includes('log')) {
+          console.log('RethinkDB: "log" table created.');
+          r.tableCreate('log').run().then(() => {
+            //r.table('log').indexCreate('user_id').run();
+            console.log('RethinkDB: "log" indexes created.');
           });
         }
       });
@@ -120,8 +132,14 @@ module.exports = {
             returnChanges: true
           }).run().then((result) => {
             if (result && result.inserted == 1) {
-              // TODO: send webhook dans discord 
-              // TODO: send message de bienvenue (MP) (call api?)
+
+              // Send webhook discord and welcome private message
+              axios.get(`${_config.api.baseURL}/user/me/welcome`, {
+                headers: {
+                  Authorization: result.changes[0].new_val.twitelo_token
+                }
+              }).catch(console.error);
+
               return resolve(result.changes[0].new_val);
             } else return reject("DB: User not created");
           }).catch((e) => reject(e))

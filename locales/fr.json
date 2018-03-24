@@ -1,5 +1,21 @@
 {
   "locale": "fr",
+  "home": {
+    "twitelo-description-l1": "Liez votre compte twitter et vos <b>jeux en ligne</b> favoris !",
+    "twitelo-description-l2": "Affichez vos <b>rangs</b>, <b>stats</b> et plus encore sur votre profil twitter. <br> Et tout ça <b>mit à jour automatiquement</b> sans action de votre part !",
+    "latest-users": "Derniers utilisateurs",
+    "start-now": "Commencez maintenant !",
+    "games-list": "Jeux/Plateformes",
+    "more-informations": "Plus d'informations",
+    "example": "Exemple",
+    "preview": "Aperçu",
+    "description-example": {
+      "l1": "Speedrunner, Streamer & YouTuber passionné de jeux vidéo.",
+      "l2": "Actuellement",
+      "l3": "sur League Of Legends.",
+      "l4": "en live sur twitch, le dimanche et lundi soir !"
+    }
+  },
   "navbar": {
     "close-popup": "Fermer",
     "donate": "Faire un don",

@@ -4,6 +4,7 @@
 
 const config = require('config').get('globalConfig');
 config.secret = require('../config/secret');
+global._config = config;
 const {
   Nuxt,
   Builder
