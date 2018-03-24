@@ -1,36 +1,38 @@
 <template>
     <div>
 
-        <div class="hero-head has-text-centered bio-example-container">
-            <div class="container bio-example-banner">
-                <img class="round-pp-preview no-select" :src="$store.state.user.info ? $store.state.user.info.profile_image_url : '/images/iFonny.jpg'" onerror="/images/errors/default_profile.png">
-            </div>
-            <div class="container bio-example-desc">
-                <p class="title is-4 has-text-white text-overflow-is-ellipsis">Joris -
-                    <b-tag type="is-cyan">iFonny</b-tag>
-                </p>
-                <p class="subtitle is-5 has-text-white-ter has-text-weight-light is-italic">
-                    {{$t('home.description-example.l1')}}
-                    <br>{{$t('home.description-example.l2')}}
-                    <b-tag type="is-cyan">Diamond</b-tag>
-                    <b-tag type="is-cyan">IV</b-tag>
-                    <b-tag type="is-cyan">86 LP</b-tag>{{$t('home.description-example.l3')}}
-                    <br> Speedrun
-                    <b-tag type="is-cyan">Super Mario Odyssey</b-tag>
-                    <b-tag type="is-cyan">Any%</b-tag>{{$t('home.description-example.l4')}}</p>
-                <p class="title is-6 has-text-grey-lighter text-overflow-is-ellipsis">
-                    <b-icon icon="map-marker" size="is-small" class="icon-bio-example"></b-icon>
-                    <span>PB :
-                        <b-tag type="is-cyan">1h 05m 37s</b-tag> -
-                        <b-tag type="is-cyan">12th</b-tag>
-                    </span>
-                </p>
-                <p class="subtitle is-6 has-text-info text-overflow-is-ellipsis">
-                    <b-icon pack="fas" icon="link" size="is-small" class="icon-bio-example"></b-icon>
-                    <span>http://speedrun.com/user/</span>
-                    <b-tag type="is-cyan" size="is-small">iFonny</b-tag>
-                </p>
+        <div class="hero-head has-text-centered">
+            <div class="container bio-example-container">
+                <div class="bio-example-banner">
+                    <img class="round-pp-preview no-select" :src="$store.state.user.info ? $store.state.user.info.profile_image_url : '/images/iFonny.jpg'" onerror="/images/errors/default_profile.png">
+                </div>
+                <div class="bio-example-desc">
+                    <p class="title is-4 has-text-white text-overflow-is-ellipsis">Joris -
+                        <b-tag type="is-cyan">iFonny</b-tag>
+                    </p>
+                    <p class="subtitle is-5 has-text-white-ter has-text-weight-light is-italic">
+                        {{$t('home.description-example.l1')}}
+                        <br>{{$t('home.description-example.l2')}}
+                        <b-tag type="is-cyan">Diamond</b-tag>
+                        <b-tag type="is-cyan">IV</b-tag>
+                        <b-tag type="is-cyan">86 LP</b-tag>{{$t('home.description-example.l3')}}
+                        <br> Speedrun
+                        <b-tag type="is-cyan">Super Mario Odyssey</b-tag>
+                        <b-tag type="is-cyan">Any%</b-tag>{{$t('home.description-example.l4')}}</p>
+                    <p class="title is-6 has-text-grey-lighter text-overflow-is-ellipsis">
+                        <b-icon icon="map-marker" size="is-small" class="icon-bio-example"></b-icon>
+                        <span>PB :
+                            <b-tag type="is-cyan">1h 05m 37s</b-tag> -
+                            <b-tag type="is-cyan">12th</b-tag>
+                        </span>
+                    </p>
+                    <p class="subtitle is-6 has-text-info text-overflow-is-ellipsis">
+                        <b-icon pack="fas" icon="link" size="is-small" class="icon-bio-example"></b-icon>
+                        <span>http://speedrun.com/user/</span>
+                        <b-tag type="is-cyan" size="is-small">iFonny</b-tag>
+                    </p>
 
+                </div>
             </div>
         </div>
 
@@ -83,36 +85,27 @@ export default {};
 
 
 <style scoped>
+.bio-example-container {
+  border: 1px solid rgb(26, 26, 26);
+  box-shadow: 0px 4px 16px rgb(17, 17, 17);
+}
+
 .bio-example-banner {
   padding: 1rem;
   background-image: url("/banner.jpg");
   background-repeat: no-repeat;
   background-position: center top;
-  border: 1px solid rgb(219, 219, 219);
-  border-bottom: 0px solid rgb(219, 219, 219);
   background-size: cover;
-  border-radius: 20px 20px 0 0;
 }
 
 .bio-example-desc {
-  padding: 1rem;
-  padding-top: 0.5rem;
-  border: 1px solid rgb(219, 219, 219);
-  border-top: 0px solid rgb(219, 219, 219);
-  background-color: #1c2937c4;
-  border-radius: 0 0 4px 4px;
+  padding: 0.5rem;
+  background-color: #363636;
 }
 
 @media screen and (max-width: 1023px) {
-  .bio-example-banner {
-    border: none;
-    border-top: 1px solid rgb(219, 219, 219);
-    border-radius: 0;
-  }
-  .bio-example-desc {
-    border: none;
-    border-bottom: 1px solid rgb(219, 219, 219);
-    border-radius: 0;
+  .bio-example-container {
+    border: 0;
   }
 }
 
@@ -134,7 +127,7 @@ export default {};
   height: 100px;
   width: 100px;
   border-radius: 100%;
-  border: 1px solid white;
+  border: 1px solid rgb(26, 26, 26);
   cursor: pointer;
 }
 

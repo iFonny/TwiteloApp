@@ -3,9 +3,9 @@
         <div class="container has-text-centered">
             <a v-if="!$store.state.user.info" href="/auth/twitter" class="control align-vertical-center start-now-tags">
                 <b-taglist class="is-hidden-mobile" attached>
-                    <b-tag type="is-large is-twitter">
-                        <b-icon icon="twitter" type="is-dark"></b-icon>
-                        <span>{{$t('home.start-now')}}</span>
+                    <b-tag type="is-large is-info">
+                        <b-icon icon="twitter" type="is-black"></b-icon>
+                        <span class="has-text-black">{{$t('home.start-now')}}</span>
                     </b-tag>
                     <b-tag type="is-large is-warning">
                         <span>Beta</span>
