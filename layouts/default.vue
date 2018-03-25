@@ -121,7 +121,8 @@ $body-background-color: $black;
   height: 100%;
 }
 
-html.has-navbar-fixed-top {
+html.has-navbar-fixed-top,
+html.has-navbar-fixed-top-desktop {
   padding-top: 4rem;
 }
 
@@ -145,6 +146,23 @@ html.has-navbar-fixed-top {
 }
 .modal-card-body {
   background-color: #3d3d3d;
+}
+a:hover {
+  color: #81d29d;
+}
+
+/* Overwrite card */
+.card {
+  background: unset;
+  box-shadow: unset;
+}
+.card-content {
+  background-color: rgba(54, 54, 54, 0.6313725490196078);
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
+.card-header {
+  background-color: #2d2d2d;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
 }
 
 /* Font */

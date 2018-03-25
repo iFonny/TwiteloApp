@@ -42,6 +42,17 @@
       "logout": "Se déconnecter"
     }
   },
+  "builder": {
+    "builder": "Éditeur",
+    "advanced": "Avancé",
+    "placeholder": {
+      "name": "Nom",
+      "description": "Description",
+      "location": "Position",
+      "url": "URL"
+    },
+    "select-game": "Sélectionner jeu/platforme"
+  },
   "settings": {
     "tab": {
       "general": "Général",

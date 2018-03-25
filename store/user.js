@@ -24,6 +24,12 @@ export const mutations = {
   SET_TWITELO_DATA(state, twiteloData) {
     state.info.twitelo = twiteloData;
   },
+  SET_TWITELO_DATA_CONTENT(state, {
+    name,
+    content
+  }) {
+    state.info.twitelo[name].content = content
+  },
   SET_USER_LOCALE(state, locale) {
     state.info.settings.locale = locale;
   }

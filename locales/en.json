@@ -42,6 +42,17 @@
       "logout": "Logout"
     }
   },
+  "builder": {
+    "builder": "Builder",
+    "advanced": "Advanced",
+    "placeholder": {
+      "name": "Name",
+      "description": "Description",
+      "location": "Location",
+      "url": "URL"
+    },
+    "select-game": "Select game/platform"
+  },
   "settings": {
     "tab": {
       "general": "General",
