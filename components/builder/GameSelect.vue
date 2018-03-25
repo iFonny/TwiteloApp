@@ -69,7 +69,7 @@ export default {
 
 <style>
 .game-select .card {
-  height: 85%;
+  height: 86%;
 }
 .game-select .collapse-content {
   height: 100%;
