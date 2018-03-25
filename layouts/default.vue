@@ -172,22 +172,22 @@ body {
 
 /* Switch green/red */
 .switch:hover input[type="checkbox"] + .check {
-  background: #e41e1e !important;
+  background: #df4343 !important;
   box-shadow: none !important;
 }
 
 .switch input[type="checkbox"] + .check {
-  background: #e41e1e !important;
+  background: #df4343 !important;
   box-shadow: none !important;
 }
 
 .switch:hover input[type="checkbox"]:checked + .check {
-  background: #23d160 !important;
+  background: #3eca6f !important;
   box-shadow: none !important;
 }
 
 .switch input[type="checkbox"]:checked + .check {
-  background: #23d160 !important;
+  background: #3eca6f !important;
   box-shadow: none !important;
 }
 
