@@ -5,7 +5,7 @@
       <!-- <p class="subtitle is-6">Please don't use unauthorized twitter characters</p> -->
       <b-tab-item :label="$t('builder.builder')" disabled>
       </b-tab-item>
-      <b-tab-item :label="$t('builder.advanced')">
+      <b-tab-item :label="$t('builder.advanced')" class="advanced">
 
         <b-field grouped>
           <b-switch @change.native="changeSwitch('name')" :value="name.status" type="is-sucess" size="is-medium" :disabled="!user.switch || switchDisabled.name"></b-switch>

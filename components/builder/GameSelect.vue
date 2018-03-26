@@ -1,7 +1,7 @@
 <template>
   <article class="tile is-child has-text-centered game-select">
     <b-collapse class="card">
-      <div slot="trigger" slot-scope="props" class="card-header">
+      <div slot="trigger" slot-scope="props" class="card-header no-select">
         <div class="card-header-title">
           <h1 class="title is-size-6-tablet is-size-5-desktop is-size-5">{{$t('builder.select-game')}}</h1>
         </div>
@@ -10,13 +10,16 @@
           </b-icon>
         </a>
       </div>
-      <div class="card-content align-vertical-center">
-        <div v-if="selectedGame" class="content animated bounceIn">
-          <img @click="selectGame(null)" :src="'/api' + selectedGame.image" :alt="selectedGame.name" class="game-list-image no-select">
-          <p class="subtitle is-3 has-text-grey-lighter">{{selectedGame.name}}</p>
-        </div>
-        <div v-else class="game-list">
-          <img v-for="game in games" :key="game.id" @click="selectGame(game)" :src="'/api' + game.icon" :alt="game.name" class="game-list-icon no-select">
+      <div class="card-content">
+        <div>
+
+          <div v-if="selectedGame" class="content align-vertical-center animated bounceIn">
+            <img @click="selectGame(null)" :src="'/api' + selectedGame.image" :alt="selectedGame.name" class="game-list-image no-select">
+            <!-- <span class="subtitle is-3 has-text-grey-lighter">{{selectedGame.name}}</span> -->
+          </div>
+          <div v-else class="game-list">
+            <img v-for="game in games" :key="game.id" @click="selectGame(game)" :src="'/api' + game.icon" :alt="game.name" class="game-list-icon no-select">
+          </div>
         </div>
       </div>
     </b-collapse>
@@ -27,6 +30,9 @@
 import { mapState } from "vuex";
 
 export default {
+  data() {
+    return { gameSelectIsLoading: false };
+  },
   computed: {
     ...mapState({
       selectedGame: state => state.builder.selectedGame,
@@ -34,8 +40,9 @@ export default {
     })
   },
   methods: {
-    selectGame(game) {
+    async selectGame(game) {
       this.$store.commit("builder/SET_SELECTED_GAME", game);
+      await this.$store.dispatch("builder/fetchTags", game);
     }
   }
 };
@@ -43,6 +50,10 @@ export default {
 
 
 <style scoped>
+.game-select .card-content {
+  padding: 0.3rem;
+  padding-bottom: 0;
+}
 .game-list-icon {
   height: 50px;
   width: 50px;
@@ -52,8 +63,8 @@ export default {
   filter: drop-shadow(0px 0px 1px rgb(255, 255, 255));
 }
 .game-list-image {
-  max-width: 60%;
-  max-height: 110px;
+  max-width: 40%;
+  max-height: 80px;
   margin: 0.5rem;
   cursor: pointer;
 }
@@ -68,7 +79,10 @@ export default {
 </style>
 
 <style>
-.game-select .card {
+.game-select .loading-overlay .loading-background {
+  background-color: rgba(45, 45, 45, 0.42) !important;
+}
+/* .game-select .card {
   height: 86%;
 }
 .game-select .collapse-content {
@@ -77,6 +91,6 @@ export default {
 .game-select .card-content {
   height: 100%;
   padding: 0.1rem;
-}
+} */
 </style>
 
