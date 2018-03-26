@@ -99,7 +99,7 @@
     "@nuxtjs/google-analytics": "^2.0.2",
     "axios": "^0.17.1",
     "body-parser": "^1.18.2",
-    "buefy": "^0.6.3",
+    "buefy": "^0.6.4",
     "bulma-extensions": "^1.0.2",
     "compression": "^1.7.2",
     "config": "^1.29.4",

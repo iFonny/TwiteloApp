@@ -1,3 +1,5 @@
+global.HTMLElement = typeof window === 'undefined' ? Object : window.HTMLElement; // Fix 0.6.4 buefy
+
 module.exports = {
   /*
    ** Headers of the page
