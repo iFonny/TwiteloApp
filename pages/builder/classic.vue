@@ -2,8 +2,14 @@
     <div class="builder-page">
 
         <div class="tile is-ancestor">
-            <div class="tile is-parent top-tile left-tile">
+            <div class="tile is-parent top-tile">
                 <game-select />
+            </div>
+        </div>
+
+        <div class="tile is-ancestor">
+            <div class="tile is-parent top-tile left-tile">
+                <game-tags-list />
             </div>
 
             <div class="tile is-parent is-7 top-tile right-tile">
@@ -15,15 +21,7 @@
 
         <div class="tile is-ancestor">
             <div class="tile is-parent left-tile">
-                <article class="tile is-child notification is-dark">
-                    <p class="title">Liste de tous les tags</p>
-                    <p class="subtitle">dispo pour le jeu select</p>
-                    <div class="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-
-                    </div>
-                </article>
+                <game-tags-list />
             </div>
             <div class="tile is-parent is-7 right-tile">
                 <article class="tile is-child notification is-dark">
@@ -58,12 +56,14 @@ import VueNotifications from "vue-notifications";
 
 import InputBuilder from "~/components/builder/InputBuilder";
 import GameSelect from "~/components/builder/GameSelect";
+import GameTagsList from "~/components/builder/GameTagsList";
 
 export default {
   middleware: "auth",
   components: {
     InputBuilder,
-    GameSelect
+    GameSelect,
+    GameTagsList
   },
   async asyncData({ app }) {
     await app.store.dispatch("builder/fetchBuilderData").catch(e => {
@@ -94,13 +94,21 @@ export default {
   padding-bottom: 0;
 }
 .right-tile {
-    padding-left: 0.35rem;
+  padding-left: 0.35rem;
 }
 .left-tile {
-    padding-right: 0.35rem;
+  padding-right: 0.35rem;
 }
 .builder-page {
   margin-top: 0.5rem;
   padding: 0.7rem;
+}
+@media screen and (max-width: 768px) {
+  .right-tile {
+    padding-left: 0.75rem;
+  }
+  .left-tile {
+    padding-right: 0.75rem;
+  }
 }
 </style>

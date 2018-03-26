@@ -135,8 +135,12 @@ html.has-navbar-fixed-top-desktop {
   color: white !important;
 }
 
-.subtitle {
+.subtitle  {
   color: darkgrey;
+}
+
+.label  {
+  color: lightgrey;
 }
 
 /* Overwrite modal */

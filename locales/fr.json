@@ -51,7 +51,8 @@
       "location": "Position",
       "url": "URL"
     },
-    "select-game": "Sélectionner jeu/platforme"
+    "select-game": "Sélectionner jeu/platforme",
+    "select-game-tag": "Ajouter stat/rank/info"
   },
   "settings": {
     "tab": {
