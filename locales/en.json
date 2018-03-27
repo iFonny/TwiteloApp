@@ -52,7 +52,12 @@
       "url": "URL"
     },
     "select-game": "Select a game/platform",
-    "select-game-tag": "Add a stat/rank/info"
+    "select-game-tag": "Add a stat/rank/info",
+    "no-game-selected": "No game selected.",
+    "example": "Example",
+    "next": "Next",
+    "cancel": "Cancel",
+    "previous": "Previous"
   },
   "settings": {
     "tab": {

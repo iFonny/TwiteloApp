@@ -21,7 +21,7 @@
 
         <div class="tile is-ancestor">
             <div class="tile is-parent left-tile">
-                <game-tags-list />
+                
             </div>
             <div class="tile is-parent is-7 right-tile">
                 <article class="tile is-child notification is-dark">

@@ -164,6 +164,16 @@ export default {
 .builder-inputs .card-content {
   background-color: #2d2d2d;
   padding: 0 0 0 0;
+  height: 100%;
+}
+.builder-inputs .tab-content {
+  height: calc(100% - 49px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.builder-inputs .tab-content .tab-item {
+  width: 100%;
 }
 .builder-inputs .card-content .tabs {
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);

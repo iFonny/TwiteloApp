@@ -10,7 +10,7 @@
           </b-icon>
         </a>
       </div>
-      <div class="card-content">
+      <div class="card-content align-vertical-center">
         <div>
 
           <div v-if="selectedGame" class="content align-vertical-center animated bounceIn">
@@ -28,6 +28,7 @@
 
 <script>
 import { mapState } from "vuex";
+import VueNotifications from "vue-notifications";
 
 export default {
   data() {
@@ -42,7 +43,22 @@ export default {
   methods: {
     async selectGame(game) {
       this.$store.commit("builder/SET_SELECTED_GAME", game);
-      await this.$store.dispatch("builder/fetchTags", game);
+      await this.$store.dispatch("builder/fetchTags", game).catch(e => {
+        this.$store.dispatch("setError", e);
+        this.showNotification({
+          title: this.$store.state.error.statusCode.toString(),
+          message: this.$store.state.error.message,
+          type: "error",
+          timeout: 5000
+        });
+      });
+    }
+  },
+  notifications: {
+    showNotification: {
+      type: VueNotifications.types.success,
+      title: "Default",
+      message: "That's the success!"
     }
   }
 };
@@ -51,6 +67,7 @@ export default {
 
 <style scoped>
 .game-select .card-content {
+  min-height: 120px;
   padding: 0.3rem;
   padding-bottom: 0;
 }
@@ -63,7 +80,7 @@ export default {
   filter: drop-shadow(0px 0px 1px rgb(255, 255, 255));
 }
 .game-list-image {
-  max-width: 40%;
+  max-width: 80%;
   max-height: 80px;
   margin: 0.5rem;
   cursor: pointer;

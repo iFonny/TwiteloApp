@@ -1,8 +1,16 @@
 export const state = () => ({
   selectedGame: null,
   games: [],
-  gameTagsCategory: [],
-  accounts: []
+  gameTagsCategory: null,
+  accounts: {
+    lol: [{
+      id: '1ac3456b7890',
+      accountID: '98765434567', // id du compte dans le jeu
+      gameID: 'lol',
+      username: 'iFonny',
+      region: 'EUW'
+    }]
+  }
 })
 
 export const mutations = {
@@ -32,57 +40,11 @@ export const actions = {
     state,
     commit
   }, game) {
-    // TODO: request get tags for a game (await this.$axios.$get('/api/game/{GAMEXD}')).data; doivent etre bien trié
-    const tags = {
-      "Ranked Solo Summoner's Rift": [{
-        id: 'GAME__RANKED_SOLO_SR__TIER',
-        gameID: 'lol',
-        category: "Ranked Solo Summoner's Rift",
-        categorySmall: "Ranked Solo SR",
-        name: 'Tier',
-        nameSmall: 'Tier',
-        size: {
-          long: 10,
-          short: 6
-        },
-        fieldSettings: {
-          account: {
-            type: 'account', // select
-            tooltip: false,
-            input: false,
-            label: {
-              en: 'Account',
-              fr: 'Compte'
-            }
-          },
-          size: {
-            type: 'select', // select
-            tooltip: {
-              en: 'Text size',
-              fr: 'Taille du texte'
-            },
-            label: {
-              en: 'Size',
-              fr: 'Taille'
-            },
-            input: {
-              long: {
-                en: 'Long (10 characters)',
-                fr: 'Long (10 caractères)'
-              },
-              short: {
-                en: 'Short (6 characters)',
-                fr: 'Court (6 caractères)'
-              }
-            }
-          }
-        }
-      }],
-      "Ranked Flex Summoner's Rift": [],
-      "Ranked Flex Twisted Treeline": [],
-    };
-
-    commit('SET_GAME_TAGS_CATEGORY', tags);
+    if (game) {
+      let tags = (await this.$axios.$get(`/api/game/tags/${game.id}`)).data;
+      tags = _.groupBy(tags, 'category');
+      commit('SET_GAME_TAGS_CATEGORY', tags);
+    } else commit('SET_GAME_TAGS_CATEGORY', null);
   },
 
 };
