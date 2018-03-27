@@ -55,6 +55,10 @@ export default {
 // Set your colors
 $primary: #82b9f9;
 $primary-invert: findColorInvert($primary);
+$danger: #e04342;
+$danger-invert: findColorInvert($danger);
+$success: #3eca6f;
+$success-invert: findColorInvert($success);
 $twitter: #4099ff;
 $twitter-invert: findColorInvert($twitter);
 $cyan: #5ed6fa;

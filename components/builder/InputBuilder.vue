@@ -8,16 +8,16 @@
       <b-tab-item :label="$t('builder.advanced')" class="advanced">
 
         <b-field grouped>
-          <b-switch @change.native="changeSwitch('name')" :value="name.status" type="is-sucess" size="is-medium" :disabled="!user.switch || switchDisabled.name"></b-switch>
+          <b-switch @input="changeSwitch('name')" :value="name.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.name"></b-switch>
 
-          <b-input expanded @input="updateName" :value="getName" :placeholder="$t('builder.placeholder.name')"></b-input>
+          <b-input expanded @input="updateName" :value="getName" :placeholder="$t('builder.placeholder.name')" icon="account"></b-input>
           <div class="control align-vertical-center">
             <b-tag type="is-twitter">50</b-tag>
           </div>
         </b-field>
 
         <b-field grouped>
-          <b-switch @change.native="changeSwitch('location')" :value="location.status" type="is-sucess" size="is-medium" :disabled="!user.switch || switchDisabled.location"></b-switch>
+          <b-switch @input="changeSwitch('location')" :value="location.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.location"></b-switch>
           <b-input expanded @input="updateLocation" :value="getLocation" :placeholder="$t('builder.placeholder.location')" icon-pack="fas" icon="map-marker-alt"></b-input>
           <div class="control align-vertical-center">
             <b-tag type="is-warning">5</b-tag>
@@ -26,7 +26,7 @@
         </b-field>
 
         <b-field grouped>
-          <b-switch @change.native="changeSwitch('url')" :value="url.status" type="is-sucess" size="is-medium" :disabled="!user.switch || switchDisabled.url"></b-switch>
+          <b-switch @input="changeSwitch('url')" :value="url.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.url"></b-switch>
           <b-input expanded @input="updateURL" :value="getURL" :placeholder="$t('builder.placeholder.url')" icon-pack="fas" icon="link"></b-input>
           <div class="control align-vertical-center">
             <b-tag type="is-red">0</b-tag>
@@ -35,7 +35,7 @@
         </b-field>
 
         <b-field grouped>
-          <b-switch @change.native="changeSwitch('description')" :value="description.status" size="is-medium" type="is-sucess" :disabled="!user.switch || switchDisabled.description"></b-switch>
+          <b-switch @input="changeSwitch('description')" :value="description.status" size="is-medium" type="is-success" :disabled="!user.switch || switchDisabled.description"></b-switch>
           <b-input expanded @input="updateDescription" :value="getDescription" type="textarea" :placeholder="$t('builder.placeholder.description')"></b-input>
           <p class="control align-vertical-center">
             <b-tag type="is-red">-5</b-tag>
