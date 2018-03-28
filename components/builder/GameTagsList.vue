@@ -3,7 +3,7 @@
     <b-collapse class="card">
       <div slot="trigger" slot-scope="props" class="card-header no-select">
         <div class="card-header-title">
-          <h1 class="title is-size-6-tablet is-size-5-desktop is-size-5">{{$t('builder.select-game-tag')}}</h1>
+          <h1 class="title is-size-6-mobile is-size-5-desktop is-size-5">{{$t('builder.select-game-tag')}}</h1>
         </div>
         <a class="card-header-icon">
           <b-icon :icon="props.open ? 'menu-down' : 'menu-up'">
@@ -130,7 +130,7 @@
 
         <!-- ELSE: No selected game -->
         <div v-else class="is-full-height no-selected-game">
-          <p class="is-size-4 has-text-lightgreen">{{$t('builder.no-game-selected')}}</p>
+          <p class="is-size-4 has-text-danger">{{$t('builder.no-game-selected')}}</p>
         </div>
 
       </div>

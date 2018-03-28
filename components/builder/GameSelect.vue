@@ -3,7 +3,7 @@
     <b-collapse class="card">
       <div slot="trigger" slot-scope="props" class="card-header no-select">
         <div class="card-header-title">
-          <h1 class="title is-size-6-tablet is-size-5-desktop is-size-5">{{$t('builder.select-game')}}</h1>
+          <h1 class="title is-size-6-mobile is-size-5-desktop is-size-5">{{$t('builder.select-game')}}</h1>
         </div>
         <a class="card-header-icon">
           <b-icon :icon="props.open ? 'menu-down' : 'menu-up'">

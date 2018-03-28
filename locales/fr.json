@@ -51,9 +51,10 @@
       "location": "Position",
       "url": "URL"
     },
-    "select-game": "Sélectionner jeu/platforme",
-    "select-game-tag": "Ajouter stat/rank/info",
+    "select-game": "Sélectionner un jeu ou une platforme",
+    "select-game-tag": "Ajouter des données",
     "no-game-selected": "Aucun jeu sélectionné.",
+    "no-tags-game": "Aucune données pour ce jeu.",
     "no-accounts": "Vous avez besoin d'au moins un compte.",
     "example": "Exemple",
     "next": "Suivant",
