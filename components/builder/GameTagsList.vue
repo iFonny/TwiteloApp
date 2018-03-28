@@ -46,6 +46,7 @@
 
             <!-- CANCEL BUTTON -->
             <button @click="cancelAddGameTag()" type="button" class="delete tag-creation-cancel"></button>
+
             <div v-if="navigation == 'createTag' && tagCreation" class="is-full-height relative-zone">
 
               <!-- TAG RESUME && EXAMPLE -->
@@ -119,6 +120,10 @@
               </div>
             </div>
 
+            <div v-else-if="navigation == 'accountRequired'" class="is-full-height no-selected-game animated fadeIn">
+              <p class="is-size-4 has-text-danger">{{$t('builder.no-accounts')}}</p>
+            </div>
+
           </div>
 
         </div>
@@ -159,8 +164,19 @@ export default {
       return true;
     },
     addGameTag(gameTag) {
-      this.tagCreation = gameTag;
-      this.navigation = "createTag";
+      if (
+        gameTag.fieldSettings.account &&
+        (!this.accounts[this.selectedGame.id] ||
+          this.accounts[this.selectedGame.id].length <= 0)
+      ) {
+        this.navigation = "accountRequired";
+        setTimeout(() => {
+          if (this.navigation == "accountRequired") this.navigation = null;
+        }, 3000);
+      } else {
+        this.tagCreation = gameTag;
+        this.navigation = "createTag";
+      }
     },
     cancelAddGameTag(gameTag) {
       this.navigation = null;
