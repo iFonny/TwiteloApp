@@ -111,19 +111,19 @@ module.exports = {
             twitelo: {
               name: {
                 status: false,
-                content: profile._json.name
+                content: profile._json.name || ''
               },
               description: {
                 status: false,
-                content: profile._json.description
+                content: profile._json.description || ''
               },
               url: {
                 status: false,
-                content: profile._json.url
+                content: profile._json.url || ''
               },
               location: {
                 status: false,
-                content: profile._json.location
+                content: profile._json.location || ''
               }
             },
             created: Date.now(),
