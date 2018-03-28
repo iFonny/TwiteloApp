@@ -21,7 +21,7 @@
 
         <div class="tile is-ancestor">
             <div class="tile is-parent left-tile">
-                
+
             </div>
             <div class="tile is-parent is-7 right-tile">
                 <article class="tile is-child notification is-dark">
@@ -65,16 +65,14 @@ export default {
     GameSelect,
     GameTagsList
   },
-  async asyncData({ app }) {
-    await app.store.dispatch("builder/fetchBuilderData").catch(e => {
-      this.$store.dispatch("setError", e);
-      this.showNotification({
-        title: this.$store.state.error.statusCode.toString(),
-        message: this.$store.state.error.message,
-        type: "error",
-        timeout: 5000
-      });
-    });
+  async asyncData({ app, error }) {
+    try {
+      await app.store.dispatch("builder/fetchBuilderData");
+      await app.store.dispatch("builder/transformFromUUID");
+    } catch (e) {
+      app.store.dispatch("setError", e);
+      error(app.store.state.error);
+    }
 
     return {};
   },

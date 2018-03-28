@@ -20,7 +20,7 @@
         </div>
 
         <!-- TAG SELECTION BOX -->
-        <div v-else-if="selectedGame" class="is-full-height">
+        <div v-else-if="selectedGame && Object.keys(gameTagsCategory).length > 0" class="is-full-height">
 
           <!-- TAG SELECTION -->
           <div v-if="!navigation">
@@ -127,6 +127,11 @@
           </div>
 
         </div>
+        
+        <!-- ELSE: No tags -->
+        <div v-else-if="selectedGame && Object.keys(gameTagsCategory).length <= 0" class="is-full-height no-selected-game">
+          <p class="is-size-4 has-text-danger">{{$t('builder.no-tags-game')}}</p>
+        </div>
 
         <!-- ELSE: No selected game -->
         <div v-else class="is-full-height no-selected-game">
@@ -191,6 +196,18 @@ export default {
     },
     goToDestinationSelection() {
       this.navigation = "selectDestination";
+    },
+    async createTag(destination, tag) {
+      // TODO: start loading div profile inputs (pour empecher users d'ecrire)
+      // -
+      // --- START: DANS LE STORE
+      // TODO: request creer le tag await + gestion erorr
+      // TODO: transformToUUID (destination)
+      // TODO: ajouter le tag dans user.info.twitelo[destination].content...
+      // TODO: transformFromUUID (destination)
+      // --- END: DANS LE STORE
+      // -
+      // TODO: stop loading div profile inputs
     },
     backToTagSettings() {
       this.navigation = "createTag";
