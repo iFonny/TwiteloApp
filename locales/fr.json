@@ -54,6 +54,7 @@
     "select-game": "Sélectionner jeu/platforme",
     "select-game-tag": "Ajouter stat/rank/info",
     "no-game-selected": "Aucun jeu sélectionné.",
+    "no-accounts": "Vous avez besoin d'au moins un compte.",
     "example": "Exemple",
     "next": "Suivant",
     "cancel": "Annuler",
