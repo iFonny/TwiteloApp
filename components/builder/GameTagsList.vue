@@ -107,11 +107,28 @@
             </div>
 
             <!-- POPUP SELECT DESTINATION -->
-            <div v-else-if="navigation == 'selectDestination'" class="is-full-height is-relative">
+            <div v-else-if="navigation == 'selectDestination'" class="is-full-height relative-zone">
 
               <!-- TAG RESUME && EXAMPLE -->
               <p class="tag-title has-text-grey-lighter is-size-4 has-text-left">{{tagCreation.name}} - {{tagCreation.categorySmall}}</p>
               <p class="tag-example is-size-6 has-text-grey-light has-text-left">{{$t('builder.example')}} : {{tagExample}}</p>
+
+              <div class="columns is-multiline is-mobile tag-destination-buttons animated fadeIn">
+                <div class="column is-half">
+                  <a class="button is-info is-outlined">{{$t('builder.placeholder.name')}}</a>
+                </div>
+                <div class="column is-half">
+                  <a class="button is-info is-outlined">{{$t('builder.placeholder.description')}}</a>
+                </div>
+                <div class="column is-half">
+                  <a class="button is-info is-outlined">{{$t('builder.placeholder.location')}}</a>
+                </div>
+                <div class="column is-half">
+                  <a class="button is-info is-outlined">{{$t('builder.placeholder.url')}}</a>
+                </div>
+              </div>
+
+              <p class="is-size-7 has-text-grey-light has-text-centered">{{$t('builder.can-move-anywhere')}}</p>
 
               <!-- // TODO LES BOUTONS POUR AJOUTER DANS LE PROFIL -->
 
@@ -305,6 +322,27 @@ export default {
 @media screen and (max-width: 325px) {
   .tag-selection-list {
     padding-bottom: 93px;
+  }
+}
+.tag-destination-buttons {
+  margin: 0;
+  height: calc(100% - 110px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tag-destination-buttons .column {
+  padding: 0;
+}
+.tag-destination-buttons .column .button {
+  height: 100%;
+  width: 80%;
+}
+
+@media screen and (max-width: 768px) {
+  .tag-destination-buttons .column {
+    padding: 0.3rem;
   }
 }
 
