@@ -16,6 +16,7 @@ export const state = () => ({
   selectedGame: null,
   games: [],
   gameTagsCategory: null,
+  gameTagsCategoryPages: [],
   userTags: null,
   accounts: {
     lol: [{
@@ -37,6 +38,9 @@ export const mutations = {
   },
   SET_GAME_TAGS_CATEGORY(state, tags) {
     state.gameTagsCategory = tags;
+  },
+  SET_GAME_TAGS_CATEGORY_PAGES(state, pages) {
+    state.gameTagsCategoryPages = pages;
   },
   SET_TWITELO_DATA_INPUT_ALL(state, twiteloDataInput) {
     state.twiteloDataInput = twiteloDataInput;
@@ -66,8 +70,13 @@ export const actions = {
     if (game) {
       let tags = (await this.$axios.$get(`/api/game/tags/${game.id}`)).data;
       tags = _.groupBy(tags, 'category');
+      const pages = _.chunk(Object.keys(tags), 4);
       commit('SET_GAME_TAGS_CATEGORY', tags);
-    } else commit('SET_GAME_TAGS_CATEGORY', null);
+      commit('SET_GAME_TAGS_CATEGORY_PAGES', pages);
+    } else {
+      commit('SET_GAME_TAGS_CATEGORY', null);
+      commit('SET_GAME_TAGS_CATEGORY_PAGES', []);
+    }
   },
 
   transformFromUUID({

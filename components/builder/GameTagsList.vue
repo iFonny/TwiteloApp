@@ -23,8 +23,27 @@
         <div v-else-if="selectedGame && Object.keys(gameTagsCategory).length > 0" class="is-full-height">
 
           <!-- TAG SELECTION -->
-          <div v-if="!navigation">
-            <div v-for="(gameTags, gameCategory) in gameTagsCategory" :key="gameCategory" class="category-tags animated fadeIn">
+          <div v-if="!navigation" class="is-full-height tag-selection-list">
+
+            <!-- <div style="height: calc(100% - 44px)"> -->
+
+            <div v-for="gameCategoryKey in gameTagsCategoryPages[page.current - 1]" :key="gameCategoryKey" class="category-tags">
+              <p>{{gameCategoryKey}}</p>
+              <b-field grouped group-multiline class="align-tags no-select">
+                <div v-for="gameTag in gameTagsCategory[gameCategoryKey]" :key="gameTag.id" class="control">
+                  <b-taglist attached @click.native="addGameTag(gameTag)" class="game-tag">
+                    <b-tag class="game-tag-name" type="is-twitter">{{gameTag.name}}</b-tag>
+                    <b-tag class="game-tag-add">
+                      <b-icon icon="plus" size="is-small"></b-icon>
+                    </b-tag>
+                  </b-taglist>
+                </div>
+              </b-field>
+            </div>
+
+            <!-- </div> -->
+
+            <!-- <div v-for="(gameTags, gameCategory) in gameTagsCategory" :key="gameCategory" class="category-tags animated fadeIn">
               <p>{{gameCategory}}</p>
               <b-field grouped group-multiline class="align-tags no-select">
                 <div v-for="gameTag in gameTags" :key="gameTag.id" class="control">
@@ -36,8 +55,10 @@
                   </b-taglist>
                 </div>
               </b-field>
+            </div> -->
 
-            </div>
+            <b-pagination :total="Object.keys(gameTagsCategory).length" :per-page="gameTagsCategoryPages[0].length" :current.sync="page.current" order="is-centered" size="id-small" :rounded="true" class="pagination-bottom">
+            </b-pagination>
 
           </div>
 
@@ -127,7 +148,7 @@
           </div>
 
         </div>
-        
+
         <!-- ELSE: No tags -->
         <div v-else-if="selectedGame && Object.keys(gameTagsCategory).length <= 0" class="is-full-height no-selected-game">
           <p class="is-size-4 has-text-danger">{{$t('builder.no-tags-game')}}</p>
@@ -152,7 +173,10 @@ export default {
       tagExample: "TODO",
       navigation: null,
       tagCreation: null,
-      dataForm: {}
+      dataForm: {},
+      page: {
+        current: 1
+      }
     };
   },
   computed: {
@@ -161,13 +185,17 @@ export default {
       selectedGame: state => state.builder.selectedGame,
       games: state => state.builder.games,
       gameTagsCategory: state => state.builder.gameTagsCategory,
+      gameTagsCategoryPages: state => state.builder.gameTagsCategoryPages,
       accounts: state => state.builder.accounts
     })
   },
+  watch: {
+    selectedGame() {
+      this.page.current = 1;
+      this.navigation = null;
+    }
+  },
   methods: {
-    checkLoading() {
-      return true;
-    },
     addGameTag(gameTag) {
       if (
         gameTag.fieldSettings.account &&
@@ -286,6 +314,25 @@ export default {
 .nav-buttons .button {
   border: unset;
   border-radius: 0;
+}
+
+.tag-selection-list {
+  padding-bottom: 50px;
+}
+
+@media screen and (max-width: 325px) {
+  .tag-selection-list {
+    padding-bottom: 93px;
+  }
+}
+
+/* pagination */
+.game-tags-list .pagination-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 2px;
 }
 </style>
 

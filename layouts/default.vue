@@ -139,12 +139,41 @@ html.has-navbar-fixed-top-desktop {
   color: white !important;
 }
 
-.subtitle  {
+.subtitle {
   color: darkgrey;
 }
 
-.label  {
+.label {
   color: lightgrey;
+}
+
+/* Overwrite pagination colors */
+.pagination-previous,
+.pagination-next,
+.pagination-link {
+  border-color: rgb(192, 191, 191) !important;
+  color: rgb(192, 191, 191) !important;
+}
+
+.pagination-previous:focus,
+.pagination-next:focus,
+.pagination-link:focus,
+.pagination-previous:hover,
+.pagination-next:hover,
+.pagination-link:hover {
+  border-color: white !important;
+  color: white!important;
+}
+.pagination-previous[disabled],
+.pagination-next[disabled],
+.pagination-link[disabled] {
+  background-color: unset !important;
+  color: rgb(192, 191, 191) !important;
+  border-color: rgb(192, 191, 191) !important;
+  opacity: 0.4;
+}
+.pagination-link.is-current {
+    background-color: #222121;
 }
 
 /* Overwrite modal */
