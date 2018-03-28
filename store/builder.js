@@ -1,4 +1,10 @@
 export const state = () => ({
+  twitterLimits: {
+    description: 160,
+    url: 100,
+    location: 30,
+    name: 50
+  },
   selectedGame: null,
   games: [],
   gameTagsCategory: null,

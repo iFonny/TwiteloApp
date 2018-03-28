@@ -13,6 +13,7 @@
           <b-input expanded @input="updateName" :value="getName" :placeholder="$t('builder.placeholder.name')" icon="account"></b-input>
           <div class="control align-vertical-center">
             <b-tag type="is-twitter">50</b-tag>
+            <!-- <b-tag type="is-twitter">{{twitterLimits.name}}</b-tag> -->
           </div>
         </b-field>
 
@@ -22,6 +23,7 @@
           <div class="control align-vertical-center">
             <b-tag type="is-warning">5</b-tag>
             <!-- <b-tag type="is-twitter">30</b-tag> -->
+            <!-- <b-tag type="is-twitter">{{twitterLimits.location}}</b-tag> -->
           </div>
         </b-field>
 
@@ -31,6 +33,7 @@
           <div class="control align-vertical-center">
             <b-tag type="is-red">0</b-tag>
             <!-- <b-tag type="is-twitter">100</b-tag> -->
+            <!-- <b-tag type="is-twitter">{{twitterLimits.url}}</b-tag> -->
           </div>
         </b-field>
 
@@ -40,6 +43,7 @@
           <p class="control align-vertical-center">
             <b-tag type="is-red">-5</b-tag>
             <!-- <b-tag type="is-twitter">160</b-tag> -->
+            <!-- <b-tag type="is-twitter">{{twitterLimits.description}}</b-tag> -->
           </p>
         </b-field>
 
