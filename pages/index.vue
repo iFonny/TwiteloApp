@@ -33,7 +33,7 @@ export default {
     let latestUsers = [];
 
     try {
-      gamesList = (await app.$axios.$get("/api/game/min")).data;
+      gamesList = (await app.$axios.$get("/api/game")).data;
     } catch (e) {
       gamesList = [];
       console.error(e);

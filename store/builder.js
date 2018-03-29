@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 export const state = () => ({
+  builderLoading: false,
   twitterLimits: {
     description: 160,
     url: 100,
@@ -17,7 +18,7 @@ export const state = () => ({
   games: [],
   gameTagsCategory: null,
   gameTagsCategoryPages: [],
-  userTags: null,
+  userTags: [],
   accounts: {
     lol: [{
       id: '1ac3456b7890',
@@ -30,11 +31,17 @@ export const state = () => ({
 })
 
 export const mutations = {
+  SET_BUILDER_LOADING(state, status) {
+    state.builderLoading = status;
+  },
   SET_SELECTED_GAME(state, game) {
     state.selectedGame = game;
   },
   SET_GAMES(state, games) {
     state.games = games;
+  },
+  SET_USER_TAGS(state, userTags) {
+    state.userTags = userTags;
   },
   SET_GAME_TAGS_CATEGORY(state, tags) {
     state.gameTagsCategory = tags;
@@ -50,7 +57,10 @@ export const mutations = {
     twiteloDataInput
   }) {
     state.twiteloDataInput[name] = twiteloDataInput;
-  }
+  },
+  ADD_USER_TAG(state, tag) {
+    state.userTags.push(tag);
+  },
 };
 
 
@@ -60,7 +70,10 @@ export const actions = {
     commit
   }) {
     const games = (await this.$axios.$get('/api/game')).data;
+    const userTags = (await this.$axios.$get(`/api/tag/me/all`)).data;
+
     commit('SET_GAMES', games);
+    commit('SET_USER_TAGS', userTags);
   },
 
   async fetchTags({
@@ -79,13 +92,58 @@ export const actions = {
     }
   },
 
+  async createTagAndUpdate({
+    state,
+    rootState,
+    commit,
+    dispatch
+  }, {
+    tagInfo,
+    settings,
+    destination
+  }) {
+    const tag = (await this.$axios.$put(`/api/tag/me/create`, {
+      tag_id: tagInfo.id,
+      game_id: tagInfo.gameID,
+      settings
+    })).data;
+
+    await commit('ADD_USER_TAG', tag);
+    await dispatch('transformToUUID', destination);
+    await commit('user/SET_TWITELO_DATA_CONTENT', {
+      name: destination,
+      content: `${rootState.user.info.twitelo[destination].content.trim()} <{${tag.id}}>`
+    }, {
+      root: true
+    });
+    await dispatch("transformFromUUID", destination);
+  },
+
   transformFromUUID({
     rootState,
     state,
     commit
   }, name) {
+    function replaceFromUUID(text, userTags) {
+      let mapObj = {};
+      var myRegexp = /<{([^<>{} ]+)}>/g;
+      let match = myRegexp.exec(text);
+      while (match != null) {
+        let foundTag = _.findIndex(userTags, ['id', match[1]]);
+        if (foundTag >= 0) mapObj[`<{${userTags[foundTag].id}}>`] = `<{${foundTag}}>`;
+        match = myRegexp.exec(text);
+      }
+      if (Object.keys(mapObj).length > 0) {
+        var re = new RegExp(Object.keys(mapObj).join("|").replace(/{/g, '\\{'), "g");
+        text = text.replace(re, function (matched) {
+          return mapObj[matched];
+        });
+      }
+      return text;
+    }
+
     if (name) {
-      const transformed = rootState.user.info.twitelo[name].content.replace('<{UUID}>', '<{ID}>'); // TODO
+      const transformed = replaceFromUUID(rootState.user.info.twitelo[name].content.trim(), state.userTags)
       commit('SET_TWITELO_DATA_INPUT', {
         name,
         twiteloDataInput: transformed
@@ -93,10 +151,10 @@ export const actions = {
       console.log(`(${name}) transform <{12a65b}> -> <{1}>`);
     } else {
       const transformed = {
-        name: rootState.user.info.twitelo.name.content.replace('<{UUID}>', '<{ID}>'), // TODO
-        description: rootState.user.info.twitelo.description.content.replace('<{UUID}>', '<{ID}>'), // TODO
-        location: rootState.user.info.twitelo.location.content.replace('<{UUID}>', '<{ID}>'), // TODO
-        url: rootState.user.info.twitelo.url.content.replace('<{UUID}>', '<{ID}>') // TODO
+        name: replaceFromUUID(rootState.user.info.twitelo.name.content.trim(), state.userTags),
+        description: replaceFromUUID(rootState.user.info.twitelo.description.content.trim(), state.userTags),
+        location: replaceFromUUID(rootState.user.info.twitelo.location.content.trim(), state.userTags),
+        url: replaceFromUUID(rootState.user.info.twitelo.url.content.trim(), state.userTags),
       };
       commit('SET_TWITELO_DATA_INPUT_ALL', transformed);
       console.log('(all) transform <{12a65b}> -> <{1}>');
@@ -108,8 +166,25 @@ export const actions = {
     state,
     commit
   }, name) {
+    function replaceToUUID(text, userTags) {
+      let mapObj = {};
+      var myRegexp = /<{([^<>{} ]+)}>/g;
+      let match = myRegexp.exec(text);
+      while (match != null) {
+        if (userTags[match[1]]) mapObj[`<{${match[1]}}>`] = `<{${userTags[match[1]].id}}>`;
+        match = myRegexp.exec(text);
+      }
+      if (Object.keys(mapObj).length > 0) {
+        var re = new RegExp(Object.keys(mapObj).join("|").replace(/{/g, '\\{'), "g");
+        text = text.replace(re, function (matched) {
+          return mapObj[matched];
+        });
+      }
+      return text;
+    }
+
     if (name) {
-      const transformed = state.twiteloDataInput[name].replace('<{ID}>', '<{UUID}>'); // TODO
+      const transformed = replaceToUUID(state.twiteloDataInput[name].trim(), state.userTags);
 
       commit('user/SET_TWITELO_DATA_CONTENT', {
         name,
@@ -121,16 +196,16 @@ export const actions = {
     } else {
       let transformed = _.cloneDeep(rootState.user.info.twitelo);
 
-      transformed.name.content = state.twiteloDataInput.name.replace('<{ID}>', '<{UUID}>'); // TODO
-      transformed.description.content = state.twiteloDataInput.description.replace('<{ID}>', '<{UUID}>'); // TODO
-      transformed.location.content = state.twiteloDataInput.location.replace('<{ID}>', '<{UUID}>'); // TODO
-      transformed.url.content = state.twiteloDataInput.url.replace('<{ID}>', '<{UUID}>'); // TODO
+      transformed.name.content = state.twiteloDataInput.name.trim().replace('<{ID}>', '<{UUID}>'); // TODO
+      transformed.description.content = state.twiteloDataInput.description.trim().replace('<{ID}>', '<{UUID}>'); // TODO
+      transformed.location.content = state.twiteloDataInput.location.trim().replace('<{ID}>', '<{UUID}>'); // TODO
+      transformed.url.content = state.twiteloDataInput.url.trim().replace('<{ID}>', '<{UUID}>'); // TODO
 
       commit('user/SET_TWITELO_DATA', transformed, {
         root: true
       });
       console.log('(all) transform <{1}> -> <{12a65b}>');
     }
-  },
+  }
 
 };

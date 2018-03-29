@@ -75,7 +75,7 @@
                     <!-- INPUT TYPE: size -->
                     <b-select v-if="setting.type == 'size'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
                       <option v-for="(optionSize, optionKey) in tagCreation.size" :key="optionKey" :value="optionKey">
-                        {{ optionSize }} caractères ({{optionKey}})
+                        {{ optionSize }} {{$t('characters')}} ({{optionKey}})
                       </option>
                     </b-select>
                     <!-- INPUT TYPE: account -->
@@ -115,16 +115,16 @@
 
               <div class="columns is-multiline is-mobile tag-destination-buttons animated fadeIn">
                 <div class="column is-half">
-                  <a class="button is-info is-outlined">{{$t('builder.placeholder.name')}}</a>
+                  <a @click="createTag('name')" class="button is-info is-outlined">{{$t('builder.placeholder.name')}}</a>
                 </div>
                 <div class="column is-half">
-                  <a class="button is-info is-outlined">{{$t('builder.placeholder.description')}}</a>
+                  <a @click="createTag('description')" class="button is-info is-outlined">{{$t('builder.placeholder.description')}}</a>
                 </div>
                 <div class="column is-half">
-                  <a class="button is-info is-outlined">{{$t('builder.placeholder.location')}}</a>
+                  <a @click="createTag('location')" class="button is-info is-outlined">{{$t('builder.placeholder.location')}}</a>
                 </div>
                 <div class="column is-half">
-                  <a class="button is-info is-outlined">{{$t('builder.placeholder.url')}}</a>
+                  <a @click="createTag('url')" class="button is-info is-outlined">{{$t('builder.placeholder.url')}}</a>
                 </div>
               </div>
 
@@ -165,6 +165,7 @@
 
 <script>
 import { mapState } from "vuex";
+import VueNotifications from "vue-notifications";
 
 export default {
   data() {
@@ -181,11 +182,12 @@ export default {
   computed: {
     ...mapState({
       locale: state => state.locale,
-      selectedGame: state => state.builder.selectedGame,
       games: state => state.builder.games,
+      accounts: state => state.builder.accounts,
+      selectedGame: state => state.builder.selectedGame,
+      builderLoading: state => state.builder.builderLoading,
       gameTagsCategory: state => state.builder.gameTagsCategory,
-      gameTagsCategoryPages: state => state.builder.gameTagsCategoryPages,
-      accounts: state => state.builder.accounts
+      gameTagsCategoryPages: state => state.builder.gameTagsCategoryPages
     })
   },
   watch: {
@@ -224,20 +226,37 @@ export default {
     goToDestinationSelection() {
       this.navigation = "selectDestination";
     },
-    async createTag(destination, tag) {
-      // TODO: start loading div profile inputs (pour empecher users d'ecrire)
-      // -
-      // --- START: DANS LE STORE
-      // TODO: request creer le tag await + gestion erorr
-      // TODO: transformToUUID (destination)
-      // TODO: ajouter le tag dans user.info.twitelo[destination].content...
-      // TODO: transformFromUUID (destination)
-      // --- END: DANS LE STORE
-      // -
-      // TODO: stop loading div profile inputs
+    async createTag(destination) {
+      this.$store.commit("builder/SET_BUILDER_LOADING", true);
+
+      try {
+        await this.$store.dispatch("builder/createTagAndUpdate", {
+          destination,
+          tagInfo: this.tagCreation,
+          settings: this.dataForm
+        });
+      } catch (e) {
+        this.$store.dispatch("setError", e);
+        this.showNotification({
+          title: this.$store.state.error.statusCode.toString(),
+          message: this.$store.state.error.message,
+          type: "error",
+          timeout: 5000
+        });
+      }
+
+      this.cancelAddGameTag();
+      this.$store.commit("builder/SET_BUILDER_LOADING", false);
     },
     backToTagSettings() {
       this.navigation = "createTag";
+    }
+  },
+  notifications: {
+    showNotification: {
+      type: VueNotifications.types.success,
+      title: "Default",
+      message: "That's the success!"
     }
   }
 };

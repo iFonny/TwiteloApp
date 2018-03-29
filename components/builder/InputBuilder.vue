@@ -2,6 +2,11 @@
   <article class="tile is-child card has-text-centered builder-inputs">
 
     <b-tabs v-model="activeTab" position="is-centered" class="card-content">
+
+      <div v-if="builderLoading" class="loading-overlay is-full-height is-active">
+        <div class="loading-icon"></div>
+      </div>
+
       <!-- <p class="subtitle is-6">Please don't use unauthorized twitter characters</p> -->
       <b-tab-item :label="$t('builder.builder')" disabled>
       </b-tab-item>
@@ -70,6 +75,7 @@ export default {
       user: state => state.user.info,
       twiteloData: state => state.user.info.twitelo,
       twitterLimits: state => state.builder.twitterLimits,
+      builderLoading: state => state.builder.builderLoading,
       twiteloDataInput: state => state.builder.twiteloDataInput
     })
   },
@@ -139,7 +145,9 @@ export default {
 
 
 <style scoped>
-
+.builder-inputs .loading-overlay {
+  background-color: #1717178c;
+}
 </style>
 
 <style>
