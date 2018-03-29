@@ -55,6 +55,10 @@ export default {
 // Set your colors
 $primary: #82b9f9;
 $primary-invert: findColorInvert($primary);
+$danger: #e04342;
+$danger-invert: findColorInvert($danger);
+$success: #3eca6f;
+$success-invert: findColorInvert($success);
 $twitter: #4099ff;
 $twitter-invert: findColorInvert($twitter);
 $cyan: #5ed6fa;
@@ -121,7 +125,8 @@ $body-background-color: $black;
   height: 100%;
 }
 
-html.has-navbar-fixed-top {
+html.has-navbar-fixed-top,
+html.has-navbar-fixed-top-desktop {
   padding-top: 4rem;
 }
 
@@ -138,6 +143,39 @@ html.has-navbar-fixed-top {
   color: darkgrey;
 }
 
+.label {
+  color: lightgrey;
+}
+
+/* Overwrite pagination colors */
+.pagination-previous,
+.pagination-next,
+.pagination-link {
+  border-color: rgb(192, 191, 191) !important;
+  color: rgb(192, 191, 191) !important;
+}
+
+.pagination-previous:focus,
+.pagination-next:focus,
+.pagination-link:focus,
+.pagination-previous:hover,
+.pagination-next:hover,
+.pagination-link:hover {
+  border-color: white !important;
+  color: white!important;
+}
+.pagination-previous[disabled],
+.pagination-next[disabled],
+.pagination-link[disabled] {
+  background-color: unset !important;
+  color: rgb(192, 191, 191) !important;
+  border-color: rgb(192, 191, 191) !important;
+  opacity: 0.4;
+}
+.pagination-link.is-current {
+    background-color: #222121;
+}
+
 /* Overwrite modal */
 .modal-card-head,
 .modal-card-foot {
@@ -145,6 +183,23 @@ html.has-navbar-fixed-top {
 }
 .modal-card-body {
   background-color: #3d3d3d;
+}
+a:hover {
+  color: #81d29d;
+}
+
+/* Overwrite card */
+.card {
+  background: unset;
+  box-shadow: unset;
+}
+.card-content {
+  background-color: rgba(54, 54, 54, 0.6313725490196078);
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
+.card-header {
+  background-color: #2d2d2d;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
 }
 
 /* Font */
@@ -154,22 +209,22 @@ body {
 
 /* Switch green/red */
 .switch:hover input[type="checkbox"] + .check {
-  background: #e41e1e !important;
+  background: #df4343 !important;
   box-shadow: none !important;
 }
 
 .switch input[type="checkbox"] + .check {
-  background: #e41e1e !important;
+  background: #df4343 !important;
   box-shadow: none !important;
 }
 
 .switch:hover input[type="checkbox"]:checked + .check {
-  background: #23d160 !important;
+  background: #3eca6f !important;
   box-shadow: none !important;
 }
 
 .switch input[type="checkbox"]:checked + .check {
-  background: #23d160 !important;
+  background: #3eca6f !important;
   box-shadow: none !important;
 }
 

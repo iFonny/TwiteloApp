@@ -18,7 +18,7 @@
             </b-tooltip>
           </div>
           <div class="column has-text-right settings-content">
-            <b-switch @change.native="changeSwitchNotifications('mp_twitter')" :value="$store.state.user.info.settings.notifications.mp_twitter" type="is-sucess" size="is-medium" :disabled="switchDisabled.mp_twitter"></b-switch>
+            <b-switch @input="changeSwitchNotifications('mp_twitter')" :value="$store.state.user.info.settings.notifications.mp_twitter" type="is-success" size="is-medium" :disabled="switchDisabled.mp_twitter"></b-switch>
           </div>
         </div>
       </li>

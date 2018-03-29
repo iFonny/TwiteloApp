@@ -134,7 +134,7 @@ try {
   });
   require('./ws')(config, wss, r, dbFunc);
 } catch (e) {
-  console.log(e)
+  console.error(e)
 }
 
 //=======================================================================//

@@ -108,7 +108,7 @@ export default {
             break;
         }
       } catch (error) {
-        console.log(
+        console.error(
           "Websocket on message error: " + error + "\n data:  " + data
         );
       }

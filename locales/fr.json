@@ -34,13 +34,34 @@
       "clear": "Archiver"
     },
     "switch": {
-      "tooltip": "Activer ou désactiver la mise a jour automatique"
+      "tooltip": "Activer ou désactiver la modification automatique"
     },
     "user": {
       "about": "À propos",
       "contact": "Contact",
       "logout": "Se déconnecter"
     }
+  },
+  "builder": {
+    "builder": "Éditeur",
+    "advanced": "Avancé",
+    "placeholder": {
+      "name": "Nom",
+      "description": "Description",
+      "location": "Position",
+      "url": "URL"
+    },
+    "select-game": "Sélectionner un jeu ou une platforme",
+    "select-game-tag": "Ajouter des données",
+    "no-game-selected": "Aucun jeu sélectionné.",
+    "no-tags-game": "Aucune données pour ce jeu.",
+    "no-accounts": "Vous avez besoin d'au moins un compte.",
+    "can-move-anywhere": "Une fois créées, vous pouvez déplacer vos données n'importe où dans votre profil.",
+    "example": "Exemple",
+    "characters": "caractères",
+    "next": "Suivant",
+    "cancel": "Annuler",
+    "previous": "Précédent"
   },
   "settings": {
     "tab": {

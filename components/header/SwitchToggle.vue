@@ -1,10 +1,10 @@
 <template>
   <nuxt-link :to="''" id="navbar-item-switch" class="navbar-item navbar-item-no-bg">
     <b-tooltip :label="$t('navbar.switch.tooltip')" type="is-light" position="is-left" class="is-hidden-touch">
-      <b-switch @click.native="changeSwitch()" :value="$store.state.user.info.switch" type="is-sucess" size="is-medium" :disabled="$store.state.switch.disabled"></b-switch>
+      <b-switch @click.native="changeSwitch()" :value="$store.state.user.info.switch" type="is-success" size="is-medium" :disabled="$store.state.switch.disabled"></b-switch>
     </b-tooltip>
     <b-tooltip :label="$t('navbar.switch.tooltip')" type="is-light" position="is-bottom" size="is-small" class="is-hidden-desktop" multilined>
-      <b-switch @click.native="changeSwitch()" :value="$store.state.user.info.switch" type="is-sucess" size="is-medium" :disabled="$store.state.switch.disabled"></b-switch>
+      <b-switch @click.native="changeSwitch()" :value="$store.state.user.info.switch" type="is-success" size="is-medium" :disabled="$store.state.switch.disabled"></b-switch>
     </b-tooltip>
   </nuxt-link>
 </template>

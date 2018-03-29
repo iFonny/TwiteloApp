@@ -5,7 +5,7 @@
         <div class="columns is-mobile">
           <div class="column is-three-quarters-desktop is-three-quarters-touch settings-name">{{$t('settings.general.global-switch-profile')}}</div>
           <div class="column has-text-right settings-content">
-            <b-switch @change.native="changeSwitchGlobal()" :value="$store.state.user.info.switch" type="is-sucess" size="is-medium" :disabled="$store.state.switch.disabled"></b-switch>
+            <b-switch @input="changeSwitchGlobal()" :value="$store.state.user.info.switch" type="is-success" size="is-medium" :disabled="$store.state.switch.disabled"></b-switch>
           </div>
         </div>
       </li>
@@ -14,7 +14,7 @@
         <div class="columns is-mobile">
           <div class="column is-three-quarters-desktop is-three-quarters-touch settings-name is-sub">{{$t('settings.general.name-switch-profile')}}</div>
           <div class="column has-text-right settings-content">
-            <b-switch @change.native="changeSwitch('name')" :value="$store.state.user.info.twitelo.name.status" type="is-sucess" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.name"></b-switch>
+            <b-switch @input="changeSwitch('name')" :value="$store.state.user.info.twitelo.name.status" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.name"></b-switch>
           </div>
         </div>
       </li>
@@ -23,7 +23,7 @@
         <div class="columns is-mobile">
           <div class="column is-three-quarters-desktop is-three-quarters-touch settings-name is-sub">{{$t('settings.general.description-switch-profile')}}</div>
           <div class="column has-text-right settings-content">
-            <b-switch @change.native="changeSwitch('description')" :value="$store.state.user.info.twitelo.description.status" type="is-sucess" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.description"></b-switch>
+            <b-switch @input="changeSwitch('description')" :value="$store.state.user.info.twitelo.description.status" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.description"></b-switch>
           </div>
         </div>
       </li>
@@ -32,7 +32,7 @@
         <div class="columns is-mobile">
           <div class="column is-three-quarters-desktop is-three-quarters-touch settings-name is-sub">{{$t('settings.general.url-switch-profile')}}</div>
           <div class="column has-text-right settings-content">
-            <b-switch @change.native="changeSwitch('url')" :value="$store.state.user.info.twitelo.url.status" type="is-sucess" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.url"></b-switch>
+            <b-switch @input="changeSwitch('url')" :value="$store.state.user.info.twitelo.url.status" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.url"></b-switch>
           </div>
         </div>
       </li>
@@ -41,7 +41,7 @@
         <div class="columns is-mobile">
           <div class="column is-three-quarters-desktop is-three-quarters-touch settings-name is-sub">{{$t('settings.general.location-switch-profile')}}</div>
           <div class="column has-text-right settings-content">
-            <b-switch @change.native="changeSwitch('location')" :value="$store.state.user.info.twitelo.location.status" type="is-sucess" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.location"></b-switch>
+            <b-switch @input="changeSwitch('location')" :value="$store.state.user.info.twitelo.location.status" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.location"></b-switch>
           </div>
         </div>
       </li>
@@ -49,7 +49,7 @@
 
     <hr class="dropdown-divider divider-settings">
 
-    <div class="account-settings card-content columns">
+    <div class="account-settings columns">
       <div class="column account-info">
         <div class="media media-menu">
           <div class="media-content has-text-right">
@@ -194,7 +194,7 @@ export default {
   align-items: center;
   justify-content: flex-end;
 }
-.account-settings.card-content {
+.account-settings {
   padding: 0.5rem;
 }
 .user-at {

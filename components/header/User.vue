@@ -19,7 +19,7 @@
         </div>
 
         <div class="media-right media-right-switch">
-          <b-switch @change.native="changeSwitch()" :value="$store.state.user.info.switch" type="is-sucess" size="is-medium" :disabled="$store.state.switch.disabled"></b-switch>
+          <b-switch @input="changeSwitch()" :value="$store.state.user.info.switch" type="is-success" size="is-medium" :disabled="$store.state.switch.disabled"></b-switch>
         </div>
       </div>
 
