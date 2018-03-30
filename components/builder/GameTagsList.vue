@@ -118,13 +118,13 @@
                   <a @click="createTag('name')" class="button is-info is-outlined">{{$t('builder.placeholder.name')}}</a>
                 </div>
                 <div class="column is-half">
-                  <a @click="createTag('description')" class="button is-info is-outlined">{{$t('builder.placeholder.description')}}</a>
-                </div>
-                <div class="column is-half">
                   <a @click="createTag('location')" class="button is-info is-outlined">{{$t('builder.placeholder.location')}}</a>
                 </div>
                 <div class="column is-half">
                   <a @click="createTag('url')" class="button is-info is-outlined">{{$t('builder.placeholder.url')}}</a>
+                </div>
+                <div class="column is-half">
+                  <a @click="createTag('description')" class="button is-info is-outlined">{{$t('builder.placeholder.description')}}</a>
                 </div>
               </div>
 
@@ -227,21 +227,21 @@ export default {
     async createTag(destination) {
       this.$store.commit("builder/SET_BUILDER_LOADING", true);
 
-      try {
-        await this.$store.dispatch("builder/createTagAndUpdate", {
+      await this.$store
+        .dispatch("builder/createTagAndUpdate", {
           destination,
           tagInfo: this.tagCreation,
           settings: this.dataForm
+        })
+        .catch(e => {
+          this.$store.dispatch("setError", e);
+          this.showNotification({
+            title: this.$store.state.error.statusCode.toString(),
+            message: this.$store.state.error.message,
+            type: "error",
+            timeout: 5000
+          });
         });
-      } catch (e) {
-        this.$store.dispatch("setError", e);
-        this.showNotification({
-          title: this.$store.state.error.statusCode.toString(),
-          message: this.$store.state.error.message,
-          type: "error",
-          timeout: 5000
-        });
-      }
 
       this.cancelAddGameTag();
       this.$store.commit("builder/SET_BUILDER_LOADING", false);

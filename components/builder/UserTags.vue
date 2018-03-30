@@ -23,15 +23,15 @@
               <p v-if="!userTags.length" class="is-size-4 has-text-danger">{{$t('builder.no-data')}}</p>
               <div v-else v-for="(userTag, userTagKey) in userTags" :key="userTag.id" class="control">
                 <b-taglist v-if="showUnusedTags || userTag.included" attached closable class="animated fadeIn">
-                  <b-tag @click.native="editTagPopup(userTag)" class="user-tag user-tag-edit" type="is-twitter">
+                  <b-tag @click.native="editTagPopup(userTag, userTagKey)" class="user-tag user-tag-edit" type="is-twitter">
                     <b-icon pack="far" icon="edit" size="is-small"></b-icon>
                   </b-tag>
-                  <b-tag @click.native="editTagPopup(userTag)" class="user-tag user-tag-key">
+                  <b-tag @click.native="editTagPopup(userTag, userTagKey)" class="user-tag user-tag-key">
                     <b>{{userTagKey}}</b>
                   </b-tag>
-                  <b-tag @click.native="editTagPopup(userTag)" class="user-tag user-tag-name-category" :type="userTag.included ? 'included' : 'not-included'">{{userTag.info.nameSmall}} - {{userTag.info.categorySmall}}</b-tag>
-                  <b-tag @click.native="editTagPopup(userTag)" class="user-tag user-tag-game" type="is-warning">{{userTag.game.small_name}}</b-tag>
-                  <b-tag @click.native="deleteTagPopup(userTag)" class="user-tag user-tag-delete" type="is-danger">
+                  <b-tag @click.native="editTagPopup(userTag, userTagKey)" class="user-tag user-tag-name-category" :type="userTag.included ? 'included' : 'not-included'">{{userTag.info.nameSmall}} - {{userTag.info.categorySmall}}</b-tag>
+                  <b-tag @click.native="editTagPopup(userTag, userTagKey)" class="user-tag user-tag-game" type="is-warning">{{userTag.game.small_name}}</b-tag>
+                  <b-tag @click.native="deleteTagPopup(userTag, userTagKey)" class="user-tag user-tag-delete" type="is-danger">
                     <b-icon pack="far" icon="trash-alt" size="is-small"></b-icon>
                   </b-tag>
                 </b-taglist>
@@ -42,7 +42,7 @@
           <div v-else class="is-full-height">
 
             <!-- CANCEL BUTTON -->
-            <button @click="cancelEditUsertag()" type="button" class="delete user-tag-edition-cancel"></button>
+            <button @click="cancelEditUserTag()" type="button" class="delete user-tag-edition-cancel"></button>
 
             <!-- EDIT USER TAGS POPUP -->
             <div v-if="navigation == 'editTag' && tagEdition" class="is-full-height relative-zone">
@@ -99,7 +99,7 @@
                 <button @click="deleteTagPopup(tagEdition)" class="column button is-danger">
                   {{$t('builder.remove')}}
                 </button>
-                <button @click="goToDestinationSelection()" class="column button is-success" :disabled="!checkInputs()">
+                <button @click="updateUserTag(tagEdition)" class="column button is-success" :disabled="!checkInputs()" :class="loadingButtons.save ? 'is-loading' : ''">
                   {{$t('builder.save')}}
                 </button>
               </div>
@@ -127,6 +127,9 @@ export default {
       navigation: null,
       showUnusedTags: true,
       tagEdition: null,
+      loadingButtons: {
+        save: false
+      },
       dataForm: {}
     };
   },
@@ -141,16 +144,17 @@ export default {
     })
   },
   methods: {
-    editTagPopup(tag) {
+    editTagPopup(tag, key) {
       this.tagEdition = tag;
+      this.tagEdition.index = key;
       this.navigation = "editTag";
       this.dataForm = _.cloneDeep(tag.settings);
     },
     deleteTagPopup(tag) {
-      console.log("delete");
+      console.log("TODO: delete");
       console.log(tag.id);
     },
-    cancelEditUsertag() {
+    cancelEditUserTag() {
       this.navigation = null;
       this.tagEdition = null;
       this.dataForm = {};
@@ -169,11 +173,34 @@ export default {
 
       this.$store.commit("builder/SET_BUILDER_LOADING", false);
     },
+    async updateUserTag(tag) {
+      this.loadingButtons.save = true;
+
+      await this.$store
+        .dispatch("builder/updateTag", {
+          tag,
+          settings: this.dataForm
+        })
+        .catch(e => {
+          this.$store.dispatch("setError", e);
+          this.showNotification({
+            title: this.$store.state.error.statusCode.toString(),
+            message: this.$store.state.error.message,
+            type: "error",
+            timeout: 5000
+          });
+        });
+
+      this.cancelEditUserTag();
+      this.loadingButtons.save = false;
+    },
     checkInputs() {
       for (const input in this.tagEdition.info.fieldSettings) {
         if (!this.dataForm[input]) return false;
+        if (this.dataForm[input] != this.tagEdition.settings[input])
+          return true;
       }
-      return true;
+      return false;
     }
   },
   notifications: {

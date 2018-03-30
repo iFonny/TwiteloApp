@@ -68,6 +68,14 @@ export const mutations = {
   ADD_USER_TAG(state, tag) {
     state.userTags.push(tag);
   },
+  UPDATE_USER_TAG_SETTINGS(state, {
+    index,
+    settings
+  }) {
+    console.log(index);
+    state.userTags[index].settings = settings;
+    console.log(state.userTags[index]);
+  },
 };
 
 
@@ -129,6 +137,27 @@ export const actions = {
     });
 
     await dispatch("transformFromUUID");
+  },
+
+  async updateTag({
+    state,
+    rootState,
+    commit,
+    dispatch
+  }, {
+    tag,
+    settings
+  }) {
+    const newSettings = (await this.$axios.$post(`/api/tag/me/${tag.id}/edit`, {
+      tag_id: tag.tag_id,
+      game_id: tag.game.id,
+      settings
+    })).data;
+
+    if (newSettings) commit('UPDATE_USER_TAG_SETTINGS', {
+      index: tag.index,
+      settings: newSettings
+    })
   },
 
   transformFromUUID({
