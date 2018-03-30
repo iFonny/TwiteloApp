@@ -45,23 +45,29 @@
   "builder": {
     "builder": "Éditeur",
     "advanced": "Avancé",
+    "select-game": "Sélectionner un jeu ou une platforme",
+    "select-game-tag": "Ajouter des données",
+    "accounts": "Comptes",
+    "profile-data": "Données ajoutées au profil",
+    "no-game-selected": "Aucun jeu sélectionné.",
+    "no-tags-game": "Aucune données pour ce jeu.",
+    "no-data": "Aucune données.",
+    "no-accounts": "Vous avez besoin d'au moins un compte.",
+    "can-move-anywhere": "Une fois créées, vous pouvez déplacer vos données n'importe où dans votre profil.",
+    "show-unused-tags": "Afficher les tags inutilisés",
+    "example": "Exemple",
+    "characters": "caractères",
+    "next": "Suivant",
+    "cancel": "Annuler",
+    "previous": "Précédent",
+    "save": "Enregistrer",
+    "remove": "Supprimer",
     "placeholder": {
       "name": "Nom",
       "description": "Description",
       "location": "Position",
       "url": "URL"
-    },
-    "select-game": "Sélectionner un jeu ou une platforme",
-    "select-game-tag": "Ajouter des données",
-    "no-game-selected": "Aucun jeu sélectionné.",
-    "no-tags-game": "Aucune données pour ce jeu.",
-    "no-accounts": "Vous avez besoin d'au moins un compte.",
-    "can-move-anywhere": "Une fois créées, vous pouvez déplacer vos données n'importe où dans votre profil.",
-    "example": "Exemple",
-    "characters": "caractères",
-    "next": "Suivant",
-    "cancel": "Annuler",
-    "previous": "Précédent"
+    }
   },
   "settings": {
     "tab": {

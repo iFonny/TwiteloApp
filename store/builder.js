@@ -27,7 +27,8 @@ export const state = () => ({
       username: 'iFonny',
       region: 'EUW'
     }]
-  }
+  },
+  accountsData: {}
 })
 
 export const mutations = {
@@ -42,6 +43,12 @@ export const mutations = {
   },
   SET_USER_TAGS(state, userTags) {
     state.userTags = userTags;
+  },
+  SET_USER_TAG_INCLUDED(state, key) {
+    state.userTags[key].included = true;
+  },
+  SET_USER_TAG_NOT_INCLUDED(state, key) {
+    state.userTags[key].included = false;
   },
   SET_GAME_TAGS_CATEGORY(state, tags) {
     state.gameTagsCategory = tags;
@@ -71,6 +78,10 @@ export const actions = {
   }) {
     const games = (await this.$axios.$get('/api/game')).data;
     const userTags = (await this.$axios.$get(`/api/tag/me/all`)).data;
+
+    for (const key in userTags) {
+      userTags[key].included = false;
+    }
 
     commit('SET_GAMES', games);
     commit('SET_USER_TAGS', userTags);
@@ -107,16 +118,17 @@ export const actions = {
       game_id: tagInfo.gameID,
       settings
     })).data;
-
+    tag.included = true;
     await commit('ADD_USER_TAG', tag);
-    await dispatch('transformToUUID', destination);
+    await dispatch('transformToUUID');
     await commit('user/SET_TWITELO_DATA_CONTENT', {
       name: destination,
       content: `${rootState.user.info.twitelo[destination].content.trim()} <{${tag.id}}>`
     }, {
       root: true
     });
-    await dispatch("transformFromUUID", destination);
+
+    await dispatch("transformFromUUID");
   },
 
   transformFromUUID({
@@ -130,7 +142,10 @@ export const actions = {
       let match = myRegexp.exec(text);
       while (match != null) {
         let foundTag = _.findIndex(userTags, ['id', match[1]]);
-        if (foundTag >= 0) mapObj[`<{${userTags[foundTag].id}}>`] = `<{${foundTag}}>`;
+        if (foundTag >= 0) {
+          commit('SET_USER_TAG_INCLUDED', foundTag);
+          mapObj[`<{${userTags[foundTag].id}}>`] = `<{${foundTag}}>`;
+        }
         match = myRegexp.exec(text);
       }
       if (Object.keys(mapObj).length > 0) {
@@ -140,6 +155,10 @@ export const actions = {
         });
       }
       return text;
+    }
+
+    for (const key in state.userTags) {
+      commit('SET_USER_TAG_NOT_INCLUDED', key);
     }
 
     if (name) {
@@ -171,7 +190,10 @@ export const actions = {
       var myRegexp = /<{([^<>{} ]+)}>/g;
       let match = myRegexp.exec(text);
       while (match != null) {
-        if (userTags[match[1]]) mapObj[`<{${match[1]}}>`] = `<{${userTags[match[1]].id}}>`;
+        if (userTags[match[1]]) {
+          commit('SET_USER_TAG_INCLUDED', match[1]);
+          mapObj[`<{${match[1]}}>`] = `<{${userTags[match[1]].id}}>`;
+        }
         match = myRegexp.exec(text);
       }
       if (Object.keys(mapObj).length > 0) {
@@ -181,6 +203,10 @@ export const actions = {
         });
       }
       return text;
+    }
+
+    for (const key in state.userTags) {
+      commit('SET_USER_TAG_NOT_INCLUDED', key);
     }
 
     if (name) {
@@ -196,10 +222,10 @@ export const actions = {
     } else {
       let transformed = _.cloneDeep(rootState.user.info.twitelo);
 
-      transformed.name.content = state.twiteloDataInput.name.trim().replace('<{ID}>', '<{UUID}>'); // TODO
-      transformed.description.content = state.twiteloDataInput.description.trim().replace('<{ID}>', '<{UUID}>'); // TODO
-      transformed.location.content = state.twiteloDataInput.location.trim().replace('<{ID}>', '<{UUID}>'); // TODO
-      transformed.url.content = state.twiteloDataInput.url.trim().replace('<{ID}>', '<{UUID}>'); // TODO
+      transformed.name.content = replaceToUUID(state.twiteloDataInput.name.trim(), state.userTags);
+      transformed.description.content = replaceToUUID(state.twiteloDataInput.description.trim(), state.userTags);
+      transformed.location.content = replaceToUUID(state.twiteloDataInput.location.trim(), state.userTags);
+      transformed.url.content = replaceToUUID(state.twiteloDataInput.url.trim(), state.userTags);
 
       commit('user/SET_TWITELO_DATA', transformed, {
         root: true

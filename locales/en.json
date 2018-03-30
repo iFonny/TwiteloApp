@@ -45,23 +45,29 @@
   "builder": {
     "builder": "Builder",
     "advanced": "Advanced",
+    "select-game": "Select a game or platform",
+    "select-game-tag": "Add data",
+    "accounts": "Accounts",
+    "profile-data": "Data added to profile",
+    "no-game-selected": "No game selected.",
+    "no-tags-game": "No data for this game.",
+    "no-data": "No data.",
+    "no-accounts": "You need at least one account.",
+    "can-move-anywhere": "Once created, you can move your data anywhere in your profile.",
+    "show-unused-tags": "Show unused tags",
+    "characters": "characters",
+    "example": "Example",
+    "next": "Next",
+    "cancel": "Cancel",
+    "previous": "Previous",
+    "save": "Save",
+    "remove": "Remove",
     "placeholder": {
       "name": "Name",
       "description": "Description",
       "location": "Location",
       "url": "URL"
-    },
-    "select-game": "Select a game or platform",
-    "select-game-tag": "Add data",
-    "no-game-selected": "No game selected.",
-    "no-tags-game": "No data for this game.",
-    "no-accounts": "You need at least one account.",
-    "can-move-anywhere": "Once created, you can move your data anywhere in your profile.",
-    "characters": "characters",
-    "example": "Example",
-    "next": "Next",
-    "cancel": "Cancel",
-    "previous": "Previous"
+    }
   },
   "settings": {
     "tab": {

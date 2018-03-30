@@ -75,7 +75,7 @@
                     <!-- INPUT TYPE: size -->
                     <b-select v-if="setting.type == 'size'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
                       <option v-for="(optionSize, optionKey) in tagCreation.size" :key="optionKey" :value="optionKey">
-                        {{ optionSize }} {{$t('characters')}} ({{optionKey}})
+                        {{ optionSize }} {{$t('builder.characters')}} ({{optionKey}})
                       </option>
                     </b-select>
                     <!-- INPUT TYPE: account -->
@@ -129,8 +129,6 @@
               </div>
 
               <p class="is-size-7 has-text-grey-light has-text-centered">{{$t('builder.can-move-anywhere')}}</p>
-
-              <!-- // TODO LES BOUTONS POUR AJOUTER DANS LE PROFIL -->
 
               <!-- PREVIOUS BUTTON (to destination selection) -->
               <div class="nav-buttons columns is-gapless is-mobile">
@@ -288,9 +286,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.is-full-height {
-  height: 100%;
 }
 .relative-zone {
   position: relative;
