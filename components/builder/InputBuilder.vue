@@ -173,5 +173,11 @@ export default {
   padding: 0.5rem;
   padding-bottom: 0;
 }
+input,
+textarea,
+select {
+  background-color: #1f1f1f6e !important;
+  color: white !important;
+}
 </style>
 

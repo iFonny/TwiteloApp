@@ -163,6 +163,15 @@ export default {
 .account-list .collapse-content {
   height: calc(100% - 48px);
 }
+.account-list .collapse-content {
+  height: calc(100% - 48px);
+  min-height: 15rem;
+}
+@media screen and (max-width: 768px) {
+  .account-list .collapse-content {
+    min-height: 0;
+  }
+}
 .account-list .card-content {
   height: 100%;
   padding: 0;
