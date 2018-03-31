@@ -101,7 +101,7 @@ export const actions = {
     commit
   }, game) {
     if (game) {
-      let tags = (await this.$axios.$get(`/api/game/tags/${game.id}`)).data;
+      let tags = (await this.$axios.$get(`/api/game/tags/game/${game.id}`)).data;
       tags = _.groupBy(tags, 'category');
       const pages = _.chunk(Object.keys(tags), 4);
       commit('SET_GAME_TAGS_CATEGORY', tags);

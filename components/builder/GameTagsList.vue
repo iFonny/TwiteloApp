@@ -168,7 +168,6 @@ import VueNotifications from "vue-notifications";
 export default {
   data() {
     return {
-      tagExample: "TODO",
       navigation: null,
       tagCreation: null,
       dataForm: {},
@@ -186,7 +185,18 @@ export default {
       builderLoading: state => state.builder.builderLoading,
       gameTagsCategory: state => state.builder.gameTagsCategory,
       gameTagsCategoryPages: state => state.builder.gameTagsCategoryPages
-    })
+    }),
+    tagExample() {
+      if (this.tagCreation && this.tagCreation.example && this.dataForm) {
+        let result = this.tagCreation.example;
+        while (typeof result == "object") {
+          for (const key in result) {
+            result = result[key][this.dataForm[key]];
+          }
+        }
+        return result || "...";
+      } else return "...";
+    }
   },
   watch: {
     selectedGame() {
