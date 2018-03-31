@@ -30,7 +30,7 @@
                     <b>{{userTagKey}}</b>
                   </b-tag>
                   <b-tag @click.native="editTagPopup(userTag, userTagKey)" class="user-tag user-tag-name-category" :type="userTag.included ? 'included' : 'not-included'">{{userTag.info.nameSmall}} - {{userTag.info.categorySmall}}</b-tag>
-                  <b-tag @click.native="editTagPopup(userTag, userTagKey)" class="user-tag user-tag-game" type="is-warning">{{userTag.game.small_name}}</b-tag>
+                  <b-tag @click.native="editTagPopup(userTag, userTagKey)" class="user-tag user-tag-game" :style="`background-color: ${userTag.game.color}`">{{userTag.game.small_name}}</b-tag>
                   <b-tag @click.native="deleteTagPopup(userTag, userTagKey)" class="user-tag user-tag-delete" type="is-danger">
                     <b-icon pack="far" icon="trash-alt" size="is-small"></b-icon>
                   </b-tag>
@@ -227,6 +227,9 @@ export default {
 .user-tag-key {
   background-color: #f5f5f5;
   color: #363636;
+}
+.user-tag-game {
+  color: #151515;
 }
 .tag-add-in {
   height: 1.1rem;
