@@ -139,8 +139,9 @@ export default {
       locale: state => state.locale,
       games: state => state.builder.games,
       accounts: state => state.builder.accounts,
+      userTags: state => state.builder.userTags,
       selectedGame: state => state.builder.selectedGame,
-      userTags: state => state.builder.userTags
+      twiteloDataInput: state => state.builder.twiteloDataInput
     })
   },
   methods: {
@@ -162,14 +163,10 @@ export default {
     async addTag(tag, destination) {
       this.$store.commit("builder/SET_BUILDER_LOADING", true);
 
-      await this.$store.dispatch("builder/transformToUUID");
-      await this.$store.commit("user/SET_TWITELO_DATA_CONTENT", {
+      await this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: destination,
-        content: `${this.user.twitelo[destination].content.trim()} <{${
-          tag.id
-        }}>`
+        twiteloDataInput: `${this.twiteloDataInput[destination].trim()} <{${tag.index}}>`
       });
-      await this.$store.dispatch("builder/transformFromUUID");
 
       this.$store.commit("builder/SET_BUILDER_LOADING", false);
     },
