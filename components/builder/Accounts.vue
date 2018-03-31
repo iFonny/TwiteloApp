@@ -30,7 +30,8 @@
                     <b-icon pack="far" icon="edit" size="is-small"></b-icon>
                   </b-tag>
                   <b-tag size="is-small" class="account-tag account-tag-name" :type="checkAccountIncluded(account.id) ? 'included' : 'not-included'">
-                    {{account.settings.username}}{{account.settings.region ? ` - ${account.settings.region}` : ''}}
+                    <span>{{account.settings.username}}{{account.settings.region ? ` - ${account.settings.region}` : ''}}</span>
+                    <b-icon v-if="account.verified" size="is-small" pack="mdi" icon="approval"></b-icon>
                   </b-tag>
                   <b-tag size="is-small" v-if="accountGameSelect == 'all-games'" class="account-tag account-tag-game" :style="`background-color: ${games[account.game_id].color}`">{{games[account.game_id].small_name}}</b-tag>
                   <b-tag size="is-small" class="account-tag account-tag-delete" type="is-danger">
@@ -96,7 +97,7 @@ export default {
   methods: {
     checkAccountIncluded(id) {
       const index = _.findIndex(this.userTags, function(o) {
-        if (o.settings&& o.included && o.settings.account == id) return true;
+        if (o.settings && o.included && o.settings.account == id) return true;
         else return false;
       });
       return index < 0 ? false : true;

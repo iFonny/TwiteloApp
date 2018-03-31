@@ -92,6 +92,7 @@ export const actions = {
       account_id: '98765434567', // id du compte dans le jeu
       game_id: 'lol',
       created: 0, // TODO
+      verified: true, // TODO: compte verifié (prouve que le compte lui appartient)
       settings: {
         username: 'iFonny',
         region: 'EUW'
