@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import _ from "lodash";
 import { mapState } from "vuex";
 import VueNotifications from "vue-notifications";
 
@@ -104,34 +105,34 @@ export default {
         }, 800);
       }
     },
-    updateName(e) {
+    updateName: _.debounce(function(e, test) {
       this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: "name",
         twiteloDataInput: e
       });
-      //this.$store.dispatch("builder/transformToUUID", "name"); // TODO: USE UNIQUEMENT QUAND ON ADD UN TAG ou UPDATE PREVIEW (pas ici)
-    },
-    updateDescription(e) {
+      this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
+    }, 1000),
+    updateDescription: _.debounce(function(e) {
       this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: "description",
         twiteloDataInput: e
       });
-      //this.$store.dispatch("builder/transformToUUID", "description"); // TODO: USE UNIQUEMENT QUAND ON ADD UN TAG ou UPDATE PREVIEW (pas ici)
-    },
-    updateLocation(e) {
+      this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
+    }, 1000),
+    updateLocation: _.debounce(function(e) {
       this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: "location",
         twiteloDataInput: e
       });
-      //this.$store.dispatch("builder/transformToUUID", "location"); // TODO: USE UNIQUEMENT QUAND ON ADD UN TAG ou UPDATE PREVIEW (pas ici)
-    },
-    updateURL(e) {
+      this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
+    }, 1000),
+    updateURL: _.debounce(function(e) {
       this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: "url",
         twiteloDataInput: e
       });
-      //this.$store.dispatch("builder/transformToUUID", "url"); // TODO: USE UNIQUEMENT QUAND ON ADD UN TAG ou UPDATE PREVIEW (pas ici)
-    }
+      this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
+    }, 1000)
   },
   notifications: {
     showNotification: {

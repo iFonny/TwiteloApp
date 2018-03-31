@@ -130,7 +130,7 @@ export const actions = {
   async deletePPTrigger({
     commit
   }, id) {
-    await this.$axios.$delete('/api/setting/me/pp_trigger', {
+    await this.$axios.$delete('/api/setting/me/pp_trigger/delete', {
       data: [id]
     });
     commit('DELETE_PP_TRIGGER', id)

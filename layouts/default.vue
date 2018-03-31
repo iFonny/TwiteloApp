@@ -276,5 +276,8 @@ body {
   justify-content: center;
   align-items: center;
 }
+.is-full-height {
+  height: 100%;
+}
 </style>
 

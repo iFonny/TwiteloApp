@@ -75,7 +75,7 @@
                     <!-- INPUT TYPE: size -->
                     <b-select v-if="setting.type == 'size'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
                       <option v-for="(optionSize, optionKey) in tagCreation.size" :key="optionKey" :value="optionKey">
-                        {{ optionSize }} {{$t('characters')}} ({{optionKey}})
+                        {{ optionSize }} {{$t('builder.characters')}} ({{optionKey}})
                       </option>
                     </b-select>
                     <!-- INPUT TYPE: account -->
@@ -118,19 +118,17 @@
                   <a @click="createTag('name')" class="button is-info is-outlined">{{$t('builder.placeholder.name')}}</a>
                 </div>
                 <div class="column is-half">
-                  <a @click="createTag('description')" class="button is-info is-outlined">{{$t('builder.placeholder.description')}}</a>
-                </div>
-                <div class="column is-half">
                   <a @click="createTag('location')" class="button is-info is-outlined">{{$t('builder.placeholder.location')}}</a>
                 </div>
                 <div class="column is-half">
                   <a @click="createTag('url')" class="button is-info is-outlined">{{$t('builder.placeholder.url')}}</a>
                 </div>
+                <div class="column is-half">
+                  <a @click="createTag('description')" class="button is-info is-outlined">{{$t('builder.placeholder.description')}}</a>
+                </div>
               </div>
 
               <p class="is-size-7 has-text-grey-light has-text-centered">{{$t('builder.can-move-anywhere')}}</p>
-
-              <!-- // TODO LES BOUTONS POUR AJOUTER DANS LE PROFIL -->
 
               <!-- PREVIOUS BUTTON (to destination selection) -->
               <div class="nav-buttons columns is-gapless is-mobile">
@@ -229,21 +227,21 @@ export default {
     async createTag(destination) {
       this.$store.commit("builder/SET_BUILDER_LOADING", true);
 
-      try {
-        await this.$store.dispatch("builder/createTagAndUpdate", {
+      await this.$store
+        .dispatch("builder/createTagAndUpdate", {
           destination,
           tagInfo: this.tagCreation,
           settings: this.dataForm
+        })
+        .catch(e => {
+          this.$store.dispatch("setError", e);
+          this.showNotification({
+            title: this.$store.state.error.statusCode.toString(),
+            message: this.$store.state.error.message,
+            type: "error",
+            timeout: 5000
+          });
         });
-      } catch (e) {
-        this.$store.dispatch("setError", e);
-        this.showNotification({
-          title: this.$store.state.error.statusCode.toString(),
-          message: this.$store.state.error.message,
-          type: "error",
-          timeout: 5000
-        });
-      }
 
       this.cancelAddGameTag();
       this.$store.commit("builder/SET_BUILDER_LOADING", false);
@@ -288,9 +286,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.is-full-height {
-  height: 100%;
 }
 .relative-zone {
   position: relative;
