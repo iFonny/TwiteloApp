@@ -22,7 +22,7 @@
             <b-field grouped group-multiline class="align-tags">
               <p v-if="!userTags.length" class="is-size-4 has-text-danger">{{$t('builder.no-data')}}</p>
               <div v-else v-for="(userTag, userTagKey) in userTags" :key="userTag.id" class="control">
-                <b-taglist v-if="showUnusedTags || userTag.included" attached closable class="animated fadeIn">
+                <b-taglist v-if="showUnusedTags || userTag.included" attached class="animated fadeIn">
                   <b-tag @click.native="editTagPopup(userTag, userTagKey)" class="user-tag user-tag-edit" type="is-twitter">
                     <b-icon pack="far" icon="edit" size="is-small"></b-icon>
                   </b-tag>
@@ -94,13 +94,46 @@
 
               </section>
 
-              <!-- CANCEL/NEXT BUTTON (to destination selection) -->
+              <!-- DELETE/SAVE BUTTON -->
               <div class="nav-buttons columns is-gapless is-mobile">
-                <button @click="deleteTagPopup(tagEdition)" class="column button is-danger">
+                <button @click="deleteTagPopup(tagEdition, tagEdition.index)" class="column button is-danger">
                   {{$t('builder.remove')}}
                 </button>
                 <button @click="updateUserTag(tagEdition)" class="column button is-success" :disabled="!checkInputs()" :class="loadingButtons.save ? 'is-loading' : ''">
                   {{$t('builder.save')}}
+                </button>
+              </div>
+
+            </div>
+
+            <!-- REMOVE TAG POPUP CONFIRMATION -->
+            <div v-if="navigation == 'removeTagConfirm' && tagEdition" class="is-full-height relative-zone">
+
+              <!-- TAG RESUME && EXAMPLE -->
+              <p class="tag-title has-text-grey-lighter is-size-5 has-text-left">{{tagEdition.info.name}} - {{tagEdition.info.categorySmall}}</p>
+
+              <div class="confirmation-message align-vertical-center is-full-height animated fadeIn">
+                <div>
+                  <div class="title is-size-4">{{$t('builder.remove-confirmation-message')}}</div>
+                  <b-field grouped group-multiline class="align-tags">
+                    <b-taglist attached class="has-text-centered">
+                      <b-tag class="user-tag user-tag-key" size="is-medium">
+                        <b>{{tagEdition.index}}</b>
+                      </b-tag>
+                      <b-tag class="user-tag user-tag-name-category" size="is-medium" :type="tagEdition.included ? 'included' : 'not-included'">{{tagEdition.info.nameSmall}} - {{tagEdition.info.categorySmall}}</b-tag>
+                      <b-tag class="user-tag user-tag-game" size="is-medium" :style="`background-color: ${tagEdition.game.color}`">{{tagEdition.game.small_name}}</b-tag>
+                    </b-taglist>
+                  </b-field>
+                </div>
+              </div>
+
+              <!-- CANCEL/DELETE BUTTON -->
+              <div class="nav-buttons columns is-gapless is-mobile">
+                <button @click="cancelEditUserTag()" class="column button is-light">
+                  {{$t('builder.cancel')}}
+                </button>
+                <button @click="deleteTag(tagEdition)" class="column button is-danger" :class="loadingButtons.remove ? 'is-loading' : ''">
+                  {{$t('builder.remove')}}
                 </button>
               </div>
 
@@ -128,7 +161,8 @@ export default {
       showUnusedTags: true,
       tagEdition: null,
       loadingButtons: {
-        save: false
+        save: false,
+        remove: false
       },
       dataForm: {}
     };
@@ -151,9 +185,28 @@ export default {
       this.navigation = "editTag";
       this.dataForm = _.cloneDeep(tag.settings);
     },
-    deleteTagPopup(tag) {
-      console.log("TODO: delete");
-      console.log(tag.id);
+    async deleteTagPopup(tag, key) {
+      this.tagEdition = tag;
+      this.tagEdition.index = key;
+      this.navigation = "removeTagConfirm";
+    },
+    async deleteTag(tag) {
+      this.$store.commit("builder/SET_BUILDER_LOADING", true);
+      this.loadingButtons.remove = true;
+
+      await this.$store.dispatch("builder/deleteTagWithIndex", tag).catch(e => {
+        this.$store.dispatch("setError", e);
+        this.showNotification({
+          title: this.$store.state.error.statusCode.toString(),
+          message: this.$store.state.error.message,
+          type: "error",
+          timeout: 5000
+        });
+      });
+
+      this.cancelEditUserTag();
+      this.loadingButtons.remove = false;
+      this.$store.commit("builder/SET_BUILDER_LOADING", false);
     },
     cancelEditUserTag() {
       this.navigation = null;
@@ -165,7 +218,9 @@ export default {
 
       await this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: destination,
-        twiteloDataInput: `${this.twiteloDataInput[destination].trim()} <{${tag.index}}>`
+        twiteloDataInput: `${this.twiteloDataInput[destination].trim()} <{${
+          tag.index
+        }}>`
       });
 
       this.$store.commit("builder/SET_BUILDER_LOADING", false);
@@ -294,6 +349,9 @@ export default {
 }
 .user-tags-list .field.is-grouped.is-grouped-multiline:last-child {
   margin-bottom: 0;
+}
+.confirmation-message {
+  height: calc(100% - 30px);
 }
 </style>
 

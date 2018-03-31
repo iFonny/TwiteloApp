@@ -68,13 +68,14 @@ export const mutations = {
   ADD_USER_TAG(state, tag) {
     state.userTags.push(tag);
   },
+  DELETE_USER_TAG(state, id) {
+    state.userTags.splice(id, 1);
+  },
   UPDATE_USER_TAG_SETTINGS(state, {
     index,
     settings
   }) {
-    console.log(index);
     state.userTags[index].settings = settings;
-    console.log(state.userTags[index]);
   },
 };
 
@@ -140,10 +141,7 @@ export const actions = {
   },
 
   async updateTag({
-    state,
-    rootState,
-    commit,
-    dispatch
+    commit
   }, {
     tag,
     settings
@@ -158,6 +156,27 @@ export const actions = {
       index: tag.index,
       settings: newSettings
     })
+  },
+
+  async deleteTagWithIndex({
+    state,
+    rootState,
+    commit,
+    dispatch
+  }, tag) {
+    let transformed = _.cloneDeep(rootState.user.info.twitelo);
+
+    await this.$axios.$delete(`/api/tag/me/${tag.id}/delete`);
+    await dispatch("transformToUUID");
+    transformed.name.content = transformed.name.content.replace(`<{${tag.id}}>`, '').trim();
+    transformed.description.content = transformed.description.content.replace(`<{${tag.id}}>`, '').trim();
+    transformed.location.content = transformed.location.content.replace(`<{${tag.id}}>`, '').trim();
+    transformed.url.content = transformed.url.content.replace(`<{${tag.id}}>`, '').trim();
+    await commit('user/SET_TWITELO_DATA', transformed, {
+      root: true
+    });
+    await commit('DELETE_USER_TAG', tag.index);
+    await dispatch("transformFromUUID");
   },
 
   transformFromUUID({
