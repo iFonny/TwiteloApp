@@ -50,6 +50,7 @@
               <!-- TAG RESUME && EXAMPLE -->
               <p class="tag-title has-text-grey-lighter is-size-5 has-text-left">{{tagEdition.info.name}} - {{tagEdition.info.categorySmall}}</p>
               <p class="tag-example is-size-6 has-text-grey-light has-text-left">
+                {{$t('builder.add-in')}}
                 <b-tag @click.native="addTag(tagEdition, 'name')" type="tag-add-in is-small is-info">{{$t('builder.placeholder.name')}}</b-tag>
                 <b-tag @click.native="addTag(tagEdition, 'location')" type="tag-add-in is-small is-info">{{$t('builder.placeholder.location')}}</b-tag>
                 <b-tag @click.native="addTag(tagEdition, 'url')" type="tag-add-in is-small is-info">{{$t('builder.placeholder.url')}}</b-tag>
