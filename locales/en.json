@@ -52,6 +52,7 @@
     "no-game-selected": "No game selected.",
     "no-tags-game": "No data for this game.",
     "no-data": "No data.",
+    "no-accounts-list": "No accounts.",
     "no-accounts": "You need at least one account.",
     "can-move-anywhere": "Once created, you can move your data anywhere in your profile.",
     "show-unused-tags": "Show unused tags",
@@ -64,6 +65,8 @@
     "save": "Save",
     "remove": "Remove",
     "remove-confirmation-message": "Are you sure you want to delete this data?",
+    "all-games": "All games",
+    "add-account": "Add an account",
     "placeholder": {
       "name": "Name",
       "description": "Description",
@@ -74,9 +77,9 @@
   "settings": {
     "tab": {
       "general": "General",
+      "tweet-auto": "Automatic Tweets",
       "pp": "Profile pictures",
-      "notifications": "Notifications",
-      "api": "API"
+      "notifications": "Notifications"
     },
     "general": {
       "delete-account": "Delete my account",

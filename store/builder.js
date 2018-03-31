@@ -19,16 +19,8 @@ export const state = () => ({
   gameTagsCategory: null,
   gameTagsCategoryPages: [],
   userTags: [],
-  accounts: {
-    lol: [{
-      id: '1ac3456b7890',
-      accountID: '98765434567', // id du compte dans le jeu
-      gameID: 'lol',
-      username: 'iFonny',
-      region: 'EUW'
-    }]
-  },
-  accountsData: {}
+  allAccounts: {},
+  accounts: {}
 })
 
 export const mutations = {
@@ -43,6 +35,9 @@ export const mutations = {
   },
   SET_USER_TAGS(state, userTags) {
     state.userTags = userTags;
+  },
+  SET_ALL_ACCOUNTS(state, accounts) {
+    state.allAccounts = accounts;
   },
   SET_USER_TAG_INCLUDED(state, key) {
     state.userTags[key].included = true;
@@ -77,6 +72,9 @@ export const mutations = {
   }) {
     state.userTags[index].settings = settings;
   },
+  SYNC_ACCOUNTS(state) {
+    state.accounts = _.groupBy(state.allAccounts, 'game_id');
+  },
 };
 
 
@@ -85,8 +83,39 @@ export const actions = {
     state,
     commit
   }) {
-    const games = (await this.$axios.$get('/api/game')).data;
+    let games = (await this.$axios.$get('/api/game')).data;
+    games = _.keyBy(games, 'id');
     const userTags = (await this.$axios.$get(`/api/tag/me/all`)).data;
+    // TODO: get All accounts
+    let allAccounts = [{
+      id: '1ac3456b7890',
+      account_id: '98765434567', // id du compte dans le jeu
+      game_id: 'lol',
+      created: 0, // TODO
+      settings: {
+        username: 'iFonny',
+        region: 'EUW'
+      }
+    }, {
+      id: '1ac3456b789',
+      account_id: '98765434567', // id du compte dans le jeu
+      game_id: 'lol',
+      created: 0, // TODO
+      settings: {
+        username: 'iFonny',
+        region: 'EUW'
+      }
+    }, {
+      id: '1ac3456b78',
+      account_id: '98765434567', // id du compte dans le jeu
+      game_id: 'lol',
+      created: 0, // TODO
+      settings: {
+        username: 'iFonny',
+        region: 'EUW'
+      }
+    }];
+    allAccounts = _.keyBy(allAccounts, 'id');
 
     for (const key in userTags) {
       userTags[key].included = false;
@@ -94,6 +123,8 @@ export const actions = {
 
     commit('SET_GAMES', games);
     commit('SET_USER_TAGS', userTags);
+    commit('SET_ALL_ACCOUNTS', allAccounts);
+    commit('SYNC_ACCOUNTS');
   },
 
   async fetchTags({

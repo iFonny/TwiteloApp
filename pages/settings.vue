@@ -8,6 +8,10 @@
 
       </b-tab-item>
 
+      <b-tab-item :label="$t('settings.tab.tweet-auto')" icon-pack="fab" icon="twitter" disabled>
+        WIP
+      </b-tab-item>
+
       <b-tab-item :label="$t('settings.tab.pp')" icon-pack="fas" icon="image">
 
         <profile />
@@ -20,9 +24,7 @@
 
       </b-tab-item>
 
-      <b-tab-item :label="$t('settings.tab.api')" icon-pack="fas" icon="cubes" disabled>
-        WIP
-      </b-tab-item>
+      
     </b-tabs>
   </section>
 </template>

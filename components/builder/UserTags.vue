@@ -81,8 +81,8 @@
                   </b-select>
                   <!-- INPUT TYPE: account -->
                   <b-select v-else-if="setting.type == 'account'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
-                    <option v-for="(account, accountIndex) in accounts[tagEdition.info.gameID]" :key="account.id" :value="account.id">
-                      {{accountIndex}} - {{account.username}} {{account.region ? `(${account.region})` : ''}}
+                    <option v-for="account in accounts[tagEdition.info.gameID]" :key="account.id" :value="account.id">
+                      {{account.settings.username}} {{account.settings.region ? `(${account.settings.region})` : ''}}
                     </option>
                   </b-select>
                   <!-- INPUT TYPE: select -->
@@ -157,7 +157,6 @@ import VueNotifications from "vue-notifications";
 export default {
   data() {
     return {
-      tagExample: "TODO",
       navigation: null,
       showUnusedTags: true,
       tagEdition: null,
@@ -172,7 +171,6 @@ export default {
     ...mapState({
       user: state => state.user.info,
       locale: state => state.locale,
-      games: state => state.builder.games,
       accounts: state => state.builder.accounts,
       userTags: state => state.builder.userTags,
       selectedGame: state => state.builder.selectedGame,

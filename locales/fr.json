@@ -52,6 +52,7 @@
     "no-game-selected": "Aucun jeu sélectionné.",
     "no-tags-game": "Aucune données pour ce jeu.",
     "no-data": "Aucune données.",
+    "no-accounts-list": "Aucun comptes.",
     "no-accounts": "Vous avez besoin d'au moins un compte.",
     "can-move-anywhere": "Une fois créées, vous pouvez déplacer vos données n'importe où dans votre profil.",
     "show-unused-tags": "Afficher les tags inutilisés",
@@ -64,6 +65,8 @@
     "save": "Enregistrer",
     "remove": "Supprimer",
     "remove-confirmation-message": "Êtes-vous sûr de vouloir supprimer cette donnée ?",
+    "all-games": "Tous les jeux",
+    "add-account": "Ajouter un compte",
     "placeholder": {
       "name": "Nom",
       "description": "Description",
@@ -74,9 +77,9 @@
   "settings": {
     "tab": {
       "general": "Général",
+      "tweet-auto": "Tweets automatiques",
       "pp": "Photos de profil",
-      "notifications": "Notifications",
-      "api": "API"
+      "notifications": "Notifications"
     },
     "general": {
       "delete-account": "Supprimer mon compte",
