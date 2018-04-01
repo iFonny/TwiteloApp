@@ -47,7 +47,7 @@
             <!-- EDIT USER TAGS POPUP -->
             <div v-if="navigation == 'editTag' && tagEdition" class="is-full-height relative-zone">
 
-              <!-- TAG RESUME && EXAMPLE -->
+              <!-- TAG RESUME && ADD BUTTONS -->
               <p class="tag-title has-text-grey-lighter is-size-5 has-text-left">{{tagEdition.info.name}} - {{tagEdition.info.categorySmall}}</p>
               <p class="tag-example is-size-6 has-text-grey-light has-text-left">
                 {{$t('builder.add-in')}}
@@ -91,6 +91,8 @@
                       {{input[locale]}}
                     </option>
                   </b-select>
+                  <!-- INPUT TYPE: string -->
+                  <b-input v-else-if="setting.type == 'string'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded></b-input>
                 </b-field>
 
               </section>

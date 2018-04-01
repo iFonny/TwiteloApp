@@ -90,6 +90,8 @@
                         {{input[locale]}}
                       </option>
                     </b-select>
+                    <!-- INPUT TYPE: string -->
+                    <b-input v-else-if="setting.type == 'string'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded></b-input>
                   </b-field>
 
                 </section>
