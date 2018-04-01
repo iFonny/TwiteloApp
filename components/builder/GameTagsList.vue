@@ -81,7 +81,7 @@
                     <!-- INPUT TYPE: account -->
                     <b-select v-else-if="setting.type == 'account'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
                       <option v-for="account in accounts[tagCreation.gameID]" :key="account.id" :value="account.id">
-                        {{account.settings.username}} {{account.settings.region ? `(${account.settings.region})` : ''}}
+                        {{account.settings.username}} {{account.settings.region ? `(${account.settings.region.toUpperCase()})` : ''}}
                       </option>
                     </b-select>
                     <!-- INPUT TYPE: select -->

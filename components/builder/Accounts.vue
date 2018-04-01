@@ -30,7 +30,7 @@
                     <b-icon pack="far" icon="edit" size="is-small"></b-icon>
                   </b-tag>
                   <b-tag @click.native="editAccountPopup(account)" size="is-small" class="account-tag account-tag-name" :type="checkAccountIncluded(account.id) ? 'included' : 'not-included'">
-                    <span>{{account.settings.username}}{{account.settings.region ? ` - ${account.settings.region}` : ''}}</span>
+                    <span>{{account.settings.username}}{{account.settings.region ? ` - ${account.settings.region.toUpperCase()}` : ''}}</span>
                     <b-icon v-if="account.verified" size="is-small" pack="mdi" icon="approval"></b-icon>
                   </b-tag>
                   <b-tag @click.native="editAccountPopup(account)" size="is-small" v-if="accountGameSelect == 'all-games'" class="account-tag account-tag-game" :style="`background-color: ${games[account.game_id].color}`">{{games[account.game_id].small_name}}</b-tag>
