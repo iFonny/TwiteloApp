@@ -69,9 +69,10 @@
     "remove": "Remove",
     "remove-confirmation-message": "Are you sure you want to delete this data?",
     "all-games": "All games",
-    "add-account": "Add an account",
+    "add-account": "Add account",
+    "edit-account": "Edit account",
     "cant-add-more-account": "You can not add more accounts for this game",
-    "account-rate-limit": "You have added too many accounts, please wait 1 minute",
+    "account-rate-limit": "You have added or edited too many accounts, please wait 1 minute",
     "placeholder": {
       "name": "Name",
       "description": "Description",

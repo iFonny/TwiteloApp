@@ -26,15 +26,15 @@
               <p v-if="!accountsBySelect || Object.keys(accountsBySelect).length <= 0" class="is-size-4 has-text-danger animated fadeIn">{{$t('builder.no-accounts-list')}}</p>
               <div v-else v-for="account in accountsBySelect" :key="account.id" class="control animated fadeIn">
                 <b-taglist attached>
-                  <b-tag size="is-small" class="account-tag account-tag-edit" type="is-twitter">
+                  <b-tag @click.native="editAccountPopup(account)" size="is-small" class="account-tag account-tag-edit" type="is-twitter">
                     <b-icon pack="far" icon="edit" size="is-small"></b-icon>
                   </b-tag>
-                  <b-tag size="is-small" class="account-tag account-tag-name" :type="checkAccountIncluded(account.id) ? 'included' : 'not-included'">
+                  <b-tag @click.native="editAccountPopup(account)" size="is-small" class="account-tag account-tag-name" :type="checkAccountIncluded(account.id) ? 'included' : 'not-included'">
                     <span>{{account.settings.username}}{{account.settings.region ? ` - ${account.settings.region}` : ''}}</span>
                     <b-icon v-if="account.verified" size="is-small" pack="mdi" icon="approval"></b-icon>
                   </b-tag>
-                  <b-tag size="is-small" v-if="accountGameSelect == 'all-games'" class="account-tag account-tag-game" :style="`background-color: ${games[account.game_id].color}`">{{games[account.game_id].small_name}}</b-tag>
-                  <b-tag size="is-small" class="account-tag account-tag-delete" type="is-danger">
+                  <b-tag @click.native="editAccountPopup(account)" size="is-small" v-if="accountGameSelect == 'all-games'" class="account-tag account-tag-game" :style="`background-color: ${games[account.game_id].color}`">{{games[account.game_id].small_name}}</b-tag>
+                  <b-tag @click.native="deleteAccountPopup(account)" size="is-small" class="account-tag account-tag-delete" type="is-danger">
                     <b-icon pack="far" icon="trash-alt" size="is-small"></b-icon>
                   </b-tag>
                 </b-taglist>
@@ -43,7 +43,7 @@
 
             <!-- CANCEL/DELETE BUTTON -->
             <div class="nav-buttons columns is-gapless is-mobile">
-              <button v-if="accountGameSelect && accountGameSelect != 'all-games'" :disabled="accounts[accountGameSelect] != null && accounts[accountGameSelect].length >= 3 ? true : false" @click="addAccountPopup(accountGameSelect)" class="column button is-lightgreen">
+              <button @click="addAccountPopup(accountGameSelect)" v-if="accountGameSelect && accountGameSelect != 'all-games'" :disabled="accounts[accountGameSelect] != null && accounts[accountGameSelect].length >= 3 ? true : false" class="column button is-lightgreen">
                 {{$t('builder.add-account')}} ({{accounts[accountGameSelect] ? accounts[accountGameSelect].length : 0}}/3)
               </button>
               <button v-else disabled class="column button is-lightgreen">
@@ -59,7 +59,7 @@
             <button @click="cancelAddAccount()" type="button" class="delete account-creation-cancel"></button>
 
             <!-- ADD ACCOUNT POPUP -->
-            <div v-if="navigation == 'addAccount' && accountCreation && accountGameSelect != 'all-games'" class="is-full-height relative-zone">
+            <div v-if="navigation == 'addAccount' && accountCreation && accountGameSelect && accountGameSelect != 'all-games'" class="is-full-height relative-zone">
 
               <!-- ACCOUNT RESUME -->
               <p class="account-title has-text-grey-lighter is-size-5 has-text-left">{{$t('builder.add-account')}}</p>
@@ -104,6 +104,52 @@
               </div>
             </div>
 
+            <!-- EDIT ACCOUNT POPUP -->
+            <div v-else-if="navigation == 'editAccount' && accountEdition" class="is-full-height relative-zone">
+
+              <!-- ACCOUNT RESUME -->
+              <p class="account-title has-text-grey-lighter is-size-5 has-text-left">{{$t('builder.edit-account')}}</p>
+              <p class="account-subtitle is-size-6 has-text-grey-light has-text-left">{{games[accountEdition.game_id].name}}</p>
+
+              <!-- ACCOUNT SETTING FIELDS -->
+              <section class="account-creation-popup has-text-left animated fadeIn">
+
+                <b-field v-for="(setting, settingKey) in accountEdition.fieldSettings" :key="settingKey" grouped group-multiline expanded>
+
+                  <!-- FIELD LABEL -->
+                  <p v-if="settingKey != 'verified'" class="control">
+                    <label class="label">
+                      {{setting.label[locale]}}
+                      <b-tooltip v-if="setting.tooltip" :label="setting.tooltip[locale]" type="is-light" position="is-right" size="is-small" multilined>
+                        <b-icon pack="far" icon="question-circle" size="is-small" class="has-text-grey-light">
+                        </b-icon>
+                      </b-tooltip>
+                    </label>
+                  </p>
+
+                  <!-- INPUT TYPE: string -->
+                  <b-input v-if="setting.type == 'string'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded></b-input>
+                  <!-- INPUT TYPE: select -->
+                  <b-select v-else-if="setting.type == 'select'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
+                    <option v-for="(input, inputKey) in setting.input" :key="inputKey" :value="inputKey">
+                      {{input[locale]}}
+                    </option>
+                  </b-select>
+                </b-field>
+
+              </section>
+
+              <!-- REMOVE/SAVE BUTTON -->
+              <div class="nav-buttons columns is-gapless is-mobile">
+                <button @click="deleteAccountPopup()" class="column button is-danger">
+                  {{$t('builder.remove')}}
+                </button>
+                <button @click="updateAccount(accountEdition)" class="column button is-success" :disabled="!checkInputsEdit()" :class="loadingButtons.save ? 'is-loading' : ''">
+                  {{$t('builder.save')}}
+                </button>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -122,9 +168,11 @@ export default {
     return {
       navigation: null,
       accountCreation: null,
+      accountEdition: null,
       accountGameSelect: "all-games",
       loadingButtons: {
-        add: false
+        add: false,
+        save: false
       },
       dataForm: {}
     };
@@ -169,7 +217,7 @@ export default {
           settings: this.dataForm
         })
         .then(data => {
-          this.$store.commit("builder/ADD_ACCOUNT", data.data);
+          this.$store.commit("builder/UPDATE_ACCOUNT", data.data);
           this.cancelAddAccount();
           this.loadingButtons.add = false;
         })
@@ -209,9 +257,57 @@ export default {
       this.accountCreation = this.accountSettings[gameSelected];
       this.navigation = "addAccount";
     },
+    editAccountPopup(account) {
+      this.accountEdition = account;
+      this.accountEdition.fieldSettings = this.accountSettings[account.game_id];
+      this.dataForm = _.cloneDeep(account.settings);
+      this.navigation = "editAccount";
+    },
+    async updateAccount(account) {
+      this.loadingButtons.save = true;
+
+      await this.$axios
+        .$post(`/api/account/me/${account.id}/edit`, {
+          game_id: account.game_id,
+          settings: this.dataForm
+        })
+        .then(data => {
+          console.log(data);
+          if (data.data)
+            this.$store.commit("builder/UPDATE_ACCOUNT", data.data);
+
+          this.cancelAddAccount();
+          this.loadingButtons.save = false;
+        })
+        .catch(e => {
+          const code = parseInt(e.response && e.response.status);
+
+          if (code == 429) {
+            this.showNotification({
+              title: this.$t("error.error"),
+              message: this.$t("builder.account-rate-limit"),
+              type: "error",
+              timeout: 5000
+            });
+          } else {
+            this.$store.dispatch("setError", e);
+            this.showNotification({
+              title: this.$store.state.error.statusCode.toString(),
+              message: this.$store.state.error.message,
+              type: "error",
+              timeout: 5000
+            });
+          }
+
+          setTimeout(() => {
+            this.loadingButtons.save = false;
+          }, 5000);
+        });
+    },
     cancelAddAccount() {
       this.navigation = null;
       this.accountCreation = null;
+      this.accountEdition = null;
       this.dataForm = {};
     },
     checkInputsAdd() {
@@ -219,6 +315,14 @@ export default {
         if (!this.dataForm[input] && input != "verified") return false;
       }
       return true;
+    },
+    checkInputsEdit() {
+      for (const input in this.accountEdition.fieldSettings) {
+        if (!this.dataForm[input] && input != "verified") return false;
+        if (this.dataForm[input] != this.accountEdition.settings[input])
+          return true;
+      }
+      return false;
     }
   },
   notifications: {

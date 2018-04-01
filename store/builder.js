@@ -42,6 +42,7 @@ export const mutations = {
   },
   SET_ALL_ACCOUNTS(state, accounts) {
     state.allAccounts = accounts;
+    state.accounts = _.groupBy(state.allAccounts, 'game_id');
   },
   SET_USER_TAG_INCLUDED(state, key) {
     state.userTags[key].included = true;
@@ -76,13 +77,10 @@ export const mutations = {
   }) {
     state.userTags[index].settings = settings;
   },
-  ADD_ACCOUNT(state, account) {
+  UPDATE_ACCOUNT(state, account) {
     state.allAccounts[account.id] = account;
     state.accounts = _.groupBy(state.allAccounts, 'game_id');
-  },
-  SYNC_ACCOUNTS(state) {
-    state.accounts = _.groupBy(state.allAccounts, 'game_id');
-  },
+  }
 };
 
 
@@ -106,7 +104,6 @@ export const actions = {
     commit('SET_USER_TAGS', userTags);
     commit('SET_ACCOUNT_SETTINGS', accountSettings);
     commit('SET_ALL_ACCOUNTS', allAccounts);
-    commit('SYNC_ACCOUNTS');
   },
 
   async fetchTags({

@@ -70,8 +70,9 @@
     "remove-confirmation-message": "Êtes-vous sûr de vouloir supprimer cette donnée ?",
     "all-games": "Tous les jeux",
     "add-account": "Ajouter un compte",
+    "edit-account": "Modifier un compte",
     "cant-add-more-account": "Vous ne pouvez pas ajouter plus de comptes pour ce jeu",
-    "account-rate-limit": "Vous avez ajouté trop de comptes, veuillez attendre 1 minute",
+    "account-rate-limit": "Vous avez ajouté ou modifié trop de comptes, veuillez attendre 1 minute",
     "placeholder": {
       "name": "Nom",
       "description": "Description",
