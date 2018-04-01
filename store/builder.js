@@ -95,39 +95,7 @@ export const actions = {
     games = _.keyBy(games, 'id');
     const userTags = (await this.$axios.$get(`/api/tag/me/all`)).data;
     const accountSettings = (await this.$axios.$get('/api/game/settings/all')).data;
-
-    // TODO: get All accounts
-    let allAccounts = [{
-        id: '1ac3456b7890',
-        user_id: '1ac3456b7890',
-        account_id: '98765434567', // id du compte dans le jeu
-        game_id: 'lol',
-        created: 0, // TODO
-        verified: true, // TODO: compte verifié (prouve que le compte lui appartient)
-        settings: {
-          username: 'iFonny',
-          region: 'euw'
-        }
-      }, {
-        id: '1ac3456b789',
-        account_id: '98765434567', // id du compte dans le jeu
-        game_id: 'lol',
-        created: 0, // TODO
-        settings: {
-          username: 'Rlco38',
-          region: 'EUW'
-        }
-      },
-      {
-        id: '1',
-        account_id: '98765434567', // id du compte dans le jeu
-        game_id: 'speedrun',
-        created: 0, // TODO
-        settings: {
-          username: 'iFonny'
-        }
-      }
-    ];
+    let allAccounts = (await this.$axios.$get('/api/account/me/all')).data;
     allAccounts = _.keyBy(allAccounts, 'id');
 
     for (const key in userTags) {

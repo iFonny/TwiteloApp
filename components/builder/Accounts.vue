@@ -43,8 +43,8 @@
 
             <!-- CANCEL/DELETE BUTTON -->
             <div class="nav-buttons columns is-gapless is-mobile">
-              <button v-if="accountGameSelect && accountGameSelect != 'all-games'" :disabled="accounts[accountGameSelect].length >= 3 ? true : false" @click="addAccountPopup(accountGameSelect)" class="column button is-lightgreen">
-                {{$t('builder.add-account')}} ({{accounts[accountGameSelect].length}}/3)
+              <button v-if="accountGameSelect && accountGameSelect != 'all-games'" :disabled="accounts[accountGameSelect] != null && accounts[accountGameSelect].length >= 3 ? true : false" @click="addAccountPopup(accountGameSelect)" class="column button is-lightgreen">
+                {{$t('builder.add-account')}} ({{accounts[accountGameSelect] ? accounts[accountGameSelect].length : 0}}/3)
               </button>
               <button v-else disabled class="column button is-lightgreen">
                 {{$t('builder.select-game-to-add-account')}}
