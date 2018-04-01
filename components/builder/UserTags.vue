@@ -30,7 +30,7 @@
                     <b>{{userTagKey}}</b>
                   </b-tag>
                   <b-tag @click.native="editTagPopup(userTag, userTagKey)" class="user-tag user-tag-name-category" :type="userTag.included ? 'included' : 'not-included'">{{userTag.info.nameSmall}} - {{userTag.info.categorySmall}}</b-tag>
-                  <b-tag @click.native="editTagPopup(userTag, userTagKey)" class="user-tag user-tag-game" :style="`background-color: ${userTag.game.color}`">{{userTag.game.small_name}}</b-tag>
+                  <b-tag @click.native="editTagPopup(userTag, userTagKey)" class="user-tag user-tag-game" :style="`background-color: ${games[userTag.game_id].color}`">{{games[userTag.game_id].small_name}}</b-tag>
                   <b-tag @click.native="deleteTagPopup(userTag, userTagKey)" class="user-tag user-tag-delete" type="is-danger">
                     <b-icon pack="far" icon="trash-alt" size="is-small"></b-icon>
                   </b-tag>
@@ -124,7 +124,7 @@
                         <b>{{tagEdition.index}}</b>
                       </b-tag>
                       <b-tag class="user-tag user-tag-name-category" size="is-medium" :type="tagEdition.included ? 'included' : 'not-included'">{{tagEdition.info.nameSmall}} - {{tagEdition.info.categorySmall}}</b-tag>
-                      <b-tag class="user-tag user-tag-game" size="is-medium" :style="`background-color: ${tagEdition.game.color}`">{{tagEdition.game.small_name}}</b-tag>
+                      <b-tag class="user-tag user-tag-game" size="is-medium" :style="`background-color: ${games[tagEdition.game_id].color}`">{{games[tagEdition.game_id].small_name}}</b-tag>
                     </b-taglist>
                   </b-field>
                 </div>
@@ -173,6 +173,7 @@ export default {
     ...mapState({
       user: state => state.user.info,
       locale: state => state.locale,
+      games: state => state.builder.games,
       accounts: state => state.builder.accounts,
       userTags: state => state.builder.userTags,
       selectedGame: state => state.builder.selectedGame,
