@@ -43,14 +43,66 @@
 
             <!-- CANCEL/DELETE BUTTON -->
             <div class="nav-buttons columns is-gapless is-mobile">
-              <button @click="addAccount()" class="column button is-lightgreen">
-                {{$t('builder.add-account')}}
+              <button v-if="accountGameSelect && accountGameSelect != 'all-games'" :disabled="accounts[accountGameSelect].length >= 3 ? true : false" @click="addAccountPopup(accountGameSelect)" class="column button is-lightgreen">
+                {{$t('builder.add-account')}} ({{accounts[accountGameSelect].length}}/3)
+              </button>
+              <button v-else disabled class="column button is-lightgreen">
+                {{$t('builder.select-game-to-add-account')}}
               </button>
             </div>
 
           </div>
 
           <div v-else class="is-full-height">
+
+            <!-- CANCEL BUTTON -->
+            <button @click="cancelAddAccount()" type="button" class="delete account-creation-cancel"></button>
+
+            <!-- ADD ACCOUNT POPUP -->
+            <div v-if="navigation == 'addAccount' && accountCreation && accountGameSelect != 'all-games'" class="is-full-height relative-zone">
+
+              <!-- ACCOUNT RESUME -->
+              <p class="account-title has-text-grey-lighter is-size-5 has-text-left">{{$t('builder.add-account')}}</p>
+              <p class="account-subtitle is-size-6 has-text-grey-light has-text-left">{{games[accountGameSelect].name}}</p>
+
+              <!-- ACCOUNT SETTING FIELDS -->
+              <section class="account-creation-popup has-text-left animated fadeIn">
+
+                <b-field v-for="(setting, settingKey) in accountCreation" :key="settingKey" grouped group-multiline expanded>
+
+                  <!-- FIELD LABEL -->
+                  <p v-if="settingKey != 'verified'" class="control">
+                    <label class="label">
+                      {{setting.label[locale]}}
+                      <b-tooltip v-if="setting.tooltip" :label="setting.tooltip[locale]" type="is-light" position="is-right" size="is-small" multilined>
+                        <b-icon pack="far" icon="question-circle" size="is-small" class="has-text-grey-light">
+                        </b-icon>
+                      </b-tooltip>
+                    </label>
+                  </p>
+
+                  <!-- INPUT TYPE: string -->
+                  <b-input v-if="setting.type == 'string'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded></b-input>
+                  <!-- INPUT TYPE: select -->
+                  <b-select v-else-if="setting.type == 'select'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
+                    <option v-for="(input, inputKey) in setting.input" :key="inputKey" :value="inputKey">
+                      {{input[locale]}}
+                    </option>
+                  </b-select>
+                </b-field>
+
+              </section>
+
+              <!-- CANCEL/ADD BUTTON -->
+              <div class="nav-buttons columns is-gapless is-mobile">
+                <button @click="cancelAddAccount()" class="column button is-danger">
+                  {{$t('builder.cancel')}}
+                </button>
+                <button @click="addAccount(accountGameSelect)" class="column button is-success" :disabled="!checkInputsAdd()" :class="loadingButtons.add ? 'is-loading' : ''">
+                  {{$t('builder.add')}}
+                </button>
+              </div>
+            </div>
 
           </div>
 
@@ -69,7 +121,12 @@ export default {
   data() {
     return {
       navigation: null,
-      accountGameSelect: "all-games"
+      accountCreation: null,
+      accountGameSelect: "all-games",
+      loadingButtons: {
+        add: false
+      },
+      dataForm: {}
     };
   },
   computed: {
@@ -77,6 +134,7 @@ export default {
       locale: state => state.locale,
       games: state => state.builder.games,
       accounts: state => state.builder.accounts,
+      accountSettings: state => state.builder.accountSettings,
       allAccounts: state => state.builder.allAccounts,
       selectedGame: state => state.builder.selectedGame,
       userTags: state => state.builder.userTags
@@ -101,6 +159,66 @@ export default {
         else return false;
       });
       return index < 0 ? false : true;
+    },
+    async addAccount(gameSelected) {
+      this.loadingButtons.add = true;
+
+      await this.$axios
+        .$put("/api/account/me/create", {
+          game_id: gameSelected,
+          settings: this.dataForm
+        })
+        .then(data => {
+          this.$store.commit("builder/ADD_ACCOUNT", data.data);
+          this.cancelAddAccount();
+          this.loadingButtons.add = false;
+        })
+        .catch(e => {
+          const code = parseInt(e.response && e.response.status);
+
+          if (code == 405) {
+            this.showNotification({
+              title: this.$t("error.error"),
+              message: this.$t("builder.cant-add-more-account"),
+              type: "error",
+              timeout: 5000
+            });
+          } else if (code == 429) {
+            this.showNotification({
+              title: this.$t("error.error"),
+              message: this.$t("builder.account-rate-limit"),
+              type: "error",
+              timeout: 5000
+            });
+          } else {
+            this.$store.dispatch("setError", e);
+            this.showNotification({
+              title: this.$store.state.error.statusCode.toString(),
+              message: this.$store.state.error.message,
+              type: "error",
+              timeout: 5000
+            });
+          }
+
+          setTimeout(() => {
+            this.loadingButtons.add = false;
+          }, 5000);
+        });
+    },
+    addAccountPopup(gameSelected) {
+      this.accountCreation = this.accountSettings[gameSelected];
+      this.navigation = "addAccount";
+    },
+    cancelAddAccount() {
+      this.navigation = null;
+      this.accountCreation = null;
+      this.dataForm = {};
+    },
+    checkInputsAdd() {
+      for (const input in this.accountCreation) {
+        if (!this.dataForm[input] && input != "verified") return false;
+      }
+      return true;
     }
   },
   notifications: {
@@ -115,6 +233,18 @@ export default {
 
 
 <style scoped>
+.account-title {
+  padding: 0 0.7rem 0 0.7rem;
+}
+.account-subtitle {
+  padding: 0 0.7rem 0.7rem 0.7rem;
+}
+.account-creation-popup {
+  border-radius: 3px;
+  padding: 0 0.7rem;
+  position: relative;
+  width: 100%;
+}
 .align-tags {
   display: flex;
   justify-content: center !important;
@@ -127,6 +257,18 @@ export default {
 .relative-zone {
   position: relative;
   padding-bottom: 50px;
+}
+.delete.account-creation-cancel {
+  position: absolute;
+  right: 0.5rem !important;
+  top: 3.5rem !important;
+  height: 35px !important;
+  width: 35px !important;
+  max-height: 35px !important;
+  max-width: 35px !important;
+  min-height: 35px !important;
+  min-width: 35px !important;
+  z-index: 1;
 }
 .nav-buttons {
   position: absolute;
