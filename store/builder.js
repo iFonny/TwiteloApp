@@ -137,7 +137,6 @@ export const actions = {
       game_id: tagInfo.gameID,
       settings
     })).data;
-    tag.included = true;
     await commit('ADD_USER_TAG', tag);
     await dispatch('transformToUUID');
     await commit('user/SET_TWITELO_DATA_CONTENT', {

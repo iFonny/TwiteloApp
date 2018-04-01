@@ -86,7 +86,7 @@
                   <!-- INPUT TYPE: select -->
                   <b-select v-else-if="setting.type == 'select'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
                     <option v-for="(input, inputKey) in setting.input" :key="inputKey" :value="inputKey">
-                      {{input[locale]}}
+                      {{input[locale]}} ({{inputKey}})
                     </option>
                   </b-select>
                 </b-field>
@@ -132,7 +132,7 @@
                   <!-- INPUT TYPE: select -->
                   <b-select v-else-if="setting.type == 'select'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
                     <option v-for="(input, inputKey) in setting.input" :key="inputKey" :value="inputKey">
-                      {{input[locale]}}
+                      {{input[locale]}} ({{inputKey}})
                     </option>
                   </b-select>
                 </b-field>
