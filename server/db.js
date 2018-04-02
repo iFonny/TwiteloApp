@@ -56,10 +56,7 @@ module.exports = {
         }
         if (!tables.includes('log')) {
           console.log('RethinkDB: "log" table created.');
-          r.tableCreate('log').run().then(() => {
-            //r.table('log').indexCreate('user_id').run();
-            console.log('RethinkDB: "log" indexes created.');
-          });
+          r.tableCreate('log').run();
         }
         if (!tables.includes('tag')) {
           console.log('RethinkDB: "tag" table created.');

@@ -84,22 +84,14 @@
                         </b-tooltip>
                       </label>
                     </p>
-                    <!-- INPUT TYPE: size -->
-                    <b-select v-if="setting.type == 'size'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
-                      <option v-for="(optionSize, optionKey) in tagCreation.size" :key="optionKey" :value="optionKey">
-                        {{ optionSize }} {{$t('builder.characters')}} ({{optionKey}})
-                      </option>
-                    </b-select>
-                    <!-- INPUT TYPE: select -->
-                    <b-select v-else-if="setting.type == 'select'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
-                      <option v-for="(input, inputKey) in setting.input" :key="inputKey" :value="inputKey">
-                        {{input[locale]}}
-                      </option>
-                    </b-select>
-                    <!-- INPUT TYPE: string -->
-                    <b-input v-else-if="setting.type == 'string'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded></b-input>
-                  </b-field>
 
+                    <!-- INPUT TYPE: select -->
+                    <b-select v-if="setting.type == 'select'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
+                      <option v-for="(input, inputKey) in setting.input" :key="inputKey" :value="inputKey">
+                        {{input[locale]}} {{input.value != 0 ? `(${input.value > 0 ? '+' : '-'} ${Math.abs(input.value)} ${$t('builder.characters')})` : ''}}
+                      </option>
+                    </b-select>
+                  </b-field>
                 </section>
               </div>
 
@@ -196,12 +188,18 @@ export default {
     tagExample() {
       if (this.tagCreation && this.tagCreation.example && this.dataForm) {
         let result = this.tagCreation.example;
+        let size = this.tagCreation.size;
+
         while (typeof result == "object") {
           for (const key in result) {
+            if (this.tagCreation.fieldSettings[key].input[this.dataForm[key]])
+              size += this.tagCreation.fieldSettings[key].input[
+                this.dataForm[key]
+              ].value;
             result = result[key][this.dataForm[key]];
           }
         }
-        return result || "...";
+        return (result ? `${result}` : "...") + ` (${size} ${this.$t("builder.characters")})`;
       } else return "...";
     }
   },
