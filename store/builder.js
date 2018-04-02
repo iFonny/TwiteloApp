@@ -71,6 +71,9 @@ export const mutations = {
   DELETE_USER_TAG(state, id) {
     state.userTags.splice(id, 1);
   },
+  DELETE_USER_TAGS(state, tagIDs) {
+    state.userTags = _.filter(state.userTags, (o) => !tagIDs.includes(o.id));
+  },
   UPDATE_USER_TAG_SETTINGS(state, {
     index,
     settings
@@ -79,6 +82,10 @@ export const mutations = {
   },
   UPDATE_ACCOUNT(state, account) {
     state.allAccounts[account.id] = account;
+    state.accounts = _.groupBy(state.allAccounts, 'game_id');
+  },
+  DELETE_ACCOUNT(state, id) {
+    delete state.allAccounts[id];
     state.accounts = _.groupBy(state.allAccounts, 'game_id');
   }
 };
@@ -157,7 +164,7 @@ export const actions = {
   }) {
     const newSettings = (await this.$axios.$post(`/api/tag/me/${tag.id}/edit`, {
       tag_id: tag.tag_id,
-      game_id: tag.game.id,
+      game_id: tag.game_id,
       settings
     })).data;
 
@@ -173,18 +180,51 @@ export const actions = {
     commit,
     dispatch
   }, tag) {
-    let transformed = _.cloneDeep(rootState.user.info.twitelo);
-
     await this.$axios.$delete(`/api/tag/me/${tag.id}/delete`);
     await dispatch("transformToUUID");
+
+    let transformed = _.cloneDeep(rootState.user.info.twitelo);
     transformed.name.content = transformed.name.content.replace(`<{${tag.id}}>`, '').trim();
     transformed.description.content = transformed.description.content.replace(`<{${tag.id}}>`, '').trim();
     transformed.location.content = transformed.location.content.replace(`<{${tag.id}}>`, '').trim();
     transformed.url.content = transformed.url.content.replace(`<{${tag.id}}>`, '').trim();
+
     await commit('user/SET_TWITELO_DATA', transformed, {
       root: true
     });
     await commit('DELETE_USER_TAG', tag.index);
+    await dispatch("transformFromUUID");
+  },
+
+  async deleteAccount({
+    state,
+    rootState,
+    commit,
+    dispatch
+  }, account) {
+    function removeFromProfile(text, ids) {
+      const re = new RegExp(ids.join('|'), 'g');
+      return text.replace(re, '');
+    }
+
+    await this.$axios.$delete(`/api/account/me/${account.id}/delete`);
+    await dispatch("transformToUUID");
+
+    let tagsToDelete = _.filter(state.userTags, o => o.settings.account == account.id);
+    const tagIDsToDelete = tagsToDelete.map(tag => `<{${tag.id}}>`);
+
+    let transformed = _.cloneDeep(rootState.user.info.twitelo);
+    transformed.name.content = removeFromProfile(transformed.name.content.trim(), tagIDsToDelete);
+    transformed.description.content = removeFromProfile(transformed.description.content.trim(), tagIDsToDelete);
+    transformed.location.content = removeFromProfile(transformed.location.content.trim(), tagIDsToDelete);
+    transformed.url.content = removeFromProfile(transformed.url.content.trim(), tagIDsToDelete);
+
+    await commit('user/SET_TWITELO_DATA', transformed, {
+      root: true
+    });
+
+    await commit('DELETE_USER_TAGS', tagsToDelete.map(tag => tag.id));
+    await commit('DELETE_ACCOUNT', account.id);
     await dispatch("transformFromUUID");
   },
 

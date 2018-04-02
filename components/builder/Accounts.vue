@@ -141,13 +141,43 @@
 
               <!-- REMOVE/SAVE BUTTON -->
               <div class="nav-buttons columns is-gapless is-mobile">
-                <button @click="deleteAccountPopup()" class="column button is-danger">
+                <button @click="deleteAccountPopup(accountEdition)" class="column button is-danger">
                   {{$t('builder.remove')}}
                 </button>
                 <button @click="updateAccount(accountEdition)" class="column button is-success" :disabled="!checkInputsEdit()" :class="loadingButtons.save ? 'is-loading' : ''">
                   {{$t('builder.save')}}
                 </button>
               </div>
+            </div>
+
+            <!-- REMOVE ACCOUNT POPUP CONFIRMATION -->
+            <div v-if="navigation == 'deleteAccountConfirm' && accountEdition" class="is-full-height relative-zone">
+
+              <!-- ACCOUNT RESUME-->
+              <p class="account-title has-text-grey-lighter is-size-5 has-text-left">{{games[accountEdition.game_id].name}} - {{accountEdition.settings.username}}</p>
+
+              <div class="confirmation-message align-vertical-center is-full-height animated fadeIn">
+                <div>
+                  <div class="title is-size-5">{{$t('builder.remove-account-confirmation-message')}}</div>
+                  <b-field grouped group-multiline class="align-tags">
+                    <b-taglist attached class="has-text-centered">
+                      <b-tag class="account-tag account-tag-name" size="is-medium" :type="accountEdition.included ? 'included' : 'not-included'">{{accountEdition.settings.username}}{{accountEdition.settings.region ? ` - ${accountEdition.settings.region.toUpperCase()}` : ''}}</b-tag>
+                      <b-tag class="account-tag account-tag-game" size="is-medium" :style="`background-color: ${games[accountEdition.game_id].color}`">{{games[accountEdition.game_id].small_name}}</b-tag>
+                    </b-taglist>
+                  </b-field>
+                </div>
+              </div>
+
+              <!-- CANCEL/DELETE BUTTON -->
+              <div class="nav-buttons columns is-gapless is-mobile">
+                <button @click="cancelAddAccount()" class="column button is-light">
+                  {{$t('builder.cancel')}}
+                </button>
+                <button @click="deleteAccount(accountEdition)" class="column button is-danger" :class="loadingButtons.remove ? 'is-loading' : ''">
+                  {{$t('builder.remove')}}
+                </button>
+              </div>
+
             </div>
 
           </div>
@@ -172,7 +202,8 @@ export default {
       accountGameSelect: "all-games",
       loadingButtons: {
         add: false,
-        save: false
+        save: false,
+        remove: false
       },
       dataForm: {}
     };
@@ -263,6 +294,10 @@ export default {
       this.dataForm = _.cloneDeep(account.settings);
       this.navigation = "editAccount";
     },
+    deleteAccountPopup(account) {
+      this.accountEdition = account;
+      this.navigation = "deleteAccountConfirm";
+    },
     async updateAccount(account) {
       this.loadingButtons.save = true;
 
@@ -303,6 +338,24 @@ export default {
             this.loadingButtons.save = false;
           }, 5000);
         });
+    },
+    async deleteAccount(account) {
+      this.$store.commit("builder/SET_BUILDER_LOADING", true);
+      this.loadingButtons.remove = true;
+
+      await this.$store.dispatch("builder/deleteAccount", account).catch(e => {
+        this.$store.dispatch("setError", e);
+        this.showNotification({
+          title: this.$store.state.error.statusCode.toString(),
+          message: this.$store.state.error.message,
+          type: "error",
+          timeout: 5000
+        });
+      });
+
+      this.cancelAddAccount();
+      this.loadingButtons.remove = false;
+      this.$store.commit("builder/SET_BUILDER_LOADING", false);
     },
     cancelAddAccount() {
       this.navigation = null;
@@ -400,6 +453,10 @@ export default {
 }
 .account-tag-game {
   color: #151515;
+}
+.confirmation-message {
+  padding-top: 20px;
+  height: calc(100% - 40px);
 }
 </style>
 

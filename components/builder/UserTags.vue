@@ -117,7 +117,7 @@
 
               <div class="confirmation-message align-vertical-center is-full-height animated fadeIn">
                 <div>
-                  <div class="title is-size-4">{{$t('builder.remove-confirmation-message')}}</div>
+                  <div class="title is-size-4">{{$t('builder.remove-tag-confirmation-message')}}</div>
                   <b-field grouped group-multiline class="align-tags">
                     <b-taglist attached class="has-text-centered">
                       <b-tag class="user-tag user-tag-key" size="is-medium">
