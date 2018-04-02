@@ -234,7 +234,7 @@ export default {
   methods: {
     checkAccountIncluded(id) {
       const index = _.findIndex(this.userTags, function(o) {
-        if (o.settings && o.included && o.settings.account == id) return true;
+        if (o.included && o.account_id == id) return true;
         else return false;
       });
       return index < 0 ? false : true;
@@ -307,7 +307,6 @@ export default {
           settings: this.dataForm
         })
         .then(data => {
-          console.log(data);
           if (data.data)
             this.$store.commit("builder/UPDATE_ACCOUNT", data.data);
 

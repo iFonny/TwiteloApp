@@ -61,6 +61,18 @@
                 <!-- TAG SETTING FIELDS -->
                 <section class="tag-creation-popup has-text-left animated fadeIn">
 
+                  <!-- CHOOSE ACCOUNT -->
+                  <b-field v-if="tagCreation.account" grouped expanded>
+                    <p class="control">
+                      <label class="label">{{$t('builder.account')}}</label>
+                    </p>
+                    <b-select v-model="dataForm.account_id" :placeholder="$t('builder.account')" size="is-small" required expanded>
+                      <option v-for="account in accounts[tagCreation.gameID]" :key="account.id" :value="account.id">
+                        {{account.settings.username}} {{account.settings.region ? `(${account.settings.region.toUpperCase()})` : ''}}
+                      </option>
+                    </b-select>
+                  </b-field>
+
                   <b-field v-for="(setting, settingKey) in tagCreation.fieldSettings" :key="settingKey" grouped group-multiline expanded>
                     <!-- FIELD LABEL -->
                     <p class="control">
@@ -76,12 +88,6 @@
                     <b-select v-if="setting.type == 'size'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
                       <option v-for="(optionSize, optionKey) in tagCreation.size" :key="optionKey" :value="optionKey">
                         {{ optionSize }} {{$t('builder.characters')}} ({{optionKey}})
-                      </option>
-                    </b-select>
-                    <!-- INPUT TYPE: account -->
-                    <b-select v-else-if="setting.type == 'account'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
-                      <option v-for="account in accounts[tagCreation.gameID]" :key="account.id" :value="account.id">
-                        {{account.settings.username}} {{account.settings.region ? `(${account.settings.region.toUpperCase()})` : ''}}
                       </option>
                     </b-select>
                     <!-- INPUT TYPE: select -->
@@ -208,7 +214,7 @@ export default {
   methods: {
     addGameTag(gameTag) {
       if (
-        gameTag.fieldSettings.account &&
+        gameTag.account &&
         (!this.accounts[this.selectedGame.id] ||
           this.accounts[this.selectedGame.id].length <= 0)
       ) {
@@ -242,7 +248,7 @@ export default {
         .dispatch("builder/createTagAndUpdate", {
           destination,
           tagInfo: this.tagCreation,
-          settings: this.dataForm
+          dataForm: this.dataForm
         })
         .catch(e => {
           this.$store.dispatch("setError", e);

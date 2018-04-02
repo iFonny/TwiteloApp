@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Vue from 'vue';
 
 export const state = () => ({
   builderLoading: false,
@@ -63,7 +64,7 @@ export const mutations = {
     name,
     twiteloDataInput
   }) {
-    state.twiteloDataInput[name] = twiteloDataInput;
+    Vue.set(state.twiteloDataInput, name, twiteloDataInput);
   },
   ADD_USER_TAG(state, tag) {
     state.userTags.push(tag);
@@ -74,14 +75,11 @@ export const mutations = {
   DELETE_USER_TAGS(state, tagIDs) {
     state.userTags = _.filter(state.userTags, (o) => !tagIDs.includes(o.id));
   },
-  UPDATE_USER_TAG_SETTINGS(state, {
-    index,
-    settings
-  }) {
-    state.userTags[index].settings = settings;
+  UPDATE_USER_TAG(state, tag) {
+    Vue.set(state.userTags, tag.index, tag);
   },
   UPDATE_ACCOUNT(state, account) {
-    state.allAccounts[account.id] = account;
+    Vue.set(state.allAccounts, account.id, account);
     state.accounts = _.groupBy(state.allAccounts, 'game_id');
   },
   DELETE_ACCOUNT(state, id) {
@@ -135,14 +133,15 @@ export const actions = {
     commit,
     dispatch
   }, {
+    destination,
     tagInfo,
-    settings,
-    destination
+    dataForm
   }) {
     const tag = (await this.$axios.$put(`/api/tag/me/create`, {
       tag_id: tagInfo.id,
       game_id: tagInfo.gameID,
-      settings
+      account_id: dataForm.account_id,
+      settings: dataForm
     })).data;
     await commit('ADD_USER_TAG', tag);
     await dispatch('transformToUUID');
@@ -160,18 +159,21 @@ export const actions = {
     commit
   }, {
     tag,
-    settings
+    dataForm
   }) {
-    const newSettings = (await this.$axios.$post(`/api/tag/me/${tag.id}/edit`, {
+    const updatedTag = (await this.$axios.$post(`/api/tag/me/${tag.id}/edit`, {
       tag_id: tag.tag_id,
       game_id: tag.game_id,
-      settings
+      account_id: dataForm.account_id,
+      settings: dataForm
     })).data;
 
-    if (newSettings) commit('UPDATE_USER_TAG_SETTINGS', {
-      index: tag.index,
-      settings: newSettings
-    })
+    if (updatedTag) {
+      updatedTag.index = tag.index;
+      updatedTag.info = tag.info;
+      updatedTag.included = tag.included;
+      commit('UPDATE_USER_TAG', updatedTag);
+    }
   },
 
   async deleteTagWithIndex({
@@ -210,7 +212,7 @@ export const actions = {
     await this.$axios.$delete(`/api/account/me/${account.id}/delete`);
     await dispatch("transformToUUID");
 
-    let tagsToDelete = _.filter(state.userTags, o => o.settings.account == account.id);
+    let tagsToDelete = _.filter(state.userTags, o => o.account_id == account.id);
     const tagIDsToDelete = tagsToDelete.map(tag => `<{${tag.id}}>`);
 
     let transformed = _.cloneDeep(rootState.user.info.twitelo);

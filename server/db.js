@@ -67,6 +67,7 @@ module.exports = {
             r.table('tag').indexCreate('user_id').run();
             r.table('tag').indexCreate('game_id').run();
             r.table('tag').indexCreate('tag_id').run();
+            r.table('tag').indexCreate('account_id').run();
             r.table('tag').indexCreate('created').run();
             console.log('RethinkDB: "tag" indexes created.');
           });
