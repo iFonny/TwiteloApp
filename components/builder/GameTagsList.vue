@@ -73,6 +73,7 @@
                     </b-select>
                   </b-field>
 
+                  <!-- FORMAT SETTINGS -->
                   <b-field v-for="(setting, settingKey) in tagCreation.fieldSettings" :key="settingKey" grouped group-multiline expanded>
                     <!-- FIELD LABEL -->
                     <p class="control">
@@ -86,11 +87,35 @@
                     </p>
 
                     <!-- INPUT TYPE: select -->
-                    <b-select v-if="setting.type == 'select'" v-model="dataForm[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
+                    <b-select v-if="setting.type == 'select'" v-model="dataForm.settings[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
                       <option v-for="(input, inputKey) in setting.input" :key="inputKey" :value="inputKey">
                         {{input[locale]}} {{input.value != 0 ? `(${input.value > 0 ? '+' : '-'} ${Math.abs(input.value)} ${$t('builder.characters')})` : ''}}
                       </option>
                     </b-select>
+                  </b-field>
+
+                  <!-- DATA GAME SETTING -->
+                  <b-field v-for="(setting, settingKey) in tagCreation.dataSettings" :key="settingKey" grouped group-multiline expanded>
+                    <!-- FIELD LABEL -->
+                    <p class="control">
+                      <label class="label">
+                        {{setting.label[locale]}}
+                        <b-tooltip v-if="setting.tooltip" :label="setting.tooltip[locale]" type="is-light" position="is-right" size="is-small" multilined>
+                          <b-icon pack="far" icon="question-circle" size="is-small" class="has-text-grey-light">
+                          </b-icon>
+                        </b-tooltip>
+                      </label>
+                    </p>
+
+                    <!-- INPUT TYPE: string -->
+                    <b-input v-if="setting.type == 'string'" v-model="dataForm.dataSettings[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded></b-input>
+                    <!-- INPUT TYPE: select -->
+                    <b-select v-if="setting.type == 'select'" v-model="dataForm.dataSettings[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
+                      <option v-for="(input, inputKey) in setting.input" :key="inputKey" :value="inputKey">
+                        {{input[locale]}}
+                      </option>
+                    </b-select>
+
                   </b-field>
                 </section>
               </div>
@@ -170,7 +195,10 @@ export default {
     return {
       navigation: null,
       tagCreation: null,
-      dataForm: {},
+      dataForm: {
+        settings: {},
+        dataSettings: {}
+      },
       page: {
         current: 1
       }
@@ -186,20 +214,31 @@ export default {
       gameTagsCategoryPages: state => state.builder.gameTagsCategoryPages
     }),
     tagExample() {
-      if (this.tagCreation && this.tagCreation.example && this.dataForm) {
+      if (
+        this.tagCreation &&
+        this.tagCreation.example &&
+        this.dataForm.settings
+      ) {
         let result = this.tagCreation.example;
         let size = this.tagCreation.size;
 
         while (typeof result == "object") {
           for (const key in result) {
-            if (this.tagCreation.fieldSettings[key].input[this.dataForm[key]])
+            if (
+              this.tagCreation.fieldSettings[key].input[
+                this.dataForm.settings[key]
+              ]
+            )
               size += this.tagCreation.fieldSettings[key].input[
-                this.dataForm[key]
+                this.dataForm.settings[key]
               ].value;
-            result = result[key][this.dataForm[key]];
+            result = result[key][this.dataForm.settings[key]];
           }
         }
-        return (result ? `${result}` : "...") + ` (${size} ${this.$t("builder.characters")})`;
+        return (
+          (result ? `${result}` : "...") +
+          ` (${size} ${this.$t("builder.characters")})`
+        );
       } else return "...";
     }
   },
@@ -228,11 +267,18 @@ export default {
     cancelAddGameTag(gameTag) {
       this.navigation = null;
       this.tagCreation = null;
-      this.dataForm = {};
+      this.dataForm = {
+        settings: {},
+        dataSettings: {}
+      };
     },
     checkInputs() {
+      if (this.tagCreation.account && !this.dataForm.account_id) return false;
       for (const input in this.tagCreation.fieldSettings) {
-        if (!this.dataForm[input]) return false;
+        if (!this.dataForm.settings[input]) return false;
+      }
+      for (const input in this.tagCreation.dataSettings) {
+        if (!this.dataForm.dataSettings[input]) return false;
       }
       return true;
     },
@@ -246,7 +292,9 @@ export default {
         .dispatch("builder/createTagAndUpdate", {
           destination,
           tagInfo: this.tagCreation,
-          dataForm: this.dataForm
+          account_id: this.dataForm.account_id,
+          settings: this.dataForm.settings,
+          dataSettings: this.dataForm.dataSettings
         })
         .catch(e => {
           this.$store.dispatch("setError", e);

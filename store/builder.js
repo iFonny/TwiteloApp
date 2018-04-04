@@ -135,13 +135,16 @@ export const actions = {
   }, {
     destination,
     tagInfo,
-    dataForm
+    account_id,
+    settings,
+    dataSettings
   }) {
     const tag = (await this.$axios.$put(`/api/tag/me/create`, {
       tag_id: tagInfo.id,
       game_id: tagInfo.gameID,
-      account_id: dataForm.account_id,
-      settings: dataForm
+      account_id: account_id,
+      settings: settings,
+      dataSettings: dataSettings
     })).data;
     await commit('ADD_USER_TAG', tag);
     await dispatch('transformToUUID');
@@ -159,13 +162,16 @@ export const actions = {
     commit
   }, {
     tag,
-    dataForm
+    account_id,
+    settings,
+    dataSettings
   }) {
     const updatedTag = (await this.$axios.$post(`/api/tag/me/${tag.id}/edit`, {
       tag_id: tag.tag_id,
       game_id: tag.game_id,
-      account_id: dataForm.account_id,
-      settings: dataForm
+      account_id: account_id,
+      settings: settings,
+      dataSettings: dataSettings
     })).data;
 
     if (updatedTag) {
