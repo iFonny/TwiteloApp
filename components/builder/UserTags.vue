@@ -110,6 +110,7 @@
 
                   <!-- INPUT TYPE: string -->
                   <b-input v-if="setting.type == 'string'" v-model="dataForm.dataSettings[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded></b-input>
+
                   <!-- INPUT TYPE: select -->
                   <b-select v-if="setting.type == 'select'" v-model="dataForm.dataSettings[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
                     <option v-for="(input, inputKey) in setting.input" :key="inputKey" :value="inputKey">
@@ -213,8 +214,8 @@ export default {
       this.navigation = "editTag";
       this.dataForm = {
         account_id: tag.account_id,
-        settings: _.cloneDeep(tag.settings),
-        dataSettings: _.cloneDeep(tag.dataSettings)
+        settings: _.cloneDeep(tag.settings) || {},
+        dataSettings: _.cloneDeep(tag.data_settings) || {}
       };
     },
     async deleteTagPopup(tag, key) {
@@ -268,7 +269,7 @@ export default {
           tag,
           account_id: this.dataForm.account_id,
           settings: this.dataForm.settings,
-          dataSettings: this.dataForm.dataSettings
+          data_settings: this.dataForm.dataSettings
         })
         .catch(e => {
           this.$store.dispatch("setError", e);
@@ -294,7 +295,7 @@ export default {
         if (!this.dataForm.dataSettings[input]) return false;
         if (
           this.dataForm.dataSettings[input] !=
-          this.tagEdition.dataSettings[input]
+          this.tagEdition.data_settings[input]
         )
           return true;
       }

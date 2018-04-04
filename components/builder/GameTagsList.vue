@@ -294,7 +294,7 @@ export default {
           tagInfo: this.tagCreation,
           account_id: this.dataForm.account_id,
           settings: this.dataForm.settings,
-          dataSettings: this.dataForm.dataSettings
+          data_settings: this.dataForm.dataSettings
         })
         .catch(e => {
           this.$store.dispatch("setError", e);
