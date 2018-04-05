@@ -79,6 +79,15 @@ module.exports = {
             console.log('RethinkDB: "account" indexes created.');
           });
         }
+        if (!tables.includes('game_data')) {
+          console.log('RethinkDB: "game_data" table created.');
+          r.tableCreate('game_data').run().then(() => {
+            r.table('game_data').indexCreate('game_id').run();
+            r.table('game_data').indexCreate('tag_id').run();
+            r.table('game_data').indexCreate('updated').run();
+            console.log('RethinkDB: "game_data" indexes created.');
+          });
+        }
       });
     } catch (e) {
       console.error(e);
