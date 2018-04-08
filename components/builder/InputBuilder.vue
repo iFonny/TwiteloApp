@@ -16,8 +16,9 @@
           <b-switch @input="changeSwitch('name')" :value="twiteloData.name.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.name"></b-switch>
 
           <b-input expanded @input="updateName" :value="twiteloDataInput.name" :placeholder="$t('builder.placeholder.name')" icon="account"></b-input>
-          <div class="control align-vertical-center">
-            <b-tag type="is-twitter">46</b-tag>
+          <div class="text-counter control align-vertical-center">
+            <span :class="getCounterColor('name')">{{textCounter.name}}</span>
+            <!-- <b-tag type="is-twitter">46</b-tag> -->
             <!-- <b-tag type="is-twitter">{{twitterLimits.name}}</b-tag> -->
           </div>
         </b-field>
@@ -25,8 +26,9 @@
         <b-field grouped>
           <b-switch @input="changeSwitch('location')" :value="twiteloData.location.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.location"></b-switch>
           <b-input expanded @input="updateLocation" :value="twiteloDataInput.location" :placeholder="$t('builder.placeholder.location')" icon-pack="fas" icon="map-marker-alt"></b-input>
-          <div class="control align-vertical-center">
-            <b-tag type="is-warning">5</b-tag>
+          <div class="text-counter control align-vertical-center">
+            <span :class="getCounterColor('location')">{{textCounter.location}}</span>
+            <!-- <b-tag type="is-warning">5</b-tag> -->
             <!-- <b-tag type="is-twitter">{{twitterLimits.location}}</b-tag> -->
           </div>
         </b-field>
@@ -34,8 +36,9 @@
         <b-field grouped>
           <b-switch @input="changeSwitch('url')" :value="twiteloData.url.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.url"></b-switch>
           <b-input expanded @input="updateURL" :value="twiteloDataInput.url" :placeholder="$t('builder.placeholder.url')" icon-pack="fas" icon="link"></b-input>
-          <div class="control align-vertical-center">
-            <b-tag type="is-red">0</b-tag>
+          <div class="text-counter control align-vertical-center">
+            <span :class="getCounterColor('url')">{{textCounter.url}}</span>
+            <!-- <b-tag type="is-red">0</b-tag> -->
             <!-- <b-tag type="is-twitter">{{twitterLimits.url}}</b-tag> -->
           </div>
         </b-field>
@@ -43,8 +46,9 @@
         <b-field grouped>
           <b-switch @input="changeSwitch('description')" :value="twiteloData.description.status" size="is-medium" type="is-success" :disabled="!user.switch || switchDisabled.description"></b-switch>
           <b-input expanded @input="updateDescription" :value="twiteloDataInput.description" type="textarea" :placeholder="$t('builder.placeholder.description')"></b-input>
-          <p class="control align-vertical-center">
-            <b-tag type="is-red">-5</b-tag>
+          <p class="text-counter control align-vertical-center">
+            <span :class="getCounterColor('description')">{{textCounter.description}}</span>
+            <!-- <b-tag type="is-red">-5</b-tag> -->
             <!-- <b-tag type="is-twitter">{{twitterLimits.description}}</b-tag> -->
           </p>
         </b-field>
@@ -77,10 +81,19 @@ export default {
       twiteloData: state => state.user.info.twitelo,
       twitterLimits: state => state.builder.twitterLimits,
       builderLoading: state => state.builder.builderLoading,
-      twiteloDataInput: state => state.builder.twiteloDataInput
+      twiteloDataInput: state => state.builder.twiteloDataInput,
+      textCounter: state => state.builder.textCounter
     })
   },
   methods: {
+    getCounterColor(name) {
+      if (this.textCounter[name] > 9) return "has-text-light";
+      else {
+        if (this.textCounter[name] > 0) return "has-text-warning";
+        else if (this.textCounter[name] == 0) return "has-text-lightred";
+        else return "has-text-red";
+      }
+    },
     async changeSwitch(name) {
       if (!this.switchDisabled[name]) {
         this.switchDisabled[name] = true;
@@ -105,34 +118,38 @@ export default {
         }, 800);
       }
     },
-    updateName: _.debounce(function(e, test) {
+    updateName: _.debounce(async function(e, test) {
       this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: "name",
         twiteloDataInput: e
       });
-      this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
-    }, 1000),
-    updateDescription: _.debounce(function(e) {
+      await this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
+      await this.$store.dispatch("builder/updateTextCounters", "name");
+    }, 500),
+    updateDescription: _.debounce(async function(e) {
       this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: "description",
         twiteloDataInput: e
       });
-      this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
-    }, 1000),
-    updateLocation: _.debounce(function(e) {
+      await this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
+      await this.$store.dispatch("builder/updateTextCounters", "description");
+    }, 500),
+    updateLocation: _.debounce(async function(e) {
       this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: "location",
         twiteloDataInput: e
       });
-      this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
-    }, 1000),
-    updateURL: _.debounce(function(e) {
+      await this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
+      await this.$store.dispatch("builder/updateTextCounters", "location");
+    }, 500),
+    updateURL: _.debounce(async function(e) {
       this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: "url",
         twiteloDataInput: e
       });
-      this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
-    }, 1000)
+      await this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
+      await this.$store.dispatch("builder/updateTextCounters", "url");
+    }, 500)
   },
   notifications: {
     showNotification: {
@@ -146,6 +163,9 @@ export default {
 
 
 <style scoped>
+.text-counter {
+  min-width: 30px;
+}
 .builder-inputs .loading-overlay {
   background-color: #1717178c;
 }

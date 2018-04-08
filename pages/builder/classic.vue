@@ -62,6 +62,7 @@ export default {
     try {
       await app.store.dispatch("builder/fetchBuilderData");
       await app.store.dispatch("builder/transformFromUUID");
+      await app.store.dispatch("builder/updateTextCounters");
     } catch (e) {
       app.store.dispatch("setError", e);
       error(app.store.state.error);

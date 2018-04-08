@@ -9,11 +9,17 @@ export const state = () => ({
     location: 30,
     name: 50
   },
+  textCounter: {
+    description: 160,
+    url: 100,
+    location: 30,
+    name: 50
+  },
   twiteloDataInput: {
-    description: '1',
-    location: '2',
-    name: '3',
-    url: '4'
+    description: '',
+    location: '',
+    name: '',
+    url: ''
   },
   selectedGame: null,
   games: [],
@@ -73,6 +79,12 @@ export const mutations = {
     twiteloDataInput
   }) {
     Vue.set(state.twiteloDataInput, name, twiteloDataInput);
+  },
+  SET_TEXT_COUNTER(state, {
+    name,
+    value
+  }) {
+    Vue.set(state.textCounter, name, value);
   },
   ADD_USER_TAG(state, tag) {
     state.userTags.push(tag);
@@ -167,7 +179,8 @@ export const actions = {
   },
 
   async updateTag({
-    commit
+    commit,
+    dispatch
   }, {
     tag,
     account_id,
@@ -187,6 +200,7 @@ export const actions = {
       updatedTag.info = tag.info;
       updatedTag.included = tag.included;
       commit('UPDATE_USER_TAG', updatedTag);
+      dispatch("updateTextCounters");
     }
   },
 
@@ -210,6 +224,7 @@ export const actions = {
     });
     await commit('DELETE_USER_TAG', tag.index);
     await dispatch("transformFromUUID");
+    await dispatch("updateTextCounters");
   },
 
   async deleteAccount({
@@ -242,6 +257,59 @@ export const actions = {
     await commit('DELETE_USER_TAGS', tagsToDelete.map(tag => tag.id));
     await commit('DELETE_ACCOUNT', account.id);
     await dispatch("transformFromUUID");
+    await dispatch("updateTextCounters");
+  },
+
+
+
+  updateTextCounters({
+    state,
+    commit
+  }, name) {
+    function getTextLength(text) {
+      let counter = 0;
+      let removeArray = [];
+      const myRegexp = /<{([^<>{} ]+)}>/g;
+      let match = myRegexp.exec(text);
+
+      while (match != null) {
+        if (state.userTags[match[1]]) {
+          counter += state.userTags[match[1]].size;
+          removeArray.push(`<{${match[1]}}>`);
+        }
+        match = myRegexp.exec(text);
+      }
+      if (removeArray.length > 0) {
+        var re = new RegExp(removeArray.join("|").replace(/{/g, "\\{"), "g");
+        text = text.replace(re, "");
+      }
+      return text.length + counter;
+    }
+
+    if (name) {
+      commit('SET_TEXT_COUNTER', {
+        name,
+        value: state.twitterLimits[name] - getTextLength(state.twiteloDataInput[name])
+      });
+    } else {
+      commit('SET_TEXT_COUNTER', {
+        name: 'name',
+        value: state.twitterLimits.name - getTextLength(state.twiteloDataInput.name)
+      });
+      commit('SET_TEXT_COUNTER', {
+        name: 'description',
+        value: state.twitterLimits.description - getTextLength(state.twiteloDataInput.description)
+      });
+      commit('SET_TEXT_COUNTER', {
+        name: 'location',
+        value: state.twitterLimits.location - getTextLength(state.twiteloDataInput.location)
+      });
+      commit('SET_TEXT_COUNTER', {
+        name: 'url',
+        value: state.twitterLimits.url - getTextLength(state.twiteloDataInput.url)
+      });
+    }
+
   },
 
   transformFromUUID({
@@ -291,6 +359,7 @@ export const actions = {
       commit('SET_TWITELO_DATA_INPUT_ALL', transformed);
       console.log('(all) transform <{12a65b}> -> <{1}>');
     }
+
   },
 
   transformToUUID({

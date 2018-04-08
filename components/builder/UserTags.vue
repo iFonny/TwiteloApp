@@ -21,7 +21,7 @@
             </b-field>
             <b-field grouped group-multiline class="align-tags">
               <p v-if="!userTags.length" class="is-size-4 has-text-danger">{{$t('builder.no-data')}}</p>
-              <div v-else v-for="(userTag, userTagKey) in userTags" :key="userTag.id" class="control">
+              <div v-else v-for="(userTag, userTagKey) in userTags" :key="userTag.id">
                 <b-taglist v-if="showUnusedTags || userTag.included" attached class="animated fadeIn">
                   <b-tag @click.native="editTagPopup(userTag, userTagKey)" class="user-tag user-tag-edit" type="is-twitter">
                     <b-icon pack="far" icon="edit" size="is-small"></b-icon>
@@ -318,6 +318,11 @@ export default {
   display: flex;
   justify-content: center !important;
   /*height: calc(100% - 30px);*/
+}
+.align-tags .tags {
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
+  padding-bottom: 0.75rem;
 }
 .user-tag,
 .tag-add-in {

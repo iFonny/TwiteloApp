@@ -6,14 +6,16 @@
     </div>
     <div class="profile-preview-container">
 
-      <div v-if="preview.loading" class="loading-overlay is-full-height is-active">
-        <div class="loading-icon"></div>
-      </div>
-      <div v-else-if="preview.needUpdate" @click="refreshPreview()" class="loading-overlay is-full-height is-active need-update">
-        <div>
-          <b-icon size="is-large" pack="fas" icon="sync-alt" custom-class="fa-spin">
-          </b-icon><br>
-          <p class="is-size-5 has-text-weight-semibold">{{$t('builder.refresh-preview')}}</p>
+      <div v-if="!navigation">
+        <div v-if="preview.loading" class="loading-overlay is-full-height is-active">
+          <div class="loading-icon"></div>
+        </div>
+        <div v-else-if="preview.needUpdate" @click="refreshPreview()" class="loading-overlay is-full-height is-active need-update">
+          <div>
+            <b-icon size="is-large" pack="fas" icon="sync-alt" custom-class="fa-spin">
+            </b-icon><br>
+            <p class="is-size-5 has-text-weight-semibold">{{$t('builder.refresh-preview')}}</p>
+          </div>
         </div>
       </div>
 
@@ -132,10 +134,10 @@ export default {
 
 .profile-save-info {
   background-color: #363636;
-  padding: 2rem 0.5rem;
+  padding: 1.5rem 0.5rem;
 }
 .profile-save-info p {
-  line-height: 2.6rem;
+  line-height: 2.3rem;
 }
 
 @media screen and (max-width: 900px) {
