@@ -30,6 +30,7 @@ export const state = () => ({
   allAccounts: {},
   accounts: {},
   preview: {
+    saved: true,
     loading: false,
     needUpdate: true,
     name: 'Name',
@@ -85,6 +86,30 @@ export const mutations = {
     value
   }) {
     Vue.set(state.textCounter, name, value);
+  },
+  SET_PREVIEW_DATA(state, {
+    name,
+    value
+  }) {
+    Vue.set(state.preview, name, value);
+  },
+  SET_PREVIEW_PROFILE(state, preview) {
+    Vue.set(state.preview, 'name', preview.name.replace(
+      /<{([^<>{} ]+)}>/g,
+      '<span class="tag is-cyan">$1</span>'
+    ));
+    Vue.set(state.preview, 'description', preview.description.replace(
+      /<{([^<>{} ]+)}>/g,
+      '<span class="tag is-cyan">$1</span>'
+    ));
+    Vue.set(state.preview, 'location', preview.location.replace(
+      /<{([^<>{} ]+)}>/g,
+      '<span class="tag is-cyan">$1</span>'
+    ));
+    Vue.set(state.preview, 'url', preview.url.replace(
+      /<{([^<>{} ]+)}>/g,
+      '<span class="tag is-cyan">$1</span>'
+    ));
   },
   ADD_USER_TAG(state, tag) {
     state.userTags.push(tag);
@@ -201,6 +226,11 @@ export const actions = {
       updatedTag.included = tag.included;
       commit('UPDATE_USER_TAG', updatedTag);
       dispatch("updateTextCounters");
+      // Preview need update
+      commit("SET_PREVIEW_DATA", {
+        name: 'needUpdate',
+        value: true
+      });
     }
   },
 
@@ -260,7 +290,82 @@ export const actions = {
     await dispatch("updateTextCounters");
   },
 
+  async refreshPreview({
+    rootState,
+    state,
+    commit,
+    dispatch
+  }) {
+    // start loadings
+    commit("SET_PREVIEW_DATA", {
+      name: 'loading',
+      value: true
+    });
+    commit("SET_BUILDER_LOADING", true);
 
+    await dispatch("transformToUUID");
+
+    const preview = (await this.$axios.$post(`/api/user/me/preview`, {
+      name: rootState.user.info.twitelo.name.content,
+      description: rootState.user.info.twitelo.description.content,
+      location: rootState.user.info.twitelo.location.content,
+      url: rootState.user.info.twitelo.url.content
+    })).data;
+
+    // Update preview text
+    commit("SET_PREVIEW_PROFILE", preview);
+
+    // Stop loadings
+    commit("SET_PREVIEW_DATA", {
+      name: 'loading',
+      value: false
+    });
+    commit("SET_PREVIEW_DATA", {
+      name: 'needUpdate',
+      value: false
+    });
+    commit("SET_BUILDER_LOADING", false);
+  },
+
+  async saveProfile({
+    rootState,
+    state,
+    commit,
+    dispatch
+  }) {
+    // start loadings
+    commit("SET_PREVIEW_DATA", {
+      name: 'loading',
+      value: true
+    });
+    commit("SET_BUILDER_LOADING", true);
+
+    await dispatch("transformToUUID");
+    const preview = (await this.$axios.$post(`/api/user/me/save/profile`, {
+      name: rootState.user.info.twitelo.name.content,
+      description: rootState.user.info.twitelo.description.content,
+      location: rootState.user.info.twitelo.location.content,
+      url: rootState.user.info.twitelo.url.content
+    })).data;
+
+    // Update preview text
+    commit("SET_PREVIEW_PROFILE", preview);
+
+    // Stop loadings
+    commit("SET_PREVIEW_DATA", {
+      name: 'loading',
+      value: false
+    });
+    commit("SET_PREVIEW_DATA", {
+      name: 'needUpdate',
+      value: false
+    });
+    commit("SET_PREVIEW_DATA", {
+      name: 'saved',
+      value: true
+    });
+    commit("SET_BUILDER_LOADING", false);
+  },
 
   updateTextCounters({
     state,
@@ -273,16 +378,15 @@ export const actions = {
       let match = myRegexp.exec(text);
 
       while (match != null) {
-        if (state.userTags[match[1]]) {
-          counter += state.userTags[match[1]].size;
-          removeArray.push(`<{${match[1]}}>`);
-        }
+        if (state.userTags[match[1]]) counter += state.userTags[match[1]].size;
+        removeArray.push(`<{${match[1]}}>`);
         match = myRegexp.exec(text);
       }
       if (removeArray.length > 0) {
         var re = new RegExp(removeArray.join("|").replace(/{/g, "\\{"), "g");
         text = text.replace(re, "");
       }
+      text = text.trim();
       return text.length + counter;
     }
 
@@ -331,9 +435,7 @@ export const actions = {
       }
       if (Object.keys(mapObj).length > 0) {
         var re = new RegExp(Object.keys(mapObj).join("|").replace(/{/g, '\\{'), "g");
-        text = text.replace(re, function (matched) {
-          return mapObj[matched];
-        });
+        text = text.replace(re, (matched) => mapObj[matched])
       }
       return text;
     }
@@ -380,9 +482,7 @@ export const actions = {
       }
       if (Object.keys(mapObj).length > 0) {
         var re = new RegExp(Object.keys(mapObj).join("|").replace(/{/g, '\\{'), "g");
-        text = text.replace(re, function (matched) {
-          return mapObj[matched];
-        });
+        text = text.replace(re, (matched) => mapObj[matched]);
       }
       return text;
     }
@@ -414,6 +514,11 @@ export const actions = {
       });
       console.log('(all) transform <{1}> -> <{12a65b}>');
     }
+    // Preview need update
+    commit("SET_PREVIEW_DATA", {
+      name: 'needUpdate',
+      value: true
+    });
   }
 
 };

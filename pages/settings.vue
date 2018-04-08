@@ -12,7 +12,7 @@
         WIP
       </b-tab-item>
 
-      <b-tab-item :label="$t('settings.tab.pp')" icon-pack="fas" icon="image">
+      <b-tab-item :label="$t('settings.tab.pp')" icon-pack="fas" icon="image" disabled>
 
         <profile />
 

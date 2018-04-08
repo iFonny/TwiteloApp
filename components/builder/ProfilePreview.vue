@@ -41,16 +41,17 @@
     </div>
     <!-- CANCEL/NEXT BUTTON (to destination selection) -->
     <div class="nav-buttons columns is-gapless is-mobile">
-      <button v-if="!navigation" @click="openInfoPopup()" class="column button is-light is-medium align-vertical-center">
+      <button v-if="!navigation" @click="openInfoPopup()" class="column is-2 button is-light is-medium align-vertical-center">
         <b-icon pack="fas" icon="info-circle"></b-icon>
       </button>
-      <button v-else @click="closePopup()" class="column button is-light is-medium align-vertical-center">
+      <button v-else @click="closePopup()" class="column is-3 button is-light is-medium align-vertical-center">
         <b-icon pack="fas" icon="times-circle"></b-icon>
-        <span>{{$t('builder.close')}}</span>
+        <span class="is-size-6 is-size-7-mobile">{{$t('builder.close')}}</span>
       </button>
-      <button @click="saveProfile()" class="column is-four-fifths button is-lightgreen is-medium align-vertical-center">
+      <button @click="saveProfile()" class="column button is-lightgreen is-medium align-vertical-center" :disabled="!checkCharacters">
         <b-icon pack="fas" icon="save"></b-icon>
-        <span>{{$t('builder.save')}}</span>
+        <span v-if="!checkCharacters" class="is-size-6 is-size-7-mobile">Trop de caractères pour sauvegarder</span>
+        <span v-else>{{$t('builder.save')}}</span>
       </button>
     </div>
   </article>
@@ -63,17 +64,32 @@ import VueNotifications from "vue-notifications";
 export default {
   data() {
     return {
-      navigation: null,
-      test: "je suis un test <{Testxd}>".replace(
-        /<{([^<>{} ]+)}>/,
-        '<span class="tag is-cyan">$1</span>'
-      )
+      navigation: null
     };
   },
   computed: {
     ...mapState({
-      preview: state => state.builder.preview
-    })
+      preview: state => state.builder.preview,
+      textCounter: state => state.builder.textCounter,
+      profileSaved: state => state.builder.preview.saved
+    }),
+    checkCharacters() {
+      if (this.textCounter.name < 0) return false;
+      if (this.textCounter.description < 0) return false;
+      if (this.textCounter.location < 0) return false;
+      if (this.textCounter.url < 0) return false;
+      return true;
+    }
+  },
+  watch: {
+    profileSaved(newValue, oldValue) {
+      console.log(newValue)
+      function confirmExit() {
+        return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
+      }
+      if (!newValue) window.onbeforeunload = confirmExit;
+      else window.onbeforeunload = null;
+    }
   },
   methods: {
     openInfoPopup() {
@@ -82,11 +98,27 @@ export default {
     closePopup() {
       this.navigation = null;
     },
-    saveProfile() {
-      console.log("save profile");
+    async saveProfile() {
+      await this.$store.dispatch("builder/saveProfile").catch(e => {
+        this.$store.dispatch("setError", e);
+        this.showNotification({
+          title: this.$store.state.error.statusCode.toString(),
+          message: this.$store.state.error.message,
+          type: "error",
+          timeout: 5000
+        });
+      });
     },
-    refreshPreview() {
-      console.log("refresh preview");
+    async refreshPreview() {
+      await this.$store.dispatch("builder/refreshPreview").catch(e => {
+        this.$store.dispatch("setError", e);
+        this.showNotification({
+          title: this.$store.state.error.statusCode.toString(),
+          message: this.$store.state.error.message,
+          type: "error",
+          timeout: 5000
+        });
+      });
     }
   },
   notifications: {
@@ -123,10 +155,11 @@ export default {
 }
 
 .profile-preview-desc {
-  padding: 0.5rem;
   background-color: #363636;
   padding-left: 20%;
   padding-right: 20%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .profile-preview-desc p {
   line-height: 1.5rem;

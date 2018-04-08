@@ -18,8 +18,6 @@
           <b-input expanded @input="updateName" :value="twiteloDataInput.name" :placeholder="$t('builder.placeholder.name')" icon="account"></b-input>
           <div class="text-counter control align-vertical-center">
             <span :class="getCounterColor('name')">{{textCounter.name}}</span>
-            <!-- <b-tag type="is-twitter">46</b-tag> -->
-            <!-- <b-tag type="is-twitter">{{twitterLimits.name}}</b-tag> -->
           </div>
         </b-field>
 
@@ -28,8 +26,6 @@
           <b-input expanded @input="updateLocation" :value="twiteloDataInput.location" :placeholder="$t('builder.placeholder.location')" icon-pack="fas" icon="map-marker-alt"></b-input>
           <div class="text-counter control align-vertical-center">
             <span :class="getCounterColor('location')">{{textCounter.location}}</span>
-            <!-- <b-tag type="is-warning">5</b-tag> -->
-            <!-- <b-tag type="is-twitter">{{twitterLimits.location}}</b-tag> -->
           </div>
         </b-field>
 
@@ -38,8 +34,6 @@
           <b-input expanded @input="updateURL" :value="twiteloDataInput.url" :placeholder="$t('builder.placeholder.url')" icon-pack="fas" icon="link"></b-input>
           <div class="text-counter control align-vertical-center">
             <span :class="getCounterColor('url')">{{textCounter.url}}</span>
-            <!-- <b-tag type="is-red">0</b-tag> -->
-            <!-- <b-tag type="is-twitter">{{twitterLimits.url}}</b-tag> -->
           </div>
         </b-field>
 
@@ -48,8 +42,6 @@
           <b-input expanded @input="updateDescription" :value="twiteloDataInput.description" type="textarea" :placeholder="$t('builder.placeholder.description')"></b-input>
           <p class="text-counter control align-vertical-center">
             <span :class="getCounterColor('description')">{{textCounter.description}}</span>
-            <!-- <b-tag type="is-red">-5</b-tag> -->
-            <!-- <b-tag type="is-twitter">{{twitterLimits.description}}</b-tag> -->
           </p>
         </b-field>
 
@@ -123,32 +115,48 @@ export default {
         name: "name",
         twiteloDataInput: e
       });
-      await this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
+      await this.$store.dispatch("builder/transformToUUID");
       await this.$store.dispatch("builder/updateTextCounters", "name");
+      this.$store.commit("builder/SET_PREVIEW_DATA", {
+        name: "saved",
+        value: false
+      });
     }, 500),
     updateDescription: _.debounce(async function(e) {
       this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: "description",
         twiteloDataInput: e
       });
-      await this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
+      await this.$store.dispatch("builder/transformToUUID");
       await this.$store.dispatch("builder/updateTextCounters", "description");
+      this.$store.commit("builder/SET_PREVIEW_DATA", {
+        name: "saved",
+        value: false
+      });
     }, 500),
     updateLocation: _.debounce(async function(e) {
       this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: "location",
         twiteloDataInput: e
       });
-      await this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
+      await this.$store.dispatch("builder/transformToUUID");
       await this.$store.dispatch("builder/updateTextCounters", "location");
+      this.$store.commit("builder/SET_PREVIEW_DATA", {
+        name: "saved",
+        value: false
+      });
     }, 500),
     updateURL: _.debounce(async function(e) {
       this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
         name: "url",
         twiteloDataInput: e
       });
-      await this.$store.dispatch("builder/transformToUUID"); // TODO: remplacer (et include) par updatePreview
+      await this.$store.dispatch("builder/transformToUUID");
       await this.$store.dispatch("builder/updateTextCounters", "url");
+      this.$store.commit("builder/SET_PREVIEW_DATA", {
+        name: "saved",
+        value: false
+      });
     }, 500)
   },
   notifications: {
