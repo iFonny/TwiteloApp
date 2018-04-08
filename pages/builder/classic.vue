@@ -30,7 +30,7 @@
 
     <div class="tile is-ancestor">
       <article class="tile is-parent bottom-tile">
-        <game-select />
+        <profile-preview />
       </article>
     </div>
 
@@ -46,6 +46,7 @@ import GameSelect from "~/components/builder/GameSelect";
 import GameTagsList from "~/components/builder/GameTagsList";
 import Accounts from "~/components/builder/Accounts";
 import UserTags from "~/components/builder/UserTags";
+import ProfilePreview from "~/components/builder/ProfilePreview";
 
 export default {
   middleware: "auth",
@@ -54,7 +55,8 @@ export default {
     GameSelect,
     GameTagsList,
     Accounts,
-    UserTags
+    UserTags,
+    ProfilePreview
   },
   async asyncData({ app, error }) {
     try {

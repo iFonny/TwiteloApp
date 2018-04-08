@@ -22,7 +22,15 @@ export const state = () => ({
   userTags: [],
   accountSettings: null,
   allAccounts: {},
-  accounts: {}
+  accounts: {},
+  preview: {
+    loading: false,
+    needUpdate: true,
+    name: 'Name',
+    description: 'Description',
+    location: 'Location',
+    url: 'http://url.fr',
+  }
 })
 
 export const mutations = {

@@ -65,6 +65,7 @@
     "next": "Next",
     "add": "Add",
     "cancel": "Cancel",
+    "close": "Close",
     "previous": "Previous",
     "save": "Save",
     "remove": "Remove",
@@ -75,6 +76,9 @@
     "edit-account": "Edit account",
     "cant-add-more-account": "You can not add more accounts for this game",
     "account-rate-limit": "You have added or edited too many accounts, please wait 1 minute",
+    "profil-warn-data-example": "- Your profile can contain sample values during <b>the first hour</b>.",
+    "profil-warn-data-update": "- Updating the data can take between <b>1 and 10 minutes</b> depending on the games.",
+    "refresh-preview": "Click here to refresh the preview",
     "placeholder": {
       "name": "Name",
       "description": "Description",

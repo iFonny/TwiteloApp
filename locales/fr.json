@@ -65,6 +65,7 @@
     "next": "Suivant",
     "add": "Ajouter",
     "cancel": "Annuler",
+    "close": "Fermer",
     "previous": "Précédent",
     "save": "Enregistrer",
     "remove": "Supprimer",
@@ -75,6 +76,9 @@
     "edit-account": "Modifier un compte",
     "cant-add-more-account": "Vous ne pouvez pas ajouter plus de comptes pour ce jeu",
     "account-rate-limit": "Vous avez ajouté ou modifié trop de comptes, veuillez attendre 1 minute",
+    "profil-warn-data-example": "- Votre profil peut contenir des données d'exemple pendant <b>la première heure.</b>",
+    "profil-warn-data-update": "- La mise à jour des données peut prendre entre <b>1 et 10 minutes</b> selon les jeux.",
+    "refresh-preview": "Cliquez ici pour rafraîchir l'aperçu",
     "placeholder": {
       "name": "Nom",
       "description": "Description",
