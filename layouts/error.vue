@@ -19,6 +19,11 @@
 
 <script>
 export default {
+  head() {
+    return {
+      titleTemplate: "Error - Twitelo"
+    };
+  },
   props: ["error"]
 };
 </script>
