@@ -48,7 +48,7 @@
         <b-icon pack="fas" icon="times-circle"></b-icon>
         <span class="is-size-6 is-size-7-mobile">{{$t('builder.close')}}</span>
       </button>
-      <button @click="saveProfile()" class="column button is-lightgreen is-medium align-vertical-center" :disabled="!checkCharacters">
+      <button @click="saveProfile()" class="column button is-lightgreen is-medium align-vertical-center" :disabled="!checkCharacters" :class="loadingButtons.save ? 'is-loading' : ''">
         <b-icon pack="fas" icon="save"></b-icon>
         <span v-if="!checkCharacters" class="is-size-6 is-size-7-mobile">Trop de caractères pour sauvegarder</span>
         <span v-else>{{$t('builder.save')}}</span>
@@ -64,7 +64,10 @@ import VueNotifications from "vue-notifications";
 export default {
   data() {
     return {
-      navigation: null
+      navigation: null,
+      loadingButtons: {
+        save: false
+      }
     };
   },
   computed: {
@@ -98,6 +101,8 @@ export default {
       this.navigation = null;
     },
     async saveProfile() {
+      this.loadingButtons.save = true;
+
       await this.$store.dispatch("builder/saveProfile").catch(e => {
         this.$store.dispatch("setError", e);
         this.showNotification({
@@ -107,6 +112,9 @@ export default {
           timeout: 5000
         });
       });
+      setTimeout(() => {
+        this.loadingButtons.save = false;
+      }, 1000);
     },
     async refreshPreview() {
       await this.$store.dispatch("builder/refreshPreview").catch(e => {

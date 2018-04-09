@@ -147,6 +147,10 @@ html.has-navbar-fixed-top-desktop {
   color: lightgrey;
 }
 
+::placeholder {
+  color: rgb(143, 143, 143)!important;
+}
+
 input,
 textarea,
 select {
