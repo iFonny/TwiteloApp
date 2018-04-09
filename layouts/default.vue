@@ -147,6 +147,17 @@ html.has-navbar-fixed-top-desktop {
   color: lightgrey;
 }
 
+::placeholder {
+  color: rgb(143, 143, 143)!important;
+}
+
+input,
+textarea,
+select {
+  background-color: rgba(31, 31, 31, 0.43137254901960786) !important;
+  color: white !important;
+}
+
 /* Overwrite pagination colors */
 .pagination-previous,
 .pagination-next,
@@ -162,7 +173,7 @@ html.has-navbar-fixed-top-desktop {
 .pagination-next:hover,
 .pagination-link:hover {
   border-color: white !important;
-  color: white!important;
+  color: white !important;
 }
 .pagination-previous[disabled],
 .pagination-next[disabled],
@@ -173,7 +184,7 @@ html.has-navbar-fixed-top-desktop {
   opacity: 0.4;
 }
 .pagination-link.is-current {
-    background-color: #222121;
+  background-color: #222121;
 }
 
 /* Overwrite modal */

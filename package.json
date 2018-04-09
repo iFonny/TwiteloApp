@@ -17,82 +17,13 @@
   },
   "homepage": "https://github.com/iFonny/TwiteloApp#readme",
   "scripts": {
-    "dev": "node server/app.js",
-    "build": "nuxt build",
+    "dev": "NODE_ENV=dev node server/app.js",
+    "beta": "NODE_ENV=beta node server/app.js",
     "start": "NODE_ENV=production node server/app.js",
+    "build": "nuxt build",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
-  },
-  "apps": [
-    {
-      "name": "twitelo-front-dev",
-      "script": "./server/app.js",
-      "watch": true,
-      "restart_delay": 1000,
-      "ignore_watch": [
-        "node_modules",
-        "logs/*",
-        "public/*",
-        "static/*",
-        "*.log",
-        ".git"
-      ],
-      "log_date_format": "YYYY-MM-DD HH:mm Z",
-      "env": {
-        "NODE_ENV": "dev"
-      }
-    },
-    {
-      "name": "twitelo-front",
-      "script": "./server/app.js",
-      "watch": true,
-      "restart_delay": 1000,
-      "ignore_watch": [
-        "node_modules",
-        "logs/*",
-        "public/*",
-        "static/*",
-        "*.log",
-        ".git"
-      ],
-      "log_date_format": "YYYY-MM-DD HH:mm Z",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    }
-  ],
-  "deploy": {
-    "production": {
-      "user": "root",
-      "host": "51.254.118.165",
-      "ref": "origin/master",
-      "repo": "git@github.com:iFonny/TwiteloApp.git",
-      "path": "/home/root/www/production/front/",
-      "ssh_options": [
-        "StrictHostKeyChecking=no",
-        "PasswordAuthentication=no"
-      ],
-      "post-deploy": "npm install && nuxt build && pm2 startOrRestart package.json --only twitelo-front",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "dev": {
-      "user": "root",
-      "host": "51.254.118.165",
-      "ref": "origin/dev",
-      "repo": "git@github.com:iFonny/TwiteloApp.git",
-      "path": "/home/root/www/dev/front/",
-      "ssh_options": [
-        "StrictHostKeyChecking=no",
-        "PasswordAuthentication=no"
-      ],
-      "post-deploy": "npm install && pm2 startOrRestart package.json --only twitelo-front-dev",
-      "env": {
-        "NODE_ENV": "dev"
-      }
-    }
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.1",

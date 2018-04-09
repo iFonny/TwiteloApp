@@ -8,7 +8,7 @@
                         <span class="has-text-black">{{$t('home.start-now')}}</span>
                     </b-tag>
                     <b-tag type="is-large is-warning">
-                        <span>Beta</span>
+                        <span>Alpha</span>
                         <b-icon icon="flask" type="is-dark"></b-icon>
                     </b-tag>
                 </b-taglist>

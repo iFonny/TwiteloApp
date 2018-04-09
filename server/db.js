@@ -4,81 +4,97 @@ const axios = require('axios');
 
 module.exports = {
 
-  checkOrCreateTable(r) {
+  async checkOrCreateTable(r) {
     try {
-      r.tableList().run().then((tables) => {
-        if (!tables.includes('user')) {
-          console.log("RethinkDB: 'user' table created.");
-          r.tableCreate('user').run().then(() => {
-            r.table("user").indexCreate("twitter_id").run();
-            r.table("user").indexCreate("username").run();
-            r.table("user").indexCreate("twitelo_token").run();
-            r.table("user").indexCreate("api_key").run();
-            r.table('user').indexCreate('created').run();
-            r.table('user').indexCreate('updated').run();
-            console.log("RethinkDB: 'user' indexes created.");
-          });
+      await r.dbList().run().then(async (databases) => {
+        if (!databases.includes(_config.db.name)) {
+          await r.dbCreate(_config.db.name);
+          console.log(`RethinkDB: '${_config.db.name}' db created.`);
         }
-        if (!tables.includes('deleted_user')) {
-          console.log('RethinkDB: "deleted_user" table created.');
-          r.tableCreate('deleted_user').run().then(() => {
-            r.table('deleted_user').indexCreate('twitter_id').run();
-            r.table('deleted_user').indexCreate('username').run();
-            r.table('deleted_user').indexCreate('twitelo_token').run();
-            r.table('deleted_user').indexCreate('api_key').run();
-            r.table('deleted_user').indexCreate('created').run();
-            r.table('deleted_user').indexCreate('updated').run();
-            console.log('RethinkDB: "deleted_user" indexes created.');
-          });
-        }
-        if (!tables.includes('notification')) {
-          console.log("RethinkDB: 'notification' table created.");
-          r.tableCreate('notification').run().then(() => {
-            r.table("notification").indexCreate("destination").run();
-            console.log("RethinkDB: 'notification' indexes created.");
-          });
-        }
-        if (!tables.includes('trigger')) {
-          console.log('RethinkDB: "trigger" table created.');
-          r.tableCreate('trigger').run().then(() => {
-            r.table('trigger').indexCreate('game_id').run();
-            console.log('RethinkDB: "trigger" indexes created.');
-          });
-        }
-        if (!tables.includes('game')) {
-          console.log('RethinkDB: "game" table created.');
-          r.tableCreate('game').run().then(() => {
-            r.table('game').indexCreate('small_name').run();
-            r.table('game').indexCreate('name').run();
-            console.log('RethinkDB: "game" indexes created.');
-          });
-        }
-        if (!tables.includes('setting')) {
-          console.log('RethinkDB: "setting" table created.');
-          r.tableCreate('setting').run().then(() => {
-            r.table('setting').indexCreate('user_id').run();
-            r.table('setting').indexCreate('type').run();
-            r.table('setting').indexCreate('trigger_id').run();
-            console.log('RethinkDB: "setting" indexes created.');
-          });
-        }
-        if (!tables.includes('log')) {
-          console.log('RethinkDB: "log" table created.');
-          r.tableCreate('log').run().then(() => {
-            //r.table('log').indexCreate('user_id').run();
-            console.log('RethinkDB: "log" indexes created.');
-          });
-        }
-        if (!tables.includes('tag')) {
-          console.log('RethinkDB: "tag" table created.');
-          r.tableCreate('tag').run().then(() => {
-            r.table('tag').indexCreate('user_id').run();
-            r.table('tag').indexCreate('game_id').run();
-            r.table('tag').indexCreate('tag_id').run();
-            r.table('tag').indexCreate('created').run();
-            console.log('RethinkDB: "tag" indexes created.');
-          });
-        }
+
+        await r.tableList().run().then(async (tables) => {
+          if (!tables.includes('user')) {
+            await r.tableCreate('user').run().then(async () => {
+              console.log("RethinkDB: 'user' table created.");
+              await r.table("user").indexCreate("twitter_id").run();
+              await r.table("user").indexCreate("username").run();
+              await r.table("user").indexCreate("twitelo_token").run();
+              await r.table("user").indexCreate("api_key").run();
+              await r.table('user').indexCreate('created').run();
+              await r.table('user').indexCreate('updated').run();
+              console.log("RethinkDB: 'user' indexes created.");
+            });
+          }
+          if (!tables.includes('deleted_user')) {
+            await r.tableCreate('deleted_user').run().then(async () => {
+              console.log('RethinkDB: "deleted_user" table created.');
+              await r.table('deleted_user').indexCreate('twitter_id').run();
+              await r.table('deleted_user').indexCreate('username').run();
+              await r.table('deleted_user').indexCreate('twitelo_token').run();
+              await r.table('deleted_user').indexCreate('api_key').run();
+              await r.table('deleted_user').indexCreate('created').run();
+              await r.table('deleted_user').indexCreate('updated').run();
+              console.log('RethinkDB: "deleted_user" indexes created.');
+            });
+          }
+          if (!tables.includes('notification')) {
+            await r.tableCreate('notification').run().then(async () => {
+              console.log("RethinkDB: 'notification' table created.");
+              await r.table("notification").indexCreate("destination").run();
+              console.log("RethinkDB: 'notification' indexes created.");
+            });
+          }
+          if (!tables.includes('trigger')) {
+            await r.tableCreate('trigger').run().then(async () => {
+              console.log('RethinkDB: "trigger" table created.');
+              await r.table('trigger').indexCreate('game_id').run();
+              console.log('RethinkDB: "trigger" indexes created.');
+            });
+          }
+          if (!tables.includes('setting')) {
+            await r.tableCreate('setting').run().then(async () => {
+              console.log('RethinkDB: "setting" table created.');
+              await r.table('setting').indexCreate('user_id').run();
+              await r.table('setting').indexCreate('type').run();
+              await r.table('setting').indexCreate('trigger_id').run();
+              console.log('RethinkDB: "setting" indexes created.');
+            });
+          }
+          if (!tables.includes('log')) {
+            await r.tableCreate('log').run();
+            console.log('RethinkDB: "log" table created.');
+          }
+          if (!tables.includes('tag')) {
+            await r.tableCreate('tag').run().then(async () => {
+              console.log('RethinkDB: "tag" table created.');
+              await r.table('tag').indexCreate('user_id').run();
+              await r.table('tag').indexCreate('game_id').run();
+              await r.table('tag').indexCreate('tag_id').run();
+              await r.table('tag').indexCreate('account_id').run();
+              await r.table('tag').indexCreate('created').run();
+              await r.table('tag').indexCreate('updated').run();
+              console.log('RethinkDB: "tag" indexes created.');
+            });
+          }
+          if (!tables.includes('account')) {
+            await r.tableCreate('account').run().then(async () => {
+              console.log('RethinkDB: "account" table created.');
+              await r.table('account').indexCreate('user_id').run();
+              await r.table('account').indexCreate('game_id').run();
+              await r.table('account').indexCreate('created').run();
+              console.log('RethinkDB: "account" indexes created.');
+            });
+          }
+          if (!tables.includes('game_data')) {
+            await r.tableCreate('game_data').run().then(async () => {
+              console.log('RethinkDB: "game_data" table created.');
+              await r.table('game_data').indexCreate('game_id').run();
+              await r.table('game_data').indexCreate('tag_id').run();
+              await r.table('game_data').indexCreate('updated').run();
+              console.log('RethinkDB: "game_data" indexes created.');
+            });
+          }
+        });
       });
     } catch (e) {
       console.error(e);

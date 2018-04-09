@@ -7,6 +7,8 @@
 > npm install -g vue-cli
 - RethinkDB
 
+Config file needed: secret.json (in /config/)
+
 ## Build Setup
 
 ``` bash

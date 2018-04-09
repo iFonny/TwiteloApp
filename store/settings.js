@@ -50,9 +50,9 @@ export const actions = {
 
     const settings = (await this.$axios.$get('/api/setting/me/all')).data;
     let staticTriggers = (await this.$axios.$get('/api/trigger')).data;
-
-    const games = _.sortedUniq(_.map(staticTriggers, 'game'));
     staticTriggers = _.orderBy(staticTriggers, 'id');
+    let games = (await this.$axios.$get('/api/game')).data;
+    games = _.map(games, 'small_name');
 
     commit('user/SET_USER_SETTINGS', userSettings, {
       root: true

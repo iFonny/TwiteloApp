@@ -9,7 +9,7 @@
 
     <div class="tile is-ancestor">
       <div class="tile is-parent top-tile left-tile">
-        <game-tags-list />
+        <accounts />
       </div>
 
       <div class="tile is-parent is-7 top-tile right-tile">
@@ -21,7 +21,7 @@
 
     <div class="tile is-ancestor">
       <div class="tile is-parent top-tile left-tile">
-        <accounts />
+        <game-tags-list />
       </div>
       <div class="tile is-parent is-7 top-tile right-tile">
         <user-tags />
@@ -30,7 +30,7 @@
 
     <div class="tile is-ancestor">
       <article class="tile is-parent bottom-tile">
-        <game-select />
+        <profile-preview />
       </article>
     </div>
 
@@ -46,6 +46,7 @@ import GameSelect from "~/components/builder/GameSelect";
 import GameTagsList from "~/components/builder/GameTagsList";
 import Accounts from "~/components/builder/Accounts";
 import UserTags from "~/components/builder/UserTags";
+import ProfilePreview from "~/components/builder/ProfilePreview";
 
 export default {
   middleware: "auth",
@@ -54,13 +55,17 @@ export default {
     GameSelect,
     GameTagsList,
     Accounts,
-    UserTags
+    UserTags,
+    ProfilePreview
   },
   async asyncData({ app, error }) {
     try {
       await app.store.dispatch("builder/fetchBuilderData");
       await app.store.dispatch("builder/transformFromUUID");
+      await app.store.dispatch("builder/updateTextCounters");
+      await app.store.dispatch("builder/refreshPreview");
     } catch (e) {
+      console.log(e);
       app.store.dispatch("setError", e);
       error(app.store.state.error);
     }

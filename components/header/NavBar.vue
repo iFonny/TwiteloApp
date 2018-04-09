@@ -31,6 +31,7 @@
           <builder v-if="$store.state.user.info" />
           <stats/>
           <donate/>
+          <faq/>
 
         </div>
 
@@ -58,6 +59,7 @@ import Stats from "~/components/header/Stats";
 import Contact from "~/components/header/Contact";
 import About from "~/components/header/About";
 import Donate from "~/components/header/Donate";
+import Faq from "~/components/header/Faq";
 
 import Login from "~/components/header/Login";
 
@@ -79,6 +81,7 @@ export default {
     Contact,
     About,
     Donate,
+    Faq,
     Login,
     Burger,
     SwitchToggle,

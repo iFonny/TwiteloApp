@@ -30,6 +30,12 @@
     </nuxt-link>
 
     <hr class="dropdown-divider divider-burger">
+    <nuxt-link @click.native="closePopupBurger()" :to="'/faq'" class="button button-burger is-dark">
+      <b-icon pack="far" icon="question-circle" type="is-lightblue"></b-icon>
+      <span class="sub-menu-button has-text-grey-lighter">{{$t('navbar.faq')}}</span>
+    </nuxt-link>
+
+    <hr class="dropdown-divider divider-burger">
     <nuxt-link @click.native="closePopupBurger()" :to="'/about'" class="button button-burger is-dark">
       <b-icon pack="fas" icon="info-circle"></b-icon>
       <span class="sub-menu-button has-text-grey-lighter">{{$t('navbar.user.about')}}</span>

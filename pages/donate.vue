@@ -1,6 +1,13 @@
 <template>
     <div class="container is-fluid">
-        Route : {{$nuxt.$route.name}}
+        <div class="wip-title">Work In Progress</div>
+        <br>
+        <nuxt-link to="/" class="button button-back-home is-light">
+            <span class="icon is-small">
+                <i class="fas fa-home"></i>
+            </span>
+            <span>{{$t('error.back-home')}}</span>
+        </nuxt-link>
     </div>
 </template>
 
@@ -9,5 +16,19 @@
 
 
 <style scoped>
+.container {
+  text-align: center;
+  margin-top: 5rem;
+}
+.wip-title {
+  font-weight: lighter;
+  font-size: 2.5rem;
+  text-align: center;
+  font-family: "Neucha", "Avenir Next", Avenir, Helvetica, Arial, sans-serif;
+  line-height: normal;
+}
 
+.button-back-home {
+  margin: 1rem;
+}
 </style>
