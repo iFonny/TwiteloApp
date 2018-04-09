@@ -8,8 +8,8 @@ switch (env) {
   case 'beta':
   case 'production':
     config = config = {
-      ws: 'wss://',
-      host: 'ws.twitelo.me',
+      ws: 'ws://',
+      host: 'ws.twitelo.me:80',
       port: 4000
     };
     break;
