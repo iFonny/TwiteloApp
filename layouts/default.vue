@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div class="background-image"></div>
     <nav-bar/>
     <nuxt/>
@@ -7,9 +8,15 @@
 </template>
 
 <script>
+import _ from "lodash";
 import NavBar from "~/components/header/NavBar";
 
 export default {
+  head() {
+    return {
+      titleTemplate: _.capitalize(this.$nuxt.$route.name) + ' - Twitelo'
+    };
+  },
   mounted: function() {
     var socket = this.$socket;
 
@@ -148,7 +155,7 @@ html.has-navbar-fixed-top-desktop {
 }
 
 ::placeholder {
-  color: rgb(143, 143, 143)!important;
+  color: rgb(143, 143, 143) !important;
 }
 
 input,

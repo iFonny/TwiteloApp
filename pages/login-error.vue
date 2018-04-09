@@ -20,7 +20,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  head() {
+    return {
+      titleTemplate: "Error - Twitelo"
+    };
+  }
+};
 </script>
 
 <style scoped>
@@ -42,6 +48,6 @@ export default {};
 }
 
 .button-error-login {
-    margin: 1rem;
+  margin: 1rem;
 }
 </style>

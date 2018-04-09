@@ -12,6 +12,19 @@
 </template>
 
 <script>
+export default {
+  head() {
+    return {
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "More informations about Twitelo"
+        }
+      ]
+    };
+  }
+};
 </script>
 
 

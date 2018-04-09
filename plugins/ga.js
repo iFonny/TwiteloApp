@@ -24,7 +24,7 @@ export default ({
   /*
    ** Affecter la page courante
    */
-  ga('create', 'UA-115012125-1', 'auto')
+  ga('create', 'UA-115012125-2', 'auto')
   /*
    ** Chaque fois que la route change
    */

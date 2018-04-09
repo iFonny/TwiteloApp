@@ -49,6 +49,11 @@ import UserTags from "~/components/builder/UserTags";
 import ProfilePreview from "~/components/builder/ProfilePreview";
 
 export default {
+  head() {
+    return {
+      titleTemplate: 'Builder - Twitelo'
+    };
+  },
   middleware: "auth",
   components: {
     InputBuilder,
