@@ -54,7 +54,7 @@
         <div class="nav-buttons columns is-gapless is-mobile">
           <button @click="saveProfile()" class="column button is-lightgreen align-vertical-center" :disabled="!checkCharacters" :class="loadingButtons.save ? 'is-loading' : ''">
             <b-icon pack="fas" icon="save" size="is-small"></b-icon>
-            <span v-if="!checkCharacters" class="is-size-6 is-size-7-mobile">Trop de caractères pour sauvegarder</span>
+            <span v-if="!checkCharacters" class="is-size-6 is-size-7-mobile">{{$t('builder.too-much-char-save')}}</span>
             <span v-else>{{$t('builder.save')}}</span>
           </button>
         </div>

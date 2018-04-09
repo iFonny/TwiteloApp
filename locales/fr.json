@@ -19,6 +19,7 @@
   "navbar": {
     "close-popup": "Fermer",
     "donate": "Faire un don",
+    "faq": "FAQ",
     "login-with-twitter": "Se connecter avec Twitter",
     "stats": "Stats",
     "statistics": "Statistiques",
@@ -79,6 +80,7 @@
     "profil-warn-data-example": "- Votre profil peut contenir des données d'exemple pendant <b>la première heure.</b>",
     "profil-warn-data-update": "- La mise à jour des données peut prendre entre <b>1 et 10 minutes</b> selon les jeux.",
     "refresh-preview": "Cliquez ici pour rafraîchir l'aperçu",
+    "too-much-char-save": "Trop de caractères pour sauvegarder",
     "placeholder": {
       "name": "Nom",
       "description": "Description",
