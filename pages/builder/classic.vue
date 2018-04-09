@@ -63,16 +63,9 @@ export default {
       await app.store.dispatch("builder/fetchBuilderData");
       await app.store.dispatch("builder/transformFromUUID");
       await app.store.dispatch("builder/updateTextCounters");
-      await app.store.dispatch("builder/refreshPreview").catch(e => {
-        app.store.dispatch("setError", e);
-        this.showNotification({
-          title: app.store.state.error.statusCode.toString(),
-          message: app.store.state.error.message,
-          type: "error",
-          timeout: 5000
-        });
-      });
+      await app.store.dispatch("builder/refreshPreview");
     } catch (e) {
+      console.log(e);
       app.store.dispatch("setError", e);
       error(app.store.state.error);
     }
