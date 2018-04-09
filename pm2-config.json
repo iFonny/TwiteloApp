@@ -47,7 +47,7 @@
       "pre-setup": "npm install -g vue-cli; npm install -g nuxt",
       "post-deploy": "cp /root/configs/TwiteloApp/secret.json ./config/; npm install; nuxt build; pm2 startOrRestart pm2-config.json --only twitelo-app-beta",
       "env": {
-        "NODE_ENV": "dev"
+        "NODE_ENV": "beta"
       }
     },
     "production": {
