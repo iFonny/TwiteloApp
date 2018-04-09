@@ -19,6 +19,7 @@
   "navbar": {
     "close-popup": "Close",
     "donate": "Donate",
+    "faq": "FAQ",
     "login-with-twitter": "Login with Twitter",
     "stats": "Stats",
     "statistics": "Statistics",
@@ -79,6 +80,7 @@
     "profil-warn-data-example": "- Your profile can contain sample values during <b>the first hour</b>.",
     "profil-warn-data-update": "- Updating the data can take between <b>1 and 10 minutes</b> depending on the games.",
     "refresh-preview": "Click here to refresh the preview",
+    "too-much-char-save": "Too many characters to save",
     "placeholder": {
       "name": "Name",
       "description": "Description",
