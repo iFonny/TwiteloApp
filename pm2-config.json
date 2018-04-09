@@ -1,0 +1,67 @@
+{
+  "apps": [{
+      "name": "twitelo-app-beta",
+      "script": "./server/app.js",
+      "watch": true,
+      "restart_delay": 1000,
+      "ignore_watch": [
+        "node_modules",
+        "logs/*",
+        "public/*",
+        "static/*",
+        "*.log",
+        ".git"
+      ],
+      "log_date_format": "YYYY-MM-DD HH:mm Z",
+      "env": {
+        "NODE_ENV": "beta"
+      }
+    },
+    {
+      "name": "twitelo-app",
+      "script": "./server/app.js",
+      "watch": true,
+      "restart_delay": 1000,
+      "ignore_watch": [
+        "node_modules",
+        "logs/*",
+        "public/*",
+        "static/*",
+        "*.log",
+        ".git"
+      ],
+      "log_date_format": "YYYY-MM-DD HH:mm Z",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ],
+  "deploy": {
+    "beta": {
+      "user": "root",
+      "host": "51.254.118.165",
+      "key": "~/.ssh/ssh_ifo_vps",
+      "ref": "origin/beta",
+      "repo": "git@github.com:iFonny/TwiteloApp.git",
+      "path": "/root/www/TwiteloApp/beta/",
+      "pre-setup": "npm install -g vue-cli; npm install -g nuxt",
+      "post-deploy": "cp /root/configs/TwiteloApp/secret.json ./config/; npm install; nuxt build; pm2 startOrRestart pm2-config.json --only twitelo-app-beta",
+      "env": {
+        "NODE_ENV": "dev"
+      }
+    },
+    "production": {
+      "user": "root",
+      "host": "51.254.118.165",
+      "key": "~/.ssh/ssh_ifo_vps",
+      "ref": "origin/master",
+      "repo": "git@github.com:iFonny/TwiteloApp.git",
+      "path": "/root/www/TwiteloApp/production/",
+      "pre-setup": "npm install -g vue-cli; npm install -g nuxt",
+      "post-deploy": "cp /root/configs/TwiteloApp/secret.json ./config/; npm install; nuxt build; pm2 startOrRestart pm2-config.json --only twitelo-app",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  },
+}

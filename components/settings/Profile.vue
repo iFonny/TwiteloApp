@@ -294,7 +294,6 @@ export default {
       }, 800);
     },
     async changeSwitchPPTrigger(name) {
-      console.log('ess')
       if (!this.switchDisabled[name]) {
         this.switchDisabled[name] = true;
 
