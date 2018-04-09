@@ -9,7 +9,7 @@
 
     <div class="tile is-ancestor">
       <div class="tile is-parent top-tile left-tile">
-        <game-tags-list />
+        <accounts />
       </div>
 
       <div class="tile is-parent is-7 top-tile right-tile">
@@ -21,7 +21,7 @@
 
     <div class="tile is-ancestor">
       <div class="tile is-parent top-tile left-tile">
-        <accounts />
+        <game-tags-list />
       </div>
       <div class="tile is-parent is-7 top-tile right-tile">
         <user-tags />

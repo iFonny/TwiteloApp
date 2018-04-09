@@ -20,7 +20,7 @@
       </div>
 
       <div class="profile-preview-banner">
-        <img class="round-pp-preview no-select" :src="$store.state.user.info ? $store.state.user.info.profile_image_url : '/images/iFonny.jpg'" onerror="/images/errors/default_profile.png">
+        <a target="_blank" :href="'https://twitter.com/' + user.username"><img class="round-pp-preview no-select" :src="user ? user.profile_image_url : '/images/iFonny.jpg'" onerror="/images/errors/default_profile.png"></a>
       </div>
       <div v-if="!navigation" class="profile-preview-desc">
         <p class="is-size-4 is-size-5-touch has-text-white has-text-weight-bold text-overflow-is-ellipsis" v-html="preview.name"></p>
@@ -48,7 +48,7 @@
         <b-icon pack="fas" icon="times-circle"></b-icon>
         <span class="is-size-6 is-size-7-mobile">{{$t('builder.close')}}</span>
       </button>
-      <button @click="saveProfile()" class="column button is-lightgreen is-medium align-vertical-center" :disabled="!checkCharacters">
+      <button @click="saveProfile()" class="column button is-lightgreen is-medium align-vertical-center" :disabled="!checkCharacters" :class="loadingButtons.save ? 'is-loading' : ''">
         <b-icon pack="fas" icon="save"></b-icon>
         <span v-if="!checkCharacters" class="is-size-6 is-size-7-mobile">Trop de caractères pour sauvegarder</span>
         <span v-else>{{$t('builder.save')}}</span>
@@ -64,11 +64,15 @@ import VueNotifications from "vue-notifications";
 export default {
   data() {
     return {
-      navigation: null
+      navigation: null,
+      loadingButtons: {
+        save: false
+      }
     };
   },
   computed: {
     ...mapState({
+      user: state => state.user.info,
       preview: state => state.builder.preview,
       textCounter: state => state.builder.textCounter,
       profileSaved: state => state.builder.preview.saved
@@ -98,6 +102,8 @@ export default {
       this.navigation = null;
     },
     async saveProfile() {
+      this.loadingButtons.save = true;
+
       await this.$store.dispatch("builder/saveProfile").catch(e => {
         this.$store.dispatch("setError", e);
         this.showNotification({
@@ -107,6 +113,9 @@ export default {
           timeout: 5000
         });
       });
+      setTimeout(() => {
+        this.loadingButtons.save = false;
+      }, 1000);
     },
     async refreshPreview() {
       await this.$store.dispatch("builder/refreshPreview").catch(e => {

@@ -413,7 +413,7 @@ export default {
 }
 .user-tags-list .collapse-content {
   height: calc(100% - 48px);
-  min-height: 15rem;
+  min-height: 17rem;
 }
 @media screen and (max-width: 768px) {
   .user-tags-list .collapse-content {
