@@ -13,6 +13,11 @@
 
 <script>
 export default {
+  head() {
+    return {
+      titleTemplate: "Builder - Twitelo"
+    };
+  },
   middleware: "auth"
 };
 </script>

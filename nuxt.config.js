@@ -6,7 +6,7 @@ module.exports = {
     htmlAttrs: {
       class: 'has-navbar-fixed-top',
     },
-    title: 'Twitelo',
+    titleTemplate: 'Twitelo',
     meta: [{
         charset: 'utf-8'
       },
@@ -17,7 +17,32 @@ module.exports = {
       {
         hid: 'description',
         name: 'description',
-        content: 'Connect with your twitter account and keep your bio updated with your current LeagueOfLegends elo.'
+        content: 'Link your twitter account and your favorite online games! Display your ranks, stats, and more in your twitter profile. Updated automatically!'
+      },
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'Twitelo'
+      },
+      {
+        hid: 'og:url',
+        property: 'og:url',
+        content: 'https://twitelo.me'
+      },
+      {
+        hid: 'og:type',
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: 'https://twitelo.me/logo.png'
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: 'Link your twitter account and your favorite online games! Display your ranks, stats, and more in your twitter profile. Updated automatically!'
       }
     ],
     link: [{
@@ -62,7 +87,7 @@ module.exports = {
   ],
 
   'google-analytics': {
-    id: 'UA-115012125-1'
+    id: 'UA-115012125-2'
   },
 
   axios: {

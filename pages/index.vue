@@ -22,6 +22,11 @@ import SiteDescription from "~/components/home/SiteDescription";
 import FooterHome from "~/components/home/FooterHome";
 
 export default {
+  head() {
+    return {
+      titleTemplate: "Home - Twitelo"
+    };
+  },
   components: {
     Examples,
     GamesList,
