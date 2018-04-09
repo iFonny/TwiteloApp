@@ -1,52 +1,65 @@
 <template>
-  <article class="tile is-child card has-text-centered builder-inputs">
-
-    <b-tabs v-model="activeTab" position="is-centered" class="card-content">
-
-      <div v-if="builderLoading" class="loading-overlay is-full-height is-active">
-        <div class="loading-icon"></div>
+  <article class="tile is-child has-text-centered builder-inputs">
+    <b-collapse class="card">
+      <div slot="trigger" slot-scope="props" class="card-header no-select">
+        <div class="card-header-title">
+          <h1 class="title is-size-6-mobile is-size-5-desktop is-size-5">{{$t('builder.builder')}}</h1>
+        </div>
+        <a class="card-header-icon">
+          <b-icon :icon="props.open ? 'menu-down' : 'menu-up'">
+          </b-icon>
+        </a>
       </div>
+      <div class="card-content">
 
-      <!-- <p class="subtitle is-6">Please don't use unauthorized twitter characters</p> -->
-      <b-tab-item :label="$t('builder.builder')" disabled>
-      </b-tab-item>
-      <b-tab-item :label="$t('builder.advanced')" class="advanced">
-
-        <b-field grouped>
-          <b-switch @input="changeSwitch('name')" :value="twiteloData.name.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.name"></b-switch>
-
-          <b-input expanded @input="updateName" :value="twiteloDataInput.name" :placeholder="$t('builder.placeholder.name')" icon="account"></b-input>
-          <div class="text-counter control align-vertical-center">
-            <span :class="getCounterColor('name')">{{textCounter.name}}</span>
+        <div class="builder-container">
+          <div v-if="builderLoading" class="loading-overlay is-full-height is-active">
+            <div class="loading-icon"></div>
           </div>
-        </b-field>
 
-        <b-field grouped>
-          <b-switch @input="changeSwitch('location')" :value="twiteloData.location.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.location"></b-switch>
-          <b-input expanded @input="updateLocation" :value="twiteloDataInput.location" :placeholder="$t('builder.placeholder.location')" icon-pack="fas" icon="map-marker-alt"></b-input>
-          <div class="text-counter control align-vertical-center">
-            <span :class="getCounterColor('location')">{{textCounter.location}}</span>
-          </div>
-        </b-field>
+          <b-field grouped>
+            <b-switch @input="changeSwitch('name')" :value="twiteloData.name.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.name"></b-switch>
 
-        <b-field grouped>
-          <b-switch @input="changeSwitch('url')" :value="twiteloData.url.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.url"></b-switch>
-          <b-input expanded @input="updateURL" :value="twiteloDataInput.url" :placeholder="$t('builder.placeholder.url')" icon-pack="fas" icon="link"></b-input>
-          <div class="text-counter control align-vertical-center">
-            <span :class="getCounterColor('url')">{{textCounter.url}}</span>
-          </div>
-        </b-field>
+            <b-input expanded @input="updateName" :value="twiteloDataInput.name" :placeholder="$t('builder.placeholder.name')" icon="account"></b-input>
+            <div class="text-counter control align-vertical-center">
+              <span :class="getCounterColor('name')">{{textCounter.name}}</span>
+            </div>
+          </b-field>
 
-        <b-field grouped>
-          <b-switch @input="changeSwitch('description')" :value="twiteloData.description.status" size="is-medium" type="is-success" :disabled="!user.switch || switchDisabled.description"></b-switch>
-          <b-input expanded @input="updateDescription" :value="twiteloDataInput.description" type="textarea" :placeholder="$t('builder.placeholder.description')"></b-input>
-          <p class="text-counter control align-vertical-center">
-            <span :class="getCounterColor('description')">{{textCounter.description}}</span>
-          </p>
-        </b-field>
+          <b-field grouped>
+            <b-switch @input="changeSwitch('location')" :value="twiteloData.location.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.location"></b-switch>
+            <b-input expanded @input="updateLocation" :value="twiteloDataInput.location" :placeholder="$t('builder.placeholder.location')" icon-pack="fas" icon="map-marker-alt"></b-input>
+            <div class="text-counter control align-vertical-center">
+              <span :class="getCounterColor('location')">{{textCounter.location}}</span>
+            </div>
+          </b-field>
 
-      </b-tab-item>
-    </b-tabs>
+          <b-field grouped>
+            <b-switch @input="changeSwitch('url')" :value="twiteloData.url.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.url"></b-switch>
+            <b-input expanded @input="updateURL" :value="twiteloDataInput.url" :placeholder="$t('builder.placeholder.url')" icon-pack="fas" icon="link"></b-input>
+            <div class="text-counter control align-vertical-center">
+              <span :class="getCounterColor('url')">{{textCounter.url}}</span>
+            </div>
+          </b-field>
+
+          <b-field grouped>
+            <b-switch @input="changeSwitch('description')" :value="twiteloData.description.status" size="is-medium" type="is-success" :disabled="!user.switch || switchDisabled.description"></b-switch>
+            <b-input expanded @input="updateDescription" :value="twiteloDataInput.description" type="textarea" :placeholder="$t('builder.placeholder.description')"></b-input>
+            <p class="text-counter control align-vertical-center">
+              <span :class="getCounterColor('description')">{{textCounter.description}}</span>
+            </p>
+          </b-field>
+        </div>
+        <!-- CANCEL/NEXT BUTTON (to destination selection) -->
+        <div class="nav-buttons columns is-gapless is-mobile">
+          <button @click="saveProfile()" class="column button is-lightgreen align-vertical-center" :disabled="!checkCharacters" :class="loadingButtons.save ? 'is-loading' : ''">
+            <b-icon pack="fas" icon="save" size="is-small"></b-icon>
+            <span v-if="!checkCharacters" class="is-size-6 is-size-7-mobile">Trop de caractères pour sauvegarder</span>
+            <span v-else>{{$t('builder.save')}}</span>
+          </button>
+        </div>
+      </div>
+    </b-collapse>
   </article>
 </template>
 
@@ -64,6 +77,9 @@ export default {
         description: false,
         url: false,
         location: false
+      },
+      loadingButtons: {
+        save: false
       }
     };
   },
@@ -75,7 +91,14 @@ export default {
       builderLoading: state => state.builder.builderLoading,
       twiteloDataInput: state => state.builder.twiteloDataInput,
       textCounter: state => state.builder.textCounter
-    })
+    }),
+    checkCharacters() {
+      if (this.textCounter.name < 0) return false;
+      if (this.textCounter.description < 0) return false;
+      if (this.textCounter.location < 0) return false;
+      if (this.textCounter.url < 0) return false;
+      return true;
+    }
   },
   methods: {
     getCounterColor(name) {
@@ -85,6 +108,22 @@ export default {
         else if (this.textCounter[name] == 0) return "has-text-lightred";
         else return "has-text-red";
       }
+    },
+    async saveProfile() {
+      this.loadingButtons.save = true;
+
+      await this.$store.dispatch("builder/saveProfile").catch(e => {
+        this.$store.dispatch("setError", e);
+        this.showNotification({
+          title: this.$store.state.error.statusCode.toString(),
+          message: this.$store.state.error.message,
+          type: "error",
+          timeout: 5000
+        });
+      });
+      setTimeout(() => {
+        this.loadingButtons.save = false;
+      }, 1000);
     },
     async changeSwitch(name) {
       if (!this.switchDisabled[name]) {
@@ -177,14 +216,26 @@ export default {
 .builder-inputs .loading-overlay {
   background-color: #1717178c;
 }
+.builder-inputs .builder-container {
+  padding: 0.7rem 0.6rem 0.7rem 0.6rem;
+}
+.nav-buttons {
+  width: 100%;
+}
+.nav-buttons .button {
+  border: unset;
+  border-radius: 0;
+}
 </style>
 
 <style>
 .builder-inputs .card-content {
   background-color: #2d2d2d;
-  padding: 0 0 0 0;
+  padding: 0;
   height: 100%;
 }
+
+/*
 .builder-inputs .tab-content {
   height: calc(100% - 49px);
   display: flex;
@@ -200,7 +251,7 @@ export default {
 .builder-inputs .card-content .tabs ul {
   padding: 0.5rem;
   padding-bottom: 0;
-}
+}*/
 .builder-inputs .control.has-icons-left .icon,
 .control.has-icons-right .icon {
   color: #bbbaba;

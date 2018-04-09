@@ -20,7 +20,7 @@
       </div>
 
       <div class="profile-preview-banner">
-        <img class="round-pp-preview no-select" :src="$store.state.user.info ? $store.state.user.info.profile_image_url : '/images/iFonny.jpg'" onerror="/images/errors/default_profile.png">
+        <a target="_blank" :href="'https://twitter.com/' + user.username"><img class="round-pp-preview no-select" :src="user ? user.profile_image_url : '/images/iFonny.jpg'" onerror="/images/errors/default_profile.png"></a>
       </div>
       <div v-if="!navigation" class="profile-preview-desc">
         <p class="is-size-4 is-size-5-touch has-text-white has-text-weight-bold text-overflow-is-ellipsis" v-html="preview.name"></p>
@@ -72,6 +72,7 @@ export default {
   },
   computed: {
     ...mapState({
+      user: state => state.user.info,
       preview: state => state.builder.preview,
       textCounter: state => state.builder.textCounter,
       profileSaved: state => state.builder.preview.saved
