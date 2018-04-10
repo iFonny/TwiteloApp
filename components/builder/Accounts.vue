@@ -71,7 +71,7 @@
                 <b-field v-for="(setting, settingKey) in accountCreation" :key="settingKey" grouped group-multiline expanded>
 
                   <!-- FIELD LABEL -->
-                  <p v-if="settingKey != 'verified'" class="control">
+                  <p v-if="settingKey != 'verify'" class="control">
                     <label class="label">
                       {{setting.label[locale]}}
                       <b-tooltip v-if="setting.tooltip" :label="setting.tooltip[locale]" type="is-light" position="is-right" size="is-small" multilined>
@@ -117,7 +117,7 @@
                 <b-field v-for="(setting, settingKey) in accountEdition.fieldSettings" :key="settingKey" grouped group-multiline expanded>
 
                   <!-- FIELD LABEL -->
-                  <p v-if="settingKey != 'verified'" class="control">
+                  <p v-if="settingKey != 'verify'" class="control">
                     <label class="label">
                       {{setting.label[locale]}}
                       <b-tooltip v-if="setting.tooltip" :label="setting.tooltip[locale]" type="is-light" position="is-right" size="is-small" multilined>
@@ -364,13 +364,13 @@ export default {
     },
     checkInputsAdd() {
       for (const input in this.accountCreation) {
-        if (!this.dataForm[input] && input != "verified") return false;
+        if (!this.dataForm[input] && input != "verify") return false;
       }
       return true;
     },
     checkInputsEdit() {
       for (const input in this.accountEdition.fieldSettings) {
-        if (!this.dataForm[input] && input != "verified") return false;
+        if (!this.dataForm[input] && input != "verify") return false;
         if (this.dataForm[input] != this.accountEdition.settings[input])
           return true;
       }

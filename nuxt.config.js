@@ -42,7 +42,7 @@ module.exports = {
       {
         hid: 'og:description',
         property: 'og:description',
-        content: 'Link your twitter account and your favorite online games! Display your ranks, stats, and more in your twitter profile. Updated automatically!'
+        content: 'Twitelo - Link your twitter account and your favorite online games! Display your ranks, stats, and more in your twitter profile. Updated automatically!'
       }
     ],
     link: [{
