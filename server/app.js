@@ -112,6 +112,7 @@ dbFunc.checkOrCreateTable(r).then(() => {
       failureRedirect: '/'
     }),
     function (req, res) {
+      console.error('BITCH');
       res.redirect('/');
     });
 

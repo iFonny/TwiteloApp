@@ -70,7 +70,7 @@ export default {
       await app.store.dispatch("builder/updateTextCounters");
       await app.store.dispatch("builder/refreshPreview");
     } catch (e) {
-      console.log(e);
+      console.error(e);
       app.store.dispatch("setError", e);
       error(app.store.state.error);
     }
