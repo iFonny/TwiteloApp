@@ -95,19 +95,19 @@ export const mutations = {
   },
   SET_PREVIEW_PROFILE(state, preview) {
     Vue.set(state.preview, 'name', preview.name.replace(
-      /<{([^<>{} ]+)}>/g,
+      /<{(.+)}>/g,
       '<span class="tag is-cyan">$1</span>'
     ));
     Vue.set(state.preview, 'description', preview.description.replace(
-      /<{([^<>{} ]+)}>/g,
+      /<{(.+)}>/g,
       '<span class="tag is-cyan">$1</span>'
     ));
     Vue.set(state.preview, 'location', preview.location.replace(
-      /<{([^<>{} ]+)}>/g,
+      /<{(.+)}>/g,
       '<span class="tag is-cyan">$1</span>'
     ));
     Vue.set(state.preview, 'url', preview.url.replace(
-      /<{([^<>{} ]+)}>/g,
+      /<{(.+)}>/g,
       '<span class="tag is-cyan">$1</span>'
     ));
   },

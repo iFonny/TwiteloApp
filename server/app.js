@@ -105,14 +105,16 @@ dbFunc.checkOrCreateTable(r).then(() => {
   //=======================================================================//
 
   app.get('/auth/twitter',
-    passport.authenticate('twitter'));
+    passport.authenticate('twitter', {
+      failureRedirect: '/'
+    }));
 
   app.get('/auth/twitter/return',
     passport.authenticate('twitter', {
       failureRedirect: '/'
     }),
     function (req, res) {
-      console.error('BITCH');
+      console.error('BITCH', res.body, req.body);
       res.redirect('/');
     });
 
