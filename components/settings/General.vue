@@ -30,15 +30,6 @@
       <hr class="dropdown-divider divider-settings">
       <li>
         <div class="columns is-mobile">
-          <div class="column is-three-quarters-desktop is-three-quarters-touch settings-name is-sub">{{$t('settings.general.url-switch-profile')}}</div>
-          <div class="column has-text-right settings-content">
-            <b-switch @input="changeSwitch('url')" :value="$store.state.user.info.twitelo.url.status" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.url"></b-switch>
-          </div>
-        </div>
-      </li>
-      <hr class="dropdown-divider divider-settings">
-      <li>
-        <div class="columns is-mobile">
           <div class="column is-three-quarters-desktop is-three-quarters-touch settings-name is-sub">{{$t('settings.general.location-switch-profile')}}</div>
           <div class="column has-text-right settings-content">
             <b-switch @input="changeSwitch('location')" :value="$store.state.user.info.twitelo.location.status" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.location"></b-switch>
@@ -78,7 +69,6 @@ export default {
       switchDisabled: {
         name: false,
         description: false,
-        url: false,
         location: false
       },
       profileUrl: this.$store.state.user.info

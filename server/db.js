@@ -127,6 +127,7 @@ module.exports = {
             profile_image_url: profile._json.profile_image_url_https.replace('_normal', '_400x400'),
             description: profile._json.description,
             switch: false,
+            disabled: 0,
             settings: {
               locale: profile._json.lang.toLowerCase() == 'fr' ? 'fr' : 'en',
               notifications: {
@@ -142,10 +143,6 @@ module.exports = {
               description: {
                 status: false,
                 content: profile._json.description || ''
-              },
-              url: {
-                status: false,
-                content: profile._json.url || ''
               },
               location: {
                 status: false,
@@ -185,6 +182,7 @@ module.exports = {
               lang: profile._json.lang,
               profile_image_url: profile._json.profile_image_url_https.replace('_normal', '_400x400'),
               description: profile._json.description,
+              disabled: 0,
               updated: Date.now()
             }, {
               returnChanges: true
