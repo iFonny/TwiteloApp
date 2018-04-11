@@ -144,10 +144,6 @@ module.exports = {
                 status: false,
                 content: profile._json.description || ''
               },
-              url: {
-                status: false,
-                content: profile._json.url || ''
-              },
               location: {
                 status: false,
                 content: profile._json.location || ''

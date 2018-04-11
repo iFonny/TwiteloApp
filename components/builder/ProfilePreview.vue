@@ -29,10 +29,6 @@
           <b-icon icon="map-marker" size="is-small" class="icon-bio-example"></b-icon>
           <span v-html="preview.location"></span>
         </p>
-        <p class="is-size-6 has-text-weight-light has-text-info text-overflow-is-ellipsis">
-          <b-icon pack="fas" icon="link" size="is-small" class="icon-bio-example"></b-icon>
-          <span v-html="preview.url"></span>
-        </p>
       </div>
       <div v-else-if="navigation == 'info'" class="profile-save-info">
         <p class="is-size-6 has-text-white-ter has-text-weight-light animated fadeIn" v-html="$t('builder.profil-warn-data-example')"></p>
@@ -81,7 +77,6 @@ export default {
       if (this.textCounter.name < 0) return false;
       if (this.textCounter.description < 0) return false;
       if (this.textCounter.location < 0) return false;
-      if (this.textCounter.url < 0) return false;
       return true;
     }
   },
