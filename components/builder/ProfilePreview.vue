@@ -165,7 +165,7 @@ export default {
   padding-bottom: 1rem;
 }
 .profile-preview-desc p {
-  line-height: 1.5rem;
+  line-height: 1.7rem;
 }
 
 .profile-save-info {
