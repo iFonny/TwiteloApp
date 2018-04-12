@@ -64,7 +64,9 @@ dbFunc.checkOrCreateTable(r).then(() => {
 
   const app = express();
 
-  app.use(compression())
+  app.use(compression());
+
+  app.enable('trust proxy');
 
   app.disable('x-powered-by');
   app.use(helmet());

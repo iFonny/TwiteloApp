@@ -367,6 +367,7 @@ export default {
   max-width: 35px !important;
   min-height: 35px !important;
   min-width: 35px !important;
+  border: 1px solid rgb(119, 116, 116);
   z-index: 1;
 }
 .game-tag:hover {

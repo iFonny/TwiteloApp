@@ -5,12 +5,12 @@ export const state = () => ({
   builderLoading: false,
   twitterLimits: {
     description: 160,
-    location: 30,
+    location: 50, // Twitter : 150
     name: 50
   },
   textCounter: {
     description: 160,
-    location: 30,
+    location: 50,
     name: 50
   },
   twiteloDataInput: {
@@ -91,15 +91,15 @@ export const mutations = {
   },
   SET_PREVIEW_PROFILE(state, preview) {
     Vue.set(state.preview, 'name', preview.name.replace(
-      /<{(.+)}>/g,
+      /<{(.+?)}>/g,
       '<span class="tag is-cyan">$1</span>'
     ));
     Vue.set(state.preview, 'description', preview.description.replace(
-      /<{(.+)}>/g,
+      /<{(.+?)}>/g,
       '<span class="tag is-cyan">$1</span>'
     ));
     Vue.set(state.preview, 'location', preview.location.replace(
-      /<{(.+)}>/g,
+      /<{(.+?)}>/g,
       '<span class="tag is-cyan">$1</span>'
     ));
   },
@@ -362,7 +362,7 @@ export const actions = {
     function getTextLength(text) {
       let counter = 0;
       let removeArray = [];
-      const myRegexp = /<{([^<>{} ]+)}>/g;
+      const myRegexp = /<{([^<>{} ]+?)}>/g;
       let match = myRegexp.exec(text);
 
       while (match != null) {
@@ -407,7 +407,7 @@ export const actions = {
   }, name) {
     function replaceFromUUID(text, userTags) {
       let mapObj = {};
-      var myRegexp = /<{([^<>{} ]+)}>/g;
+      var myRegexp = /<{([^<>{} ]+?)}>/g;
       let match = myRegexp.exec(text);
       while (match != null) {
         let foundTag = _.findIndex(userTags, ['id', match[1]]);
@@ -454,7 +454,7 @@ export const actions = {
   }, name) {
     function replaceToUUID(text, userTags) {
       let mapObj = {};
-      var myRegexp = /<{([^<>{} ]+)}>/g;
+      var myRegexp = /<{([^<>{} ]+?)}>/g;
       let match = myRegexp.exec(text);
       while (match != null) {
         if (userTags[match[1]]) {
