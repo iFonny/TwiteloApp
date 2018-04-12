@@ -2,7 +2,7 @@
   "apps": [{
       "name": "twitelo-app-beta",
       "script": "./server/app.js",
-      "watch": true,
+      "watch": false,
       "restart_delay": 1000,
       "ignore_watch": [
         ".nuxt",
@@ -21,7 +21,7 @@
     {
       "name": "twitelo-app",
       "script": "./server/app.js",
-      "watch": true,
+      "watch": false,
       "restart_delay": 1000,
       "ignore_watch": [
         ".nuxt",
