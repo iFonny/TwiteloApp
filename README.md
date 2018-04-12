@@ -1,29 +1,14 @@
-# twitelo
+# Twitelo
 
-> Connect with your twitter account and keep your bio updated with your current LeagueOfLegends elo.
+Link your twitter account and your favorite online games!
+> Display your ranks, stats, and more in your twitter profile. Updated automatically!
 
 # Required
-
-> npm install -g vue-cli
 - RethinkDB
 
+> npm install -g yarn;
+> npm install -g vue-cli
+> yarn global add nuxt
+
+
 Config file needed: secret.json (in /config/)
-
-## Build Setup
-
-``` bash
-# install dependencies
-$ npm install # Or yarn install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).

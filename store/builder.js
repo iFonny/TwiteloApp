@@ -5,21 +5,18 @@ export const state = () => ({
   builderLoading: false,
   twitterLimits: {
     description: 160,
-    url: 100,
-    location: 30,
+    location: 50, // Twitter : 150
     name: 50
   },
   textCounter: {
     description: 160,
-    url: 100,
-    location: 30,
+    location: 50,
     name: 50
   },
   twiteloDataInput: {
     description: '',
     location: '',
-    name: '',
-    url: ''
+    name: ''
   },
   selectedGame: null,
   games: [],
@@ -35,8 +32,7 @@ export const state = () => ({
     needUpdate: true,
     name: 'Name',
     description: 'Description',
-    location: 'Location',
-    url: 'http://url.fr',
+    location: 'Location'
   }
 })
 
@@ -95,19 +91,15 @@ export const mutations = {
   },
   SET_PREVIEW_PROFILE(state, preview) {
     Vue.set(state.preview, 'name', preview.name.replace(
-      /<{([^<>{} ]+)}>/g,
+      /<{(.+?)}>/g,
       '<span class="tag is-cyan">$1</span>'
     ));
     Vue.set(state.preview, 'description', preview.description.replace(
-      /<{([^<>{} ]+)}>/g,
+      /<{(.+?)}>/g,
       '<span class="tag is-cyan">$1</span>'
     ));
     Vue.set(state.preview, 'location', preview.location.replace(
-      /<{([^<>{} ]+)}>/g,
-      '<span class="tag is-cyan">$1</span>'
-    ));
-    Vue.set(state.preview, 'url', preview.url.replace(
-      /<{([^<>{} ]+)}>/g,
+      /<{(.+?)}>/g,
       '<span class="tag is-cyan">$1</span>'
     ));
   },
@@ -247,7 +239,6 @@ export const actions = {
     transformed.name.content = transformed.name.content.replace(`<{${tag.id}}>`, '').trim();
     transformed.description.content = transformed.description.content.replace(`<{${tag.id}}>`, '').trim();
     transformed.location.content = transformed.location.content.replace(`<{${tag.id}}>`, '').trim();
-    transformed.url.content = transformed.url.content.replace(`<{${tag.id}}>`, '').trim();
 
     await commit('user/SET_TWITELO_DATA', transformed, {
       root: true
@@ -278,7 +269,6 @@ export const actions = {
     transformed.name.content = removeFromProfile(transformed.name.content.trim(), tagIDsToDelete);
     transformed.description.content = removeFromProfile(transformed.description.content.trim(), tagIDsToDelete);
     transformed.location.content = removeFromProfile(transformed.location.content.trim(), tagIDsToDelete);
-    transformed.url.content = removeFromProfile(transformed.url.content.trim(), tagIDsToDelete);
 
     await commit('user/SET_TWITELO_DATA', transformed, {
       root: true
@@ -308,8 +298,7 @@ export const actions = {
     const preview = (await this.$axios.$post(`/api/user/me/preview`, {
       name: rootState.user.info.twitelo.name.content,
       description: rootState.user.info.twitelo.description.content,
-      location: rootState.user.info.twitelo.location.content,
-      url: rootState.user.info.twitelo.url.content
+      location: rootState.user.info.twitelo.location.content
     })).data;
 
     // Update preview text
@@ -344,8 +333,7 @@ export const actions = {
     const preview = (await this.$axios.$post(`/api/user/me/save/profile`, {
       name: rootState.user.info.twitelo.name.content,
       description: rootState.user.info.twitelo.description.content,
-      location: rootState.user.info.twitelo.location.content,
-      url: rootState.user.info.twitelo.url.content
+      location: rootState.user.info.twitelo.location.content
     })).data;
 
     // Update preview text
@@ -374,7 +362,7 @@ export const actions = {
     function getTextLength(text) {
       let counter = 0;
       let removeArray = [];
-      const myRegexp = /<{([^<>{} ]+)}>/g;
+      const myRegexp = /<{([^<>{} ]+?)}>/g;
       let match = myRegexp.exec(text);
 
       while (match != null) {
@@ -408,10 +396,6 @@ export const actions = {
         name: 'location',
         value: state.twitterLimits.location - getTextLength(state.twiteloDataInput.location)
       });
-      commit('SET_TEXT_COUNTER', {
-        name: 'url',
-        value: state.twitterLimits.url - getTextLength(state.twiteloDataInput.url)
-      });
     }
 
   },
@@ -423,7 +407,7 @@ export const actions = {
   }, name) {
     function replaceFromUUID(text, userTags) {
       let mapObj = {};
-      var myRegexp = /<{([^<>{} ]+)}>/g;
+      var myRegexp = /<{([^<>{} ]+?)}>/g;
       let match = myRegexp.exec(text);
       while (match != null) {
         let foundTag = _.findIndex(userTags, ['id', match[1]]);
@@ -455,8 +439,7 @@ export const actions = {
       const transformed = {
         name: replaceFromUUID(rootState.user.info.twitelo.name.content.trim(), state.userTags),
         description: replaceFromUUID(rootState.user.info.twitelo.description.content.trim(), state.userTags),
-        location: replaceFromUUID(rootState.user.info.twitelo.location.content.trim(), state.userTags),
-        url: replaceFromUUID(rootState.user.info.twitelo.url.content.trim(), state.userTags),
+        location: replaceFromUUID(rootState.user.info.twitelo.location.content.trim(), state.userTags)
       };
       commit('SET_TWITELO_DATA_INPUT_ALL', transformed);
       console.log('(all) transform <{12a65b}> -> <{1}>');
@@ -471,7 +454,7 @@ export const actions = {
   }, name) {
     function replaceToUUID(text, userTags) {
       let mapObj = {};
-      var myRegexp = /<{([^<>{} ]+)}>/g;
+      var myRegexp = /<{([^<>{} ]+?)}>/g;
       let match = myRegexp.exec(text);
       while (match != null) {
         if (userTags[match[1]]) {
@@ -507,7 +490,6 @@ export const actions = {
       transformed.name.content = replaceToUUID(state.twiteloDataInput.name.trim(), state.userTags);
       transformed.description.content = replaceToUUID(state.twiteloDataInput.description.trim(), state.userTags);
       transformed.location.content = replaceToUUID(state.twiteloDataInput.location.trim(), state.userTags);
-      transformed.url.content = replaceToUUID(state.twiteloDataInput.url.trim(), state.userTags);
 
       commit('user/SET_TWITELO_DATA', transformed, {
         root: true

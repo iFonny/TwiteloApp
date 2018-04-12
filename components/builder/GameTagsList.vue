@@ -146,9 +146,6 @@
                   <a @click="createTag('location')" class="button is-info is-outlined">{{$t('builder.placeholder.location')}}</a>
                 </div>
                 <div class="column is-half">
-                  <a @click="createTag('url')" class="button is-info is-outlined">{{$t('builder.placeholder.url')}}</a>
-                </div>
-                <div class="column is-half">
                   <a @click="createTag('description')" class="button is-info is-outlined">{{$t('builder.placeholder.description')}}</a>
                 </div>
               </div>
@@ -370,6 +367,7 @@ export default {
   max-width: 35px !important;
   min-height: 35px !important;
   min-width: 35px !important;
+  border: 1px solid rgb(119, 116, 116);
   z-index: 1;
 }
 .game-tag:hover {

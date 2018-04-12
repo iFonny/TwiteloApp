@@ -53,7 +53,6 @@
                 {{$t('builder.add-in')}}
                 <b-tag @click.native="addTag(tagEdition, 'name')" type="tag-add-in is-small is-info">{{$t('builder.placeholder.name')}}</b-tag>
                 <b-tag @click.native="addTag(tagEdition, 'location')" type="tag-add-in is-small is-info">{{$t('builder.placeholder.location')}}</b-tag>
-                <b-tag @click.native="addTag(tagEdition, 'url')" type="tag-add-in is-small is-info">{{$t('builder.placeholder.url')}}</b-tag>
                 <b-tag @click.native="addTag(tagEdition, 'description')" type="tag-add-in is-small is-info">{{$t('builder.placeholder.description')}}</b-tag>
               </p>
 
@@ -369,6 +368,7 @@ export default {
   max-width: 35px !important;
   min-height: 35px !important;
   min-width: 35px !important;
+  border: 1px solid rgb(119, 116, 116);
   z-index: 1;
 }
 .tag-title {

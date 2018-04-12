@@ -13,6 +13,9 @@
       <div class="card-content align-vertical-center">
         <div>
 
+          <!-- CANCEL BUTTON -->
+          <button v-if="selectedGame" @click="selectGame(null)" type="button" class="delete game-selection-cancel"></button>
+
           <div v-if="selectedGame" class="content align-vertical-center animated bounceIn">
             <img @click="selectGame(null)" :src="'/api' + selectedGame.image" :alt="selectedGame.name" class="game-list-image no-select">
             <!-- <span class="subtitle is-3 has-text-grey-lighter">{{selectedGame.name}}</span> -->
@@ -66,6 +69,19 @@ export default {
 
 
 <style scoped>
+.delete.game-selection-cancel {
+  position: absolute;
+  right: 0.5rem !important;
+  top: 3.5rem !important;
+  height: 35px !important;
+  width: 35px !important;
+  max-height: 35px !important;
+  max-width: 35px !important;
+  min-height: 35px !important;
+  min-width: 35px !important;
+  border: 1px solid rgb(119, 116, 116);
+  z-index: 1;
+}
 .game-select .card-content {
   min-height: 120px;
   padding: 0.3rem;

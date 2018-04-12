@@ -35,14 +35,6 @@
           </b-field>
 
           <b-field grouped>
-            <b-switch @input="changeSwitch('url')" :value="twiteloData.url.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.url"></b-switch>
-            <b-input expanded @input="updateURL" :value="twiteloDataInput.url" :placeholder="$t('builder.placeholder.url')" icon-pack="fas" icon="link"></b-input>
-            <div class="text-counter control align-vertical-center">
-              <span :class="getCounterColor('url')">{{textCounter.url}}</span>
-            </div>
-          </b-field>
-
-          <b-field grouped>
             <b-switch @input="changeSwitch('description')" :value="twiteloData.description.status" size="is-medium" type="is-success" :disabled="!user.switch || switchDisabled.description"></b-switch>
             <b-input expanded @input="updateDescription" :value="twiteloDataInput.description" type="textarea" :placeholder="$t('builder.placeholder.description')"></b-input>
             <p class="text-counter control align-vertical-center">
@@ -75,7 +67,6 @@ export default {
       switchDisabled: {
         name: false,
         description: false,
-        url: false,
         location: false
       },
       loadingButtons: {
@@ -96,7 +87,6 @@ export default {
       if (this.textCounter.name < 0) return false;
       if (this.textCounter.description < 0) return false;
       if (this.textCounter.location < 0) return false;
-      if (this.textCounter.url < 0) return false;
       return true;
     }
   },
@@ -180,18 +170,6 @@ export default {
       });
       await this.$store.dispatch("builder/transformToUUID");
       await this.$store.dispatch("builder/updateTextCounters", "location");
-      this.$store.commit("builder/SET_PREVIEW_DATA", {
-        name: "saved",
-        value: false
-      });
-    }, 500),
-    updateURL: _.debounce(async function(e) {
-      this.$store.commit("builder/SET_TWITELO_DATA_INPUT", {
-        name: "url",
-        twiteloDataInput: e
-      });
-      await this.$store.dispatch("builder/transformToUUID");
-      await this.$store.dispatch("builder/updateTextCounters", "url");
       this.$store.commit("builder/SET_PREVIEW_DATA", {
         name: "saved",
         value: false
