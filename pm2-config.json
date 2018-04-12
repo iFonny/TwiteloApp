@@ -5,6 +5,7 @@
       "watch": true,
       "restart_delay": 1000,
       "ignore_watch": [
+        ".nuxt",
         "node_modules",
         "logs/*",
         "public/*",
@@ -23,6 +24,7 @@
       "watch": true,
       "restart_delay": 1000,
       "ignore_watch": [
+        ".nuxt",
         "node_modules",
         "logs/*",
         "public/*",
