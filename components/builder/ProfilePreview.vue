@@ -99,15 +99,36 @@ export default {
     async saveProfile() {
       this.loadingButtons.save = true;
 
-      await this.$store.dispatch("builder/saveProfile").catch(e => {
-        this.$store.dispatch("setError", e);
-        this.showNotification({
-          title: this.$store.state.error.statusCode.toString(),
-          message: this.$store.state.error.message,
-          type: "error",
-          timeout: 5000
+      await this.$store
+        .dispatch("builder/saveProfile")
+        .then(() => {
+          // If first save
+          if (this.user.freshUser) {
+            this.$dialog.alert({
+              title: this.$t("builder.congratulations"),
+              message: `${this.$t("builder.profile-first-save")}<br><br>
+        ${this.$t("builder.profile-first-save-info")}<br><br>
+        ${this.$t("builder.profil-warn-data-example")}<br>
+        ${this.$t("builder.profil-warn-data-update")}`,
+              type: "is-success"
+            });
+
+            // Activate twitelo switches
+            this.$store.commit("user/SET_ALL_TWITELO_SWITCH", true);
+            // Set fresh user to false
+            this.$store.commit("user/SET_FRESH_USER", false);
+          }
+        })
+        .catch(e => {
+          this.$store.dispatch("setError", e);
+          this.showNotification({
+            title: this.$store.state.error.statusCode.toString(),
+            message: this.$store.state.error.message,
+            type: "error",
+            timeout: 5000
+          });
         });
-      });
+
       setTimeout(() => {
         this.loadingButtons.save = false;
       }, 1000);

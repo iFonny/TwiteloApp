@@ -18,6 +18,17 @@ export const mutations = {
   TOGGLE_SETTINGS_PP_TRIGGER_SWITCH(state) {
     state.info.settings.pp_trigger = !state.info.settings.pp_trigger;
   },
+  SET_ALL_TWITELO_SWITCH(state, status) {
+    console.log(status);
+    state.info.switch = status;
+    state.info.twitelo.name.status = status;
+    state.info.twitelo.location.status = status;
+    state.info.twitelo.description.status = status;
+    console.log(state.info.twitelo);
+  },
+  SET_FRESH_USER(state, status) {
+    state.info.freshUser = status;
+  },
   SET_USER_SETTINGS(state, settings) {
     state.info.settings = settings;
   },

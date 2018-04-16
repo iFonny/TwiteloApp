@@ -81,6 +81,9 @@
     "profil-warn-data-update": "- Updating the data can take between <b>1 and 10 minutes</b> depending on the games.",
     "refresh-preview": "Click here to refresh the preview",
     "too-much-char-save": "Too many characters to save",
+    "congratulations": "Congratulations!",
+    "profile-first-save": "You saved your <b>profile</b> for the first time.<br><br>The updater has been <b>activated</b> automatically for your name, location and description (You can disable it from the <b>settings</b> or directly from the <b>editor</b>).",
+    "profile-first-save-info": "Here is some useful <b>informations</b>: ",
     "placeholder": {
       "name": "Name",
       "description": "Description",
