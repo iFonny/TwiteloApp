@@ -81,6 +81,9 @@
     "profil-warn-data-update": "- La mise à jour des données peut prendre entre <b>1 et 10 minutes</b> selon les jeux.",
     "refresh-preview": "Cliquez ici pour rafraîchir l'aperçu",
     "too-much-char-save": "Trop de caractères pour sauvegarder",
+    "congratulations": "Félicitations !",
+    "profile-first-save": "Vous avez enregistré votre <b>profil</b> pour la première fois.<br><br>Les modifications automatiques ont été <b>activé</b> pour votre nom, localisation et description (Vous pouvez les désactiver depuis les <b>réglages</b> ou directement depuis l'<b>éditeur</b>).",
+    "profile-first-save-info": "Voici quelques <b>informations</b> utiles : ",
     "placeholder": {
       "name": "Nom",
       "description": "Description",

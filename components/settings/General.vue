@@ -5,7 +5,7 @@
         <div class="columns is-mobile">
           <div class="column is-three-quarters-desktop is-three-quarters-touch settings-name">{{$t('settings.general.global-switch-profile')}}</div>
           <div class="column has-text-right settings-content">
-            <b-switch @input="changeSwitchGlobal()" :value="$store.state.user.info.switch" type="is-success" size="is-medium" :disabled="$store.state.switch.disabled"></b-switch>
+            <b-switch @click.native="changeSwitchGlobal()" :value="$store.state.user.info.switch" type="is-success" size="is-medium" :disabled="$store.state.switch.disabled"></b-switch>
           </div>
         </div>
       </li>
@@ -14,7 +14,7 @@
         <div class="columns is-mobile">
           <div class="column is-three-quarters-desktop is-three-quarters-touch settings-name is-sub">{{$t('settings.general.name-switch-profile')}}</div>
           <div class="column has-text-right settings-content">
-            <b-switch @input="changeSwitch('name')" :value="$store.state.user.info.twitelo.name.status" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.name"></b-switch>
+            <b-switch @click.native="changeSwitch('name')" :value="$store.state.user.info.twitelo.name.status" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.name"></b-switch>
           </div>
         </div>
       </li>
@@ -23,7 +23,7 @@
         <div class="columns is-mobile">
           <div class="column is-three-quarters-desktop is-three-quarters-touch settings-name is-sub">{{$t('settings.general.description-switch-profile')}}</div>
           <div class="column has-text-right settings-content">
-            <b-switch @input="changeSwitch('description')" :value="$store.state.user.info.twitelo.description.status" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.description"></b-switch>
+            <b-switch @click.native="changeSwitch('description')" :value="$store.state.user.info.twitelo.description.status" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.description"></b-switch>
           </div>
         </div>
       </li>
@@ -32,7 +32,7 @@
         <div class="columns is-mobile">
           <div class="column is-three-quarters-desktop is-three-quarters-touch settings-name is-sub">{{$t('settings.general.location-switch-profile')}}</div>
           <div class="column has-text-right settings-content">
-            <b-switch @input="changeSwitch('location')" :value="$store.state.user.info.twitelo.location.status" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.location"></b-switch>
+            <b-switch @click.native="changeSwitch('location')" :value="$store.state.user.info.twitelo.location.status" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.location"></b-switch>
           </div>
         </div>
       </li>

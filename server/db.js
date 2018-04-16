@@ -127,6 +127,7 @@ module.exports = {
             profile_image_url: profile._json.profile_image_url_https.replace('_normal', '_400x400'),
             description: profile._json.description,
             switch: false,
+            freshUser: true,
             disabled: 0,
             settings: {
               locale: profile._json.lang.toLowerCase() == 'fr' ? 'fr' : 'en',
