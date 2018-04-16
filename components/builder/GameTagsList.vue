@@ -175,7 +175,9 @@
 
         <!-- ELSE: No selected game -->
         <div v-else class="is-full-height no-selected-game">
-          <p class="is-size-4 has-text-danger">{{$t('builder.no-game-selected')}}</p>
+          <div class="game-list">
+            <img v-for="game in games" :key="game.id" @click="selectGame(game)" :src="'/api' + game.icon" :alt="game.name" class="game-list-icon no-select">
+          </div>
         </div>
 
       </div>
@@ -204,6 +206,7 @@ export default {
   computed: {
     ...mapState({
       locale: state => state.locale,
+      games: state => state.builder.games,
       accounts: state => state.builder.accounts,
       selectedGame: state => state.builder.selectedGame,
       builderLoading: state => state.builder.builderLoading,
@@ -308,6 +311,18 @@ export default {
     },
     backToTagSettings() {
       this.navigation = "createTag";
+    },
+    async selectGame(game) {
+      this.$store.commit("builder/SET_SELECTED_GAME", game);
+      await this.$store.dispatch("builder/fetchTags", game).catch(e => {
+        this.$store.dispatch("setError", e);
+        this.showNotification({
+          title: this.$store.state.error.statusCode.toString(),
+          message: this.$store.state.error.message,
+          type: "error",
+          timeout: 5000
+        });
+      });
     }
   },
   notifications: {
@@ -325,6 +340,28 @@ export default {
 .align-tags {
   display: flex;
   justify-content: center !important;
+}
+.game-list-icon {
+  height: 50px;
+  width: 50px;
+  margin: 0.3rem;
+  cursor: pointer;
+  -webkit-filter: drop-shadow(0px 0px 1px rgb(255, 255, 255));
+  filter: drop-shadow(0px 0px 1px rgb(255, 255, 255));
+}
+.game-list-image {
+  max-width: 80%;
+  max-height: 80px;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+.game-list-icon:hover {
+  -webkit-filter: drop-shadow(0px 0px 1px #ecde5d);
+  filter: drop-shadow(0px 0px 1px #ecde5d);
+}
+.game-list-image:hover {
+  -webkit-filter: drop-shadow(0px 0px 1px #ecde5d);
+  filter: drop-shadow(0px 0px 1px #ecde5d);
 }
 .game-tags-list .loading-overlay {
   position: relative !important;
