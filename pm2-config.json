@@ -2,9 +2,10 @@
   "apps": [{
       "name": "twitelo-app-beta",
       "script": "./server/app.js",
-      "watch": true,
+      "watch": false,
       "restart_delay": 1000,
       "ignore_watch": [
+        ".nuxt",
         "node_modules",
         "logs/*",
         "public/*",
@@ -20,9 +21,10 @@
     {
       "name": "twitelo-app",
       "script": "./server/app.js",
-      "watch": true,
+      "watch": false,
       "restart_delay": 1000,
       "ignore_watch": [
+        ".nuxt",
         "node_modules",
         "logs/*",
         "public/*",

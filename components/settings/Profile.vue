@@ -6,7 +6,7 @@
       </div>
 
       <div class="column has-text-right settings-content">
-        <b-switch @input="changeSwitchPPTrigger('ppTrigger')" :value="$store.state.user.info.settings.pp_trigger" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.ppTrigger"></b-switch>
+        <b-switch @click.native="changeSwitchPPTrigger('ppTrigger')" :value="$store.state.user.info.settings.pp_trigger" type="is-success" size="is-medium" :disabled="!$store.state.user.info.switch || switchDisabled.ppTrigger"></b-switch>
       </div>
     </div>
 

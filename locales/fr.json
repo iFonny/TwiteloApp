@@ -59,7 +59,7 @@
     "select-game-to-add-account": "Sélectionnez un jeu pour ajouter un compte",
     "no-accounts": "Vous avez besoin d'au moins un compte.",
     "can-move-anywhere": "Une fois créées, vous pouvez déplacer vos données n'importe où dans votre profil.",
-    "show-unused-tags": "Afficher les tags inutilisés",
+    "show-unused-tags": "Afficher les données inutilisées",
     "example": "Exemple",
     "add-in": "Ajouter dans",
     "characters": "caractères",
@@ -81,6 +81,9 @@
     "profil-warn-data-update": "- La mise à jour des données peut prendre entre <b>1 et 10 minutes</b> selon les jeux.",
     "refresh-preview": "Cliquez ici pour rafraîchir l'aperçu",
     "too-much-char-save": "Trop de caractères pour sauvegarder",
+    "congratulations": "Félicitations !",
+    "profile-first-save": "Vous avez enregistré votre <b>profil</b> pour la première fois.<br><br>Les modifications automatiques ont été <b>activé</b> pour votre nom, localisation et description (Vous pouvez les désactiver depuis les <b>réglages</b> ou directement depuis l'<b>éditeur</b>).",
+    "profile-first-save-info": "Voici quelques <b>informations</b> utiles : ",
     "placeholder": {
       "name": "Nom",
       "description": "Description",

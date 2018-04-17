@@ -18,7 +18,7 @@
           </div>
 
           <b-field grouped>
-            <b-switch @input="changeSwitch('name')" :value="twiteloData.name.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.name"></b-switch>
+            <b-switch @click.native="changeSwitch('name')" :value="twiteloData.name.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.name"></b-switch>
 
             <b-input expanded @input="updateName" :value="twiteloDataInput.name" :placeholder="$t('builder.placeholder.name')" icon="account"></b-input>
             <div class="text-counter control align-vertical-center">
@@ -27,7 +27,7 @@
           </b-field>
 
           <b-field grouped>
-            <b-switch @input="changeSwitch('location')" :value="twiteloData.location.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.location"></b-switch>
+            <b-switch @click.native="changeSwitch('location')" :value="twiteloData.location.status" type="is-success" size="is-medium" :disabled="!user.switch || switchDisabled.location"></b-switch>
             <b-input expanded @input="updateLocation" :value="twiteloDataInput.location" :placeholder="$t('builder.placeholder.location')" icon-pack="fas" icon="map-marker-alt"></b-input>
             <div class="text-counter control align-vertical-center">
               <span :class="getCounterColor('location')">{{textCounter.location}}</span>
@@ -35,7 +35,7 @@
           </b-field>
 
           <b-field grouped>
-            <b-switch @input="changeSwitch('description')" :value="twiteloData.description.status" size="is-medium" type="is-success" :disabled="!user.switch || switchDisabled.description"></b-switch>
+            <b-switch @click.native="changeSwitch('description')" :value="twiteloData.description.status" size="is-medium" type="is-success" :disabled="!user.switch || switchDisabled.description"></b-switch>
             <b-input expanded @input="updateDescription" :value="twiteloDataInput.description" type="textarea" :placeholder="$t('builder.placeholder.description')"></b-input>
             <p class="text-counter control align-vertical-center">
               <span :class="getCounterColor('description')">{{textCounter.description}}</span>
@@ -102,15 +102,35 @@ export default {
     async saveProfile() {
       this.loadingButtons.save = true;
 
-      await this.$store.dispatch("builder/saveProfile").catch(e => {
-        this.$store.dispatch("setError", e);
-        this.showNotification({
-          title: this.$store.state.error.statusCode.toString(),
-          message: this.$store.state.error.message,
-          type: "error",
-          timeout: 5000
+      await this.$store
+        .dispatch("builder/saveProfile")
+        .then(() => {
+          // If first save
+          if (this.user.freshUser) {
+            this.$dialog.alert({
+              title: this.$t("builder.congratulations"),
+              message: `${this.$t("builder.profile-first-save")}<br><br>
+        ${this.$t("builder.profile-first-save-info")}<br><br>
+        ${this.$t("builder.profil-warn-data-example")}<br>
+        ${this.$t("builder.profil-warn-data-update")}`,
+              type: "is-success"
+            });
+
+            // Activate twitelo switches
+            this.$store.commit("user/SET_ALL_TWITELO_SWITCH", true);
+            // Set fresh user to false
+            this.$store.commit("user/SET_FRESH_USER", false);
+          }
+        })
+        .catch(e => {
+          this.$store.dispatch("setError", e);
+          this.showNotification({
+            title: this.$store.state.error.statusCode.toString(),
+            message: this.$store.state.error.message,
+            type: "error",
+            timeout: 5000
+          });
         });
-      });
       setTimeout(() => {
         this.loadingButtons.save = false;
       }, 1000);
