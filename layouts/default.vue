@@ -194,6 +194,15 @@ select {
   background-color: #222121;
 }
 
+/* Overwrite dropdown */
+.dropdown-content {
+  background-color: rgba(54, 54, 54, 0.98);
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
+a.dropdown-item:hover {
+  background-color: #454545;
+}
+
 /* Overwrite modal */
 .modal-card-head,
 .modal-card-foot {

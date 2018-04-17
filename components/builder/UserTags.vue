@@ -109,13 +109,22 @@
 
                   <!-- INPUT TYPE: string -->
                   <b-input v-if="setting.type == 'string'" v-model="dataForm.dataSettings[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded></b-input>
-
                   <!-- INPUT TYPE: select -->
                   <b-select v-if="setting.type == 'select'" v-model="dataForm.dataSettings[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
                     <option v-for="(input, inputKey) in setting.input" :key="inputKey" :value="inputKey">
                       {{input[locale]}}
                     </option>
                   </b-select>
+                  <!-- INPUT TYPE: speedrun_game -->
+                  <b-autocomplete v-if="setting.type == 'speedrun_game'" v-model="dynamicSettings.speedrun.game.name" :placeholder="setting.label[locale]" size="is-small" required expanded :data="dynamicSettings.speedrun.game.data" field="names.international" :loading="dynamicSettings.speedrun.game.isFetching" icon="magnify" @input="getSpeedrunGames" @select="selectSpeedrunGame">
+                  </b-autocomplete>
+                  <!-- INPUT TYPE: speedrun_category -->
+                  <b-select v-if="setting.type == 'speedrun_category'" v-model="dataForm.dataSettings[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
+                    <option v-for="input in getSpeedrunCategories" :key="input.id" :value="input.id">
+                      {{input.name}}
+                    </option>
+                  </b-select>
+
                 </b-field>
 
               </section>
@@ -189,6 +198,16 @@ export default {
         save: false,
         remove: false
       },
+      dynamicSettings: {
+        speedrun: {
+          game: {
+            data: [],
+            name: "",
+            selected: null,
+            isFetching: false
+          }
+        }
+      },
       dataForm: {
         settings: {},
         dataSettings: {}
@@ -204,9 +223,65 @@ export default {
       userTags: state => state.builder.userTags,
       selectedGame: state => state.builder.selectedGame,
       twiteloDataInput: state => state.builder.twiteloDataInput
-    })
+    }),
+    getSpeedrunCategories() {
+      let selected = this.dynamicSettings.speedrun.game.selected;
+      if (selected && selected.categories) return selected.categories.data;
+      else return null;
+    }
   },
   methods: {
+    getSpeedrunGames: _.debounce(function() {
+      this.dynamicSettings.speedrun.game.data = [];
+      this.dynamicSettings.speedrun.game.isFetching = true;
+      this.$axios
+        .get(
+          `https://www.speedrun.com/api/v1/games?name=${
+            this.dynamicSettings.speedrun.game.name
+          }&embed=categories`
+        )
+        .then(({ data }) => {
+          data.data.forEach(item =>
+            this.dynamicSettings.speedrun.game.data.push(item)
+          );
+          this.dynamicSettings.speedrun.game.isFetching = false;
+        })
+        .catch(e => {
+          this.dynamicSettings.speedrun.game.isFetching = false;
+          this.$store.dispatch("setError", e);
+          this.showNotification({
+            title: this.$store.state.error.statusCode.toString(),
+            message: this.$store.state.error.message,
+            type: "error",
+            timeout: 5000
+          });
+        });
+    }, 1000),
+    selectSpeedrunGame(option) {
+      delete this.dataForm.dataSettings.category;
+      if (option) this.dataForm.dataSettings.game = option.id;
+      else delete this.dataForm.dataSettings.game;
+      return (this.dynamicSettings.speedrun.game.selected = option);
+    },
+    getSpeedrunGameByID(id) {
+      this.$axios
+        .get(`https://www.speedrun.com/api/v1/games/${id}?embed=categories`)
+        .then(({ data }) => {
+          this.dynamicSettings.speedrun.game.name =
+            data.data.names.international;
+          this.dynamicSettings.speedrun.game.selected = data.data;
+        })
+        .catch(e => {
+          this.$store.dispatch("setError", e);
+          this.showNotification({
+            title: this.$store.state.error.statusCode.toString(),
+            message: this.$store.state.error.message,
+            type: "error",
+            timeout: 5000
+          });
+        });
+    },
+
     editTagPopup(tag, key) {
       this.tagEdition = tag;
       this.tagEdition.index = key;
@@ -216,6 +291,12 @@ export default {
         settings: _.cloneDeep(tag.settings) || {},
         dataSettings: _.cloneDeep(tag.data_settings) || {}
       };
+      /* dynamic settings */
+      if (tag.game_id == "speedrun" && tag.data_settings.game) {
+        this.dynamicSettings.speedrun.game.isFetching = true;
+        this.getSpeedrunGameByID(tag.data_settings.game);
+        this.dynamicSettings.speedrun.game.isFetching = false;
+      }
     },
     async deleteTagPopup(tag, key) {
       this.tagEdition = tag;

@@ -115,6 +115,15 @@
                         {{input[locale]}}
                       </option>
                     </b-select>
+                    <!-- INPUT TYPE: speedrun_game -->
+                    <b-autocomplete v-if="setting.type == 'speedrun_game'" v-model="dynamicSettings.speedrun.game.name" :placeholder="setting.label[locale]" size="is-small" required expanded :data="dynamicSettings.speedrun.game.data" field="names.international" :loading="dynamicSettings.speedrun.game.isFetching" icon="magnify" @input="getSpeedrunGames" @select="selectSpeedrunGame">
+                    </b-autocomplete>
+                    <!-- INPUT TYPE: speedrun_category -->
+                    <b-select v-if="setting.type == 'speedrun_category'" v-model="dataForm.dataSettings[settingKey]" :placeholder="setting.label[locale]" size="is-small" required expanded>
+                      <option v-for="input in getSpeedrunCategories" :key="input.id" :value="input.id">
+                        {{input.name}}
+                      </option>
+                    </b-select>
 
                   </b-field>
                 </section>
@@ -186,6 +195,7 @@
 </template>
 
 <script>
+import _ from "lodash";
 import { mapState } from "vuex";
 import VueNotifications from "vue-notifications";
 
@@ -197,6 +207,16 @@ export default {
       dataForm: {
         settings: {},
         dataSettings: {}
+      },
+      dynamicSettings: {
+        speedrun: {
+          game: {
+            data: [],
+            name: "",
+            selected: null,
+            isFetching: false
+          }
+        }
       },
       page: {
         current: 1
@@ -213,6 +233,11 @@ export default {
       gameTagsCategory: state => state.builder.gameTagsCategory,
       gameTagsCategoryPages: state => state.builder.gameTagsCategoryPages
     }),
+    getSpeedrunCategories() {
+      let selected = this.dynamicSettings.speedrun.game.selected;
+      if (selected && selected.categories) return selected.categories.data;
+      else return null;
+    },
     tagExample() {
       if (
         this.tagCreation &&
@@ -323,6 +348,38 @@ export default {
           timeout: 5000
         });
       });
+    },
+    getSpeedrunGames: _.debounce(function() {
+      this.dynamicSettings.speedrun.game.data = [];
+      this.dynamicSettings.speedrun.game.isFetching = true;
+      this.$axios
+        .get(
+          `https://www.speedrun.com/api/v1/games?name=${
+            this.dynamicSettings.speedrun.game.name
+          }&embed=categories`
+        )
+        .then(({ data }) => {
+          data.data.forEach(item =>
+            this.dynamicSettings.speedrun.game.data.push(item)
+          );
+          this.dynamicSettings.speedrun.game.isFetching = false;
+        })
+        .catch(e => {
+          this.dynamicSettings.speedrun.game.isFetching = false;
+          this.$store.dispatch("setError", e);
+          this.showNotification({
+            title: this.$store.state.error.statusCode.toString(),
+            message: this.$store.state.error.message,
+            type: "error",
+            timeout: 5000
+          });
+        });
+    }, 1000),
+    selectSpeedrunGame(option) {
+      delete this.dataForm.dataSettings.category;
+      if (option) this.dataForm.dataSettings.game = option.id;
+      else delete this.dataForm.dataSettings.game;
+      return (this.dynamicSettings.speedrun.game.selected = option);
     }
   },
   notifications: {
@@ -393,6 +450,7 @@ export default {
   padding: 0 0.7rem;
   position: relative;
   width: 100%;
+  z-index: 2;
 }
 .delete.tag-creation-cancel {
   position: absolute;
