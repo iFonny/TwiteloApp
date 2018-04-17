@@ -296,6 +296,16 @@ export default {
         settings: {},
         dataSettings: {}
       };
+      this.dynamicSettings = {
+        speedrun: {
+          game: {
+            data: [],
+            name: "",
+            selected: null,
+            isFetching: false
+          }
+        }
+      };
     },
     checkInputs() {
       if (this.tagCreation.account && !this.dataForm.account_id) return false;

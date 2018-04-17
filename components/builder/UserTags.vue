@@ -328,6 +328,16 @@ export default {
         settings: {},
         dataSettings: {}
       };
+      this.dynamicSettings = {
+        speedrun: {
+          game: {
+            data: [],
+            name: "",
+            selected: null,
+            isFetching: false
+          }
+        }
+      };
     },
     async addTag(tag, destination) {
       this.$store.commit("builder/SET_BUILDER_LOADING", true);
