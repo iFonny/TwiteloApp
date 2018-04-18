@@ -132,7 +132,7 @@ module.exports = {
             settings: {
               locale: profile._json.lang.toLowerCase() == 'fr' ? 'fr' : 'en',
               notifications: {
-                mp_twitter: false
+                mp_twitter: true
               },
               pp_trigger: false
             },
