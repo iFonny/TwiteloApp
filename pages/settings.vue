@@ -8,6 +8,12 @@
 
       </b-tab-item>
 
+      <b-tab-item :label="$t('settings.tab.notifications')" icon-pack="fas" icon="bell">
+
+        <notifications />
+
+      </b-tab-item>
+
       <b-tab-item :label="$t('settings.tab.tweet-auto')" icon-pack="fab" icon="twitter" disabled>
         WIP
       </b-tab-item>
@@ -18,13 +24,6 @@
 
       </b-tab-item>
 
-      <b-tab-item :label="$t('settings.tab.notifications')" icon-pack="fas" icon="bell">
-
-        <notifications />
-
-      </b-tab-item>
-
-      
     </b-tabs>
   </section>
 </template>
