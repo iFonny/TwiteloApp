@@ -68,6 +68,7 @@
     "cancel": "Cancel",
     "close": "Close",
     "previous": "Previous",
+    "help": "Help",
     "save": "Save",
     "remove": "Remove",
     "remove-tag-confirmation-message": "Are you sure you want to delete this data?",
@@ -84,6 +85,17 @@
     "congratulations": "Congratulations!",
     "profile-first-save": "You saved your <b>profile</b> for the first time.<br><br>The updater has been <b>activated</b> automatically for your name, location and description (You can disable it from the <b>settings</b> or directly from the <b>editor</b>).",
     "profile-first-save-info": "Here is some useful <b>informations</b>: ",
+    "step-by-step": {
+      "game-account-title": "Game & Account",
+      "game-account-desc1": "Choose a game",
+      "game-account-desc2": "Add an account",
+      "data-title": "Data",
+      "data-desc": "Select and add data",
+      "edit-title": "Edit",
+      "edit-desc": "Move or edit data",
+      "preview-title": "Preview",
+      "preview-desc": "Save profile"
+    },
     "placeholder": {
       "name": "Name",
       "description": "Description",

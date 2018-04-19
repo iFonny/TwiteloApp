@@ -14,7 +14,7 @@ import NavBar from "~/components/header/NavBar";
 export default {
   head() {
     return {
-      titleTemplate: _.capitalize(this.$nuxt.$route.name) + ' - Twitelo'
+      titleTemplate: _.capitalize(this.$nuxt.$route.name) + " - Twitelo"
     };
   },
   mounted: function() {
@@ -78,6 +78,8 @@ $lightgreen: #81d29d;
 $lightgreen-invert: findColorInvert($lightgreen);
 $lightred: #e26a6a;
 $lightred-invert: findColorInvert($lightred);
+$darker: #313131;
+$darker-invert: findColorInvert($darker);
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
@@ -95,7 +97,8 @@ $colors: (
   "red": ($red, $red-invert),
   "lightblue": ($lightblue, $lightblue-invert),
   "lightgreen": ($lightgreen, $lightgreen-invert),
-  "lightred": ($lightred, $lightred-invert)
+  "lightred": ($lightred, $lightred-invert),
+  "darker": ($darker, $darker-invert)
 );
 
 // Links
@@ -163,6 +166,16 @@ textarea,
 select {
   background-color: rgba(31, 31, 31, 0.43137254901960786) !important;
   color: white !important;
+}
+
+/* Overwrite steps */
+.steps .step-item .step-marker,
+.steps .step-item.is-active .step-marker {
+  background: #363636;
+}
+.steps .step-item.is-light.is-active .step-marker {
+  color: #363636;
+  background: #b5b2b2;
 }
 
 /* Overwrite pagination colors */

@@ -19,12 +19,10 @@ export const mutations = {
     state.info.settings.pp_trigger = !state.info.settings.pp_trigger;
   },
   SET_ALL_TWITELO_SWITCH(state, status) {
-    console.log(status);
     state.info.switch = status;
     state.info.twitelo.name.status = status;
     state.info.twitelo.location.status = status;
     state.info.twitelo.description.status = status;
-    console.log(state.info.twitelo);
   },
   SET_FRESH_USER(state, status) {
     state.info.freshUser = status;

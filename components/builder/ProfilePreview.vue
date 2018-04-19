@@ -102,6 +102,7 @@ export default {
       await this.$store
         .dispatch("builder/saveProfile")
         .then(() => {
+
           // If first save
           if (this.user.freshUser) {
             this.$dialog.alert({
@@ -110,7 +111,8 @@ export default {
         ${this.$t("builder.profile-first-save-info")}<br><br>
         ${this.$t("builder.profil-warn-data-example")}<br>
         ${this.$t("builder.profil-warn-data-update")}`,
-              type: "is-success"
+              type: "is-success",
+              onConfirm: () => this.$router.push("/builder/classic")
             });
 
             // Activate twitelo switches
@@ -184,6 +186,7 @@ export default {
   padding-right: 20%;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  min-height: 10rem;
 }
 .profile-preview-desc p {
   line-height: 1.7rem;
@@ -192,6 +195,7 @@ export default {
 .profile-save-info {
   background-color: #363636;
   padding: 1.5rem 0.5rem;
+  min-height: 10rem;
 }
 .profile-save-info p {
   line-height: 2.3rem;

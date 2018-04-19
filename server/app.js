@@ -117,7 +117,8 @@ dbFunc.checkOrCreateTable(r).then(() => {
     }),
     function (req, res) {
       console.error('BITCH', res.body, req.body);
-      res.redirect('/');
+      if (req.user.freshUser) res.redirect('/builder/step-by-step');
+      else res.redirect('/builder/classic');
     });
 
   app.get('/auth/logout', function (req, res) {

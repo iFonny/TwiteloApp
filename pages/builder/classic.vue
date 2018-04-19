@@ -51,7 +51,7 @@ import ProfilePreview from "~/components/builder/ProfilePreview";
 export default {
   head() {
     return {
-      titleTemplate: 'Builder - Twitelo'
+      titleTemplate: "Builder - Twitelo"
     };
   },
   middleware: "auth",
@@ -65,10 +65,12 @@ export default {
   },
   async asyncData({ app, error }) {
     try {
-      await app.store.dispatch("builder/fetchBuilderData");
-      await app.store.dispatch("builder/transformFromUUID");
-      await app.store.dispatch("builder/updateTextCounters");
-      await app.store.dispatch("builder/refreshPreview");
+      if (Object.keys(app.store.state.builder.games).length <= 0) {
+        await app.store.dispatch("builder/fetchBuilderData");
+        await app.store.dispatch("builder/transformFromUUID");
+        await app.store.dispatch("builder/updateTextCounters");
+        await app.store.dispatch("builder/refreshPreview");
+      }
     } catch (e) {
       console.error(e);
       app.store.dispatch("setError", e);
