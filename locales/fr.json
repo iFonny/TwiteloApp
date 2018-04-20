@@ -94,7 +94,21 @@
       "edit-title": "Éditer",
       "edit-desc": "Déplacer ou modifier des données",
       "preview-title": "Aperçu",
-      "preview-desc": "Enregistrer le profil"
+      "preview-desc": "Enregistrer le profil",
+      "help": {
+        "select-game": "Sélectionner un jeu",
+        "select-another-game": "Sélectionner un autre jeu",
+        "add-account": "Ajouter un compte",
+        "edit-account": "Modifier un compte",
+        "delete-account": "Supprimer un compte",
+        "add-data": "Ajouter des données dans le profil",
+        "move-data": "Déplacer des données dans le profil",
+        "add-existing-data": "Ajouter des données existantes dans le profil",
+        "edit-data": "Modifier des données",
+        "delete-data": "Supprimer les données",
+        "autoupdater-switch": "Activer ou désactiver la mise à jour automatique",
+        "save-profile": "N'oubliez pas de sauvegarder votre profil !"
+      }
     },
     "placeholder": {
       "name": "Nom",
