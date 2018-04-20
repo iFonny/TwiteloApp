@@ -5,23 +5,23 @@
       <div class="step-item is-light" :class="isStep(1)">
         <div class="step-marker">1</div>
         <div class="step-details">
-          <p class="step-title">{{$t('builder.step-by-step.game-account-title')}}</p>
-          <p>{{$t('builder.step-by-step.game-account-desc1')}}</p>
-          <p>{{$t('builder.step-by-step.game-account-desc2')}}</p>
+          <p class="step-title" :class="isStepSize(1, 'title')">{{$t('builder.step-by-step.game-account-title')}}</p>
+          <p :class="isStepSize(1, 'desc')">{{$t('builder.step-by-step.game-account-desc1')}}</p>
+          <p :class="isStepSize(1, 'desc')">{{$t('builder.step-by-step.game-account-desc2')}}</p>
         </div>
       </div>
       <div class="step-item is-light" :class="isStep(2)">
         <div class="step-marker">2</div>
         <div class="step-details">
-          <p class="step-title">{{$t('builder.step-by-step.data-title')}}</p>
-          <p>{{$t('builder.step-by-step.data-desc')}}</p>
+          <p class="step-title" :class="isStepSize(2, 'title')">{{$t('builder.step-by-step.data-title')}}</p>
+          <p :class="isStepSize(2, 'desc')">{{$t('builder.step-by-step.data-desc')}}</p>
         </div>
       </div>
       <div class="step-item is-light" :class="isStep(3)">
         <div class="step-marker">3</div>
         <div class="step-details">
-          <p class="step-title">{{$t('builder.step-by-step.edit-title')}}</p>
-          <p>{{$t('builder.step-by-step.edit-desc')}}</p>
+          <p class="step-title" :class="isStepSize(3, 'title')">{{$t('builder.step-by-step.edit-title')}}</p>
+          <p :class="isStepSize(3, 'desc')">{{$t('builder.step-by-step.edit-desc')}}</p>
         </div>
       </div>
       <div class="step-item is-light" :class="isStep(4)">
@@ -31,8 +31,8 @@
           </span>
         </div>
         <div class="step-details">
-          <p class="step-title">{{$t('builder.step-by-step.preview-title')}}</p>
-          <p>{{$t('builder.step-by-step.preview-desc')}}</p>
+          <p class="step-title" :class="isStepSize(4, 'title')">{{$t('builder.step-by-step.preview-title')}}</p>
+          <p :class="isStepSize(4, 'desc')">{{$t('builder.step-by-step.preview-desc')}}</p>
         </div>
       </div>
       <div class="steps-content">
@@ -42,8 +42,9 @@
           <button :disabled="step <= 1" @click="previousStep" class="column button is-dark is-medium align-vertical-center">
             <span>{{$t('builder.previous')}}</span>
           </button>
-          <button class="column is-2 button is-darker is-medium align-vertical-center">
-            <span>{{$t('builder.help')}}</span>
+          <button @click="toggleHelp()" class="column is-2 button is-darker is-medium align-vertical-center">
+            <span v-if="!help">{{$t('builder.help')}}</span>
+            <b-icon v-else pack="fas" icon="times-circle"></b-icon>
           </button>
           <button :disabled="step >= 4" @click="nextStep" class="column button is-dark is-medium align-vertical-center">
             <span>{{$t('builder.next')}}</span>
@@ -51,21 +52,29 @@
         </div>
 
         <div class="step-content has-text-centered" :class="showStepContent(1)">
-          <game-select />
-          <accounts />
+          <div v-if="!help">
+            <game-select />
+            <accounts />
+          </div>
+          <select-game-account-help v-else />
         </div>
 
         <div class="step-content has-text-centered" :class="showStepContent(2)">
-          <game-tags-list />
+          <game-tags-list v-if="!help" />
+          <select-tags-help v-else />
         </div>
 
         <div class="step-content has-text-centered" :class="showStepContent(3)">
-          <input-builder />
-          <user-tags />
+          <div v-if="!help">
+            <input-builder />
+            <user-tags />
+          </div>
+          <edit-profile-help v-else />
         </div>
 
         <div class="step-content has-text-centered" :class="showStepContent(4)">
-          <profile-preview />
+          <profile-preview v-if="!help" />
+          <preview-help v-else/>
         </div>
       </div>
 
@@ -83,6 +92,11 @@ import Accounts from "~/components/builder/Accounts";
 import UserTags from "~/components/builder/UserTags";
 import ProfilePreview from "~/components/builder/ProfilePreview";
 
+import SelectGameAccountHelp from "~/components/builder/stepByStep/SelectGameAccountHelp";
+import SelectTagsHelp from "~/components/builder/stepByStep/SelectTagsHelp";
+import EditProfileHelp from "~/components/builder/stepByStep/EditProfileHelp";
+import PreviewHelp from "~/components/builder/stepByStep/PreviewHelp";
+
 export default {
   head() {
     return {
@@ -95,7 +109,11 @@ export default {
     GameTagsList,
     Accounts,
     UserTags,
-    ProfilePreview
+    ProfilePreview,
+    SelectGameAccountHelp,
+    SelectTagsHelp,
+    EditProfileHelp,
+    PreviewHelp
   },
   middleware: "auth",
   async asyncData({ app, error }) {
@@ -123,24 +141,36 @@ export default {
   },
   data() {
     return {
-      step: 1
+      step: 1,
+      help: false
     };
   },
   methods: {
+    toggleHelp() {
+      this.help = !this.help;
+    },
     isStep(nb) {
       let classContent = "";
       if (nb == this.step) classContent += "is-active ";
       if (nb < this.step) classContent += "is-completed";
       return classContent;
     },
+    isStepSize(nb, type) {
+      if (type == "title" && nb == this.step) return "is-size-4";
+      else if (type == "title" && nb != this.step) return "is-size-6";
+      if (type == "desc" && nb == this.step) return "is-size-5";
+      else if (type == "desc" && nb != this.step) return "is-size-7";
+      return "";
+    },
     showStepContent(nb) {
-      if (this.step == nb) return "is-active";
-      else return "";
+      return this.step == nb ? "is-active" : "";
     },
     nextStep() {
+      this.help = false;
       this.step++;
     },
     previousStep() {
+      this.help = false;
       this.step--;
     }
   }
@@ -161,6 +191,12 @@ export default {
 .steps-actions .button {
   border: unset;
   border-radius: 0;
+}
+.step-item {
+  min-height: 8.2rem;
+}
+.steps .steps-content {
+  margin-bottom: 0;
 }
 </style>
 

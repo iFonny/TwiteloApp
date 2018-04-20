@@ -94,7 +94,21 @@
       "edit-title": "Edit",
       "edit-desc": "Move or edit data",
       "preview-title": "Preview",
-      "preview-desc": "Save profile"
+      "preview-desc": "Save profile",
+      "help": {
+        "select-game": "Select a game",
+        "select-another-game": "Select another game",
+        "add-account": "Add an account",
+        "edit-account": "Edit an account",
+        "delete-account": "Delete an account",
+        "add-data": "Add data in profile",
+        "move-data": "Move data in profile",
+        "add-existing-data": "Add existing data in profile",
+        "edit-data": "Edit data",
+        "delete-data": "Delete data",
+        "autoupdater-switch": "Enable or disable auto updater",
+        "save-profile": "Don't forget to save your profile!"
+      }
     },
     "placeholder": {
       "name": "Name",
