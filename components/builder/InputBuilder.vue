@@ -250,13 +250,5 @@ export default {
   padding: 0.5rem;
   padding-bottom: 0;
 }*/
-.builder-inputs .control.has-icons-left .icon,
-.control.has-icons-right .icon {
-  color: #bbbaba;
-}
-.builder-inputs .control.has-icons-left .input:focus ~ .icon,
-.builder-inputs .control.has-icons-right .input:focus ~ .icon {
-  color: white;
-}
 </style>
 
