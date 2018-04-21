@@ -86,6 +86,8 @@
     "profile-first-save": "Vous avez enregistré votre <b>profil</b> pour la première fois.<br><br>Les modifications automatiques ont été <b>activé</b> pour votre nom, localisation et description (Vous pouvez les désactiver depuis les <b>réglages</b> ou directement depuis l'<b>éditeur</b>).",
     "profile-first-save-info": "Voici quelques <b>informations</b> utiles : ",
     "step-by-step": {
+      "next-step": "Étape suivante",
+      "previous-step": "Étape précédente",
       "game-account-title": "Jeu et compte",
       "game-account-desc1": "Choisir un jeu",
       "game-account-desc2": "Ajouter un compte",
