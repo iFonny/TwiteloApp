@@ -173,7 +173,7 @@
             </div>
 
             <div v-else-if="navigation == 'accountRequired'" class="is-full-height no-selected-game animated fadeIn">
-              
+
               <!-- CANCEL BUTTON -->
               <button @click="cancelEditUserTag()" type="button" class="delete user-tag-edition-cancel"></button>
 
@@ -249,6 +249,7 @@ export default {
       if (
         this.tagCreation &&
         this.tagCreation.example &&
+        this.tagCreation.exampleOriginal &&
         this.dataForm.settings
       ) {
         let result = this.tagCreation.example;
@@ -268,7 +269,7 @@ export default {
           }
         }
         return (
-          (result ? `${result}` : "...") +
+          (result || this.tagCreation.exampleOriginal) +
           ` (${size} ${this.$t("builder.characters")})`
         );
       } else return "...";

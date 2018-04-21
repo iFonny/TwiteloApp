@@ -40,14 +40,14 @@
         <!-- PREV/TUTO/NEXT BUTTON -->
         <div class="steps-actions columns is-gapless is-mobile">
           <button :disabled="step <= 1" @click="previousStep" class="column button is-dark is-medium align-vertical-center">
-            <span>{{$t('builder.previous')}}</span>
+            <span class="is-size-6-mobile">{{$t('builder.step-by-step.previous-step')}}</span>
           </button>
           <button @click="toggleHelp()" class="column is-2 button is-darker is-medium align-vertical-center">
-            <span v-if="!help">{{$t('builder.help')}}</span>
+            <span v-if="!help" class="is-size-6-mobile">{{$t('builder.help')}}</span>
             <b-icon v-else pack="fas" icon="times-circle"></b-icon>
           </button>
           <button :disabled="step >= 4" @click="nextStep" class="column button is-dark is-medium align-vertical-center">
-            <span>{{$t('builder.next')}}</span>
+            <span class="is-size-6-mobile">{{$t('builder.step-by-step.next-step')}}</span>
           </button>
         </div>
 
@@ -156,9 +156,11 @@ export default {
       return classContent;
     },
     isStepSize(nb, type) {
-      if (type == "title" && nb == this.step) return "is-size-4";
+      if (type == "title" && nb == this.step)
+        return "is-size-4 has-text-lightgreen";
       else if (type == "title" && nb != this.step) return "is-size-6";
-      if (type == "desc" && nb == this.step) return "is-size-5";
+      if (type == "desc" && nb == this.step)
+        return "is-size-5 has-text-lightgreen";
       else if (type == "desc" && nb != this.step) return "is-size-7";
       return "";
     },

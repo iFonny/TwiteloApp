@@ -86,6 +86,8 @@
     "profile-first-save": "You saved your <b>profile</b> for the first time.<br><br>The updater has been <b>activated</b> automatically for your name, location and description (You can disable it from the <b>settings</b> or directly from the <b>editor</b>).",
     "profile-first-save-info": "Here is some useful <b>informations</b>: ",
     "step-by-step": {
+      "next-step": "Next step",
+      "previous-step": "Previous step",
       "game-account-title": "Game & Account",
       "game-account-desc1": "Choose a game",
       "game-account-desc2": "Add an account",
