@@ -3,7 +3,7 @@
         <p class="subtitle has-text-centered" v-html="$t('contact.contact-me-message')"></p>
         <section>
             <b-field :label="$t('contact.form.twitter-username')">
-                <b-input v-model="dataForm.username" icon-pack="fab" icon="twitter" :disabled="user ? true : false" required></b-input>
+                <b-input v-model="dataForm.username" placeholder="iFonny_" icon="twitter" :disabled="user ? true : false" required></b-input>
             </b-field>
 
             <b-field :label="$t('contact.form.request-type')">
@@ -43,7 +43,7 @@ export default {
   async asyncData({ app, error }) {
     return {
       dataForm: {
-        username: app.store.state.user.info.username,
+        username: app.store.state.user.info ? app.store.state.user.info.username : null,
         type: "bug-report",
         title: null,
         message: null
