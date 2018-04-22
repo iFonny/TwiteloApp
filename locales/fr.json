@@ -157,6 +157,21 @@
       "send-mp-notifs-tooltip": "Vous devez suivre @TwiteloFR ou avoir des messages privés ouverts"
     }
   },
+  "contact": {
+    "contact-me-message": "Si vous avez des <b>suggestions</b>, des <b>demandes</b>, des <b>problèmes</b> ou si vous voulez <span class=\"is-size-4\"><b>signaler un bug</b></span>, n'hésitez pas à me contacter !",
+    "form": {
+      "twitter-username": "Nom d'utilisateur Twitter",
+      "request-type": "Type",
+      "title": "Titre",
+      "bug-report": "Signaler un bug",
+      "suggestion": "Suggestion",
+      "request": "Demande",
+      "other": "Autre",
+      "message": "Message",
+      "send": "Envoyer",
+      "sent": "Envoyé"
+    }
+  },
   "error": {
     "error": "Erreur",
     "page-not-found": "Cette page n'a pas pu être trouvée",

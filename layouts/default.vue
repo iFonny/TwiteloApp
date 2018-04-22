@@ -167,6 +167,22 @@ select {
   background-color: rgba(31, 31, 31, 0.43137254901960786) !important;
   color: white !important;
 }
+.input[disabled],
+.taginput [disabled].taginput-container.is-focusable,
+.textarea[disabled] {
+  border-color: unset;
+  box-shadow: none;
+  color: #a1a0a0 !important;
+}
+
+.control.has-icons-left .icon,
+.control.has-icons-right .icon {
+  color: #bbbaba;
+}
+.control.has-icons-left .input:focus ~ .icon,
+.control.has-icons-right .input:focus ~ .icon {
+  color: white;
+}
 
 /* Overwrite steps */
 .steps .step-item .step-marker,
