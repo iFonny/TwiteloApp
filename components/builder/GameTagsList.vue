@@ -47,10 +47,10 @@
           <!-- POPUP CREATE TAG -->
           <div v-else class="is-full-height">
 
-            <!-- CANCEL BUTTON -->
-            <button @click="cancelAddGameTag()" type="button" class="delete tag-creation-cancel"></button>
-
             <div v-if="navigation == 'createTag' && tagCreation" class="is-full-height relative-zone">
+
+              <!-- CANCEL BUTTON -->
+              <button @click="cancelAddGameTag()" type="button" class="delete tag-creation-cancel"></button>
 
               <!-- TAG RESUME && EXAMPLE -->
               <p class="tag-title has-text-grey-lighter is-size-4 has-text-left">{{tagCreation.name}} - {{tagCreation.categorySmall}}</p>
@@ -143,6 +143,9 @@
             <!-- POPUP SELECT DESTINATION -->
             <div v-else-if="navigation == 'selectDestination'" class="is-full-height relative-zone">
 
+              <!-- CANCEL BUTTON -->
+              <button @click="cancelAddGameTag()" type="button" class="delete tag-creation-cancel"></button>
+
               <!-- TAG RESUME && EXAMPLE -->
               <p class="tag-title has-text-grey-lighter is-size-4 has-text-left">{{tagCreation.name}} - {{tagCreation.categorySmall}}</p>
               <p class="tag-example is-size-6 has-text-grey-light has-text-left">{{$t('builder.example')}} : {{tagExample}}</p>
@@ -154,7 +157,7 @@
                 <div class="column is-half">
                   <a @click="createTag('location')" class="button is-info is-outlined">{{$t('builder.placeholder.location')}}</a>
                 </div>
-                <div class="column is-half">
+                <div class="column">
                   <a @click="createTag('description')" class="button is-info is-outlined">{{$t('builder.placeholder.description')}}</a>
                 </div>
               </div>
@@ -170,6 +173,10 @@
             </div>
 
             <div v-else-if="navigation == 'accountRequired'" class="is-full-height no-selected-game animated fadeIn">
+
+              <!-- CANCEL BUTTON -->
+              <button @click="cancelEditUserTag()" type="button" class="delete user-tag-edition-cancel"></button>
+
               <p class="is-size-4 has-text-danger">{{$t('builder.no-accounts')}}</p>
             </div>
 
@@ -242,6 +249,7 @@ export default {
       if (
         this.tagCreation &&
         this.tagCreation.example &&
+        this.tagCreation.exampleOriginal &&
         this.dataForm.settings
       ) {
         let result = this.tagCreation.example;
@@ -261,7 +269,7 @@ export default {
           }
         }
         return (
-          (result ? `${result}` : "...") +
+          (result || this.tagCreation.exampleOriginal) +
           ` (${size} ${this.$t("builder.characters")})`
         );
       } else return "...";
@@ -465,7 +473,7 @@ export default {
 .delete.tag-creation-cancel {
   position: absolute;
   right: 0.5rem !important;
-  top: 3.5rem !important;
+  top: 0.5rem !important;
   height: 35px !important;
   width: 35px !important;
   max-height: 35px !important;
@@ -506,7 +514,7 @@ export default {
 }
 .tag-destination-buttons {
   margin: 0;
-  height: calc(100% - 110px);
+  height: 112px;
   display: flex;
   justify-content: center;
   align-items: center;

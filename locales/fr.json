@@ -68,6 +68,7 @@
     "cancel": "Annuler",
     "close": "Fermer",
     "previous": "Précédent",
+    "help": "Aide",
     "save": "Enregistrer",
     "remove": "Supprimer",
     "remove-tag-confirmation-message": "Êtes-vous sûr de vouloir supprimer cette donnée ?",
@@ -84,6 +85,33 @@
     "congratulations": "Félicitations !",
     "profile-first-save": "Vous avez enregistré votre <b>profil</b> pour la première fois.<br><br>Les modifications automatiques ont été <b>activé</b> pour votre nom, localisation et description (Vous pouvez les désactiver depuis les <b>réglages</b> ou directement depuis l'<b>éditeur</b>).",
     "profile-first-save-info": "Voici quelques <b>informations</b> utiles : ",
+    "step-by-step": {
+      "next-step": "Étape suivante",
+      "previous-step": "Étape précédente",
+      "game-account-title": "Jeu et compte",
+      "game-account-desc1": "Choisir un jeu",
+      "game-account-desc2": "Ajouter un compte",
+      "data-title": "Données",
+      "data-desc": "Sélectionner et ajouter des données",
+      "edit-title": "Éditer",
+      "edit-desc": "Déplacer ou modifier des données",
+      "preview-title": "Aperçu",
+      "preview-desc": "Enregistrer le profil",
+      "help": {
+        "select-game": "Sélectionner un jeu",
+        "select-another-game": "Sélectionner un autre jeu",
+        "add-account": "Ajouter un compte",
+        "edit-account": "Modifier un compte",
+        "delete-account": "Supprimer un compte",
+        "add-data": "Ajouter des données dans le profil",
+        "move-data": "Déplacer des données dans le profil",
+        "add-existing-data": "Ajouter des données existantes dans le profil",
+        "edit-data": "Modifier des données",
+        "delete-data": "Supprimer les données",
+        "autoupdater-switch": "Activer ou désactiver la mise à jour automatique",
+        "save-profile": "N'oubliez pas de sauvegarder votre profil !"
+      }
+    },
     "placeholder": {
       "name": "Nom",
       "description": "Description",
@@ -127,6 +155,21 @@
     "notifications": {
       "send-mp-notifs": "Envoyer les notifications en messages privés twitter",
       "send-mp-notifs-tooltip": "Vous devez suivre @TwiteloFR ou avoir des messages privés ouverts"
+    }
+  },
+  "contact": {
+    "contact-me-message": "Si vous avez des <b>suggestions</b>, des <b>demandes</b>, des <b>problèmes</b> ou si vous voulez <span class=\"is-size-4\"><b>signaler un bug</b></span>, n'hésitez pas à me contacter !",
+    "form": {
+      "twitter-username": "Nom d'utilisateur Twitter",
+      "request-type": "Type",
+      "title": "Titre",
+      "bug-report": "Signaler un bug",
+      "suggestion": "Suggestion",
+      "request": "Demande",
+      "other": "Autre",
+      "message": "Message",
+      "send": "Envoyer",
+      "sent": "Envoyé"
     }
   },
   "error": {

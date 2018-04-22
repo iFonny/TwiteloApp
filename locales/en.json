@@ -68,6 +68,7 @@
     "cancel": "Cancel",
     "close": "Close",
     "previous": "Previous",
+    "help": "Help",
     "save": "Save",
     "remove": "Remove",
     "remove-tag-confirmation-message": "Are you sure you want to delete this data?",
@@ -84,6 +85,33 @@
     "congratulations": "Congratulations!",
     "profile-first-save": "You saved your <b>profile</b> for the first time.<br><br>The updater has been <b>activated</b> automatically for your name, location and description (You can disable it from the <b>settings</b> or directly from the <b>editor</b>).",
     "profile-first-save-info": "Here is some useful <b>informations</b>: ",
+    "step-by-step": {
+      "next-step": "Next step",
+      "previous-step": "Previous step",
+      "game-account-title": "Game & Account",
+      "game-account-desc1": "Choose a game",
+      "game-account-desc2": "Add an account",
+      "data-title": "Data",
+      "data-desc": "Select and add data",
+      "edit-title": "Edit",
+      "edit-desc": "Move or edit data",
+      "preview-title": "Preview",
+      "preview-desc": "Save profile",
+      "help": {
+        "select-game": "Select a game",
+        "select-another-game": "Select another game",
+        "add-account": "Add an account",
+        "edit-account": "Edit an account",
+        "delete-account": "Delete an account",
+        "add-data": "Add data in profile",
+        "move-data": "Move data in profile",
+        "add-existing-data": "Add existing data in profile",
+        "edit-data": "Edit data",
+        "delete-data": "Delete data",
+        "autoupdater-switch": "Enable or disable auto updater",
+        "save-profile": "Don't forget to save your profile!"
+      }
+    },
     "placeholder": {
       "name": "Name",
       "description": "Description",
@@ -127,6 +155,21 @@
     "notifications": {
       "send-mp-notifs": "Send notifications in private messages twitter",
       "send-mp-notifs-tooltip": "You must follow @TwiteloFR or have private messages open"
+    }
+  },
+  "contact": {
+    "contact-me-message": "If you have any <b>suggestions</b>, <b>requests</b>, <b>problems</b> or if you want <span class=\"is-size-4\"><b>report a bug</b></span> feel free to contact me!",
+    "form": {
+      "twitter-username": "Twitter username",
+      "request-type": "Type",
+      "title": "Title",
+      "bug-report": "Report a bug",
+      "suggestion": "Suggestion",
+      "request": "Request",
+      "other": "Other",
+      "message": "Message",
+      "send": "Send",
+      "sent": "Sent"
     }
   },
   "error": {

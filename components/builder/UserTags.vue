@@ -41,11 +41,11 @@
 
           <div v-else class="is-full-height">
 
-            <!-- CANCEL BUTTON -->
-            <button @click="cancelEditUserTag()" type="button" class="delete user-tag-edition-cancel"></button>
-
             <!-- EDIT USER TAGS POPUP -->
             <div v-if="navigation == 'editTag' && tagEdition" class="is-full-height relative-zone">
+
+              <!-- CANCEL BUTTON -->
+              <button @click="cancelEditUserTag()" type="button" class="delete user-tag-edition-cancel"></button>
 
               <!-- TAG RESUME && ADD BUTTONS -->
               <p class="tag-title has-text-grey-lighter is-size-5 has-text-left">{{tagEdition.info.name}} - {{tagEdition.info.categorySmall}}</p>
@@ -143,6 +143,9 @@
 
             <!-- REMOVE TAG POPUP CONFIRMATION -->
             <div v-if="navigation == 'removeTagConfirm' && tagEdition" class="is-full-height relative-zone">
+
+              <!-- CANCEL BUTTON -->
+              <button @click="cancelEditUserTag()" type="button" class="delete user-tag-edition-cancel"></button>
 
               <!-- TAG RESUME && EXAMPLE -->
               <p class="tag-title has-text-grey-lighter is-size-5 has-text-left">{{tagEdition.info.name}} - {{tagEdition.info.categorySmall}}</p>
@@ -452,7 +455,7 @@ export default {
 .delete.user-tag-edition-cancel {
   position: absolute;
   right: 0.5rem !important;
-  top: 3.5rem !important;
+  top: 0.5rem !important;
   height: 35px !important;
   width: 35px !important;
   max-height: 35px !important;

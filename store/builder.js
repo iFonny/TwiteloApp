@@ -19,7 +19,7 @@ export const state = () => ({
     name: ''
   },
   selectedGame: null,
-  games: [],
+  games: {},
   gameTagsCategory: null,
   gameTagsCategoryPages: [],
   userTags: [],
