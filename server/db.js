@@ -94,6 +94,15 @@ module.exports = {
               console.log('RethinkDB: "game_data" indexes created.');
             });
           }
+          if (!tables.includes('contact')) {
+            await r.tableCreate('contact').run().then(async () => {
+              console.log('RethinkDB: "contact" table created.');
+              await r.table('contact').indexCreate('type').run();
+              await r.table('contact').indexCreate('username').run();
+              await r.table('contact').indexCreate('created').run();
+              console.log('RethinkDB: "contact" indexes created.');
+            });
+          }
         });
       });
     } catch (e) {
