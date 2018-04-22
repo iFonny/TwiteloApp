@@ -68,7 +68,7 @@ export default {
     submitContact() {
       this.loading = true;
       this.$axios
-        .$post("/api/other/contact", this.dataForm)
+        .$post(this.user ? "/api/other/me/contact" : "/api/other/contact", this.dataForm)
         .then(() => {
           this.sent = true;
           this.loading = false;
