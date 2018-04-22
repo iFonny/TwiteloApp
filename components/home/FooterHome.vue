@@ -3,25 +3,25 @@
 
         <p class="sub-title is-6 has-text-weight-light">{{$t('home.latest-users')}}</p>
         <div>
-            <a class="is-hidden-mobile no-select" v-for="(user) in latestUsers.slice(0,10)" :key='user.username' target="_blank" :href="'http://twitter.com/' + user.username">
+            <a class="is-hidden-mobile no-select" v-for="(user) in latestUsers.slice(0,10)" :key='user.username' target="_blank" :href="'https://twitter.com/' + user.username">
                 <img :src="user.profile_image_url" onerror="/images/errors/default_profile.png" :alt="user.name" class="round-pp-user-footer no-select">
             </a>
         </div>
         <div>
-            <a class="is-hidden-tablet no-select" v-for="user in latestUsers.slice(0,5)" :key='user.username' target="_blank" :href="'http://twitter.com/' + user.username">
+            <a class="is-hidden-tablet no-select" v-for="user in latestUsers.slice(0,5)" :key='user.username' target="_blank" :href="'https://twitter.com/' + user.username">
                 <img :src="user.profile_image_url" onerror="/images/errors/default_profile.png" :alt="user.name" class="round-pp-user-footer no-select">
             </a>
         </div>
         <p class="sub-title is-8 has-text-weight-light">
             <b>Twitelo</b> by
-            <a>iFonny</a>
-            <a class="icon-footer-github">
+            <a target="_blank" href="https://ifonny.fr/home">iFonny</a>
+            <a target="_blank" href="https://github.com/iFonny" class="icon-footer-github">
                 <b-icon icon="github" pack="fab" size="is-small"></b-icon>
             </a>
-            <a class="icon-footer-twitter">
+            <a target="_blank" href="https://twitter.com/iFonny_" class="icon-footer-twitter">
                 <b-icon icon="twitter" size="is-small"></b-icon>
             </a>-
-            <a>{{$t('home.more-informations')}}</a>
+            <nuxt-link :to="'/about'">{{$t('home.more-informations')}}</nuxt-link>
         </p>
     </footer>
 </template>
