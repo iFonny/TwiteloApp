@@ -34,9 +34,9 @@
         <b-icon pack="fas" icon="info-circle"></b-icon>
         <span class="sub-menu-button">{{$t('navbar.user.about')}}</span>
       </nuxt-link>
-      <nuxt-link :to="'/contact'" @click.native="closePopupUser()" class="column is-half button is-light dropdown-user-button is-dark">
-        <b-icon pack="fas" icon="envelope"></b-icon>
-        <span class="sub-menu-button">{{$t('navbar.user.contact')}}</span>
+      <nuxt-link :to="'/stats'" @click.native="closePopupUser()" class="column is-half button is-light dropdown-user-button is-dark">
+        <b-icon icon="finance"></b-icon>
+        <span class="sub-menu-button">{{$t('navbar.stats')}}</span>
       </nuxt-link>
       <a href="/auth/logout" @click.native="logout()" id="dropdown-user-button-logout" class="column button dropdown-user-button is-red">
         <b-icon pack="fas" icon="sign-out-alt"></b-icon>
