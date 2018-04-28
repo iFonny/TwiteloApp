@@ -5,12 +5,12 @@ export const state = () => ({
   builderLoading: false,
   twitterLimits: {
     description: 160,
-    location: 50, // Twitter : 150
+    location: 70, // Twitter : 150
     name: 50
   },
   textCounter: {
     description: 160,
-    location: 50,
+    location: 70,
     name: 50
   },
   twiteloDataInput: {
