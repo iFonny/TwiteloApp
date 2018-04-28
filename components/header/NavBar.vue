@@ -27,10 +27,10 @@
         <div class="navbar-start">
 
           <about v-if="!$store.state.user.info" />
-          <contact v-if="!$store.state.user.info" />
           <builder v-if="$store.state.user.info" />
-          <stats/>
           <donate/>
+          <contact/>
+          <!-- <stats/> -->
           <!-- <faq/> -->
 
         </div>
