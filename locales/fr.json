@@ -172,6 +172,15 @@
       "sent": "Envoyé"
     }
   },
+  "donate": {
+    "donate-message-1": "Twitelo est entièrement <b>gratuit</b> et <b>sans publicité</b>. Mais la création et la maintenance du site a un <b>coût</b> (temps, domaines, serveurs...)",
+    "donate-message-2": "C'est pour cela que <span class=\"is-size-4\"><b>j'ai besoin de vous !</b></span> <br>Toute donation même avec un montant très faible est appréciée (Vous retrouverez également ci-dessous la liste des dons)",
+    "donate-crypto-message": "Envoyez-moi un message sur twitter (<b>@TwiteloFR</b>) si vous voulez votre nom dans la liste des dons.",
+    "paypal-donate": "Paypal",
+    "crypto-donate": "Cryptomonnaies",
+    "free-donate": "Me soutenir gratuitement",
+    "donations-list-title": "Liste des dons"
+  },
   "error": {
     "error": "Erreur",
     "page-not-found": "Cette page n'a pas pu être trouvée",
