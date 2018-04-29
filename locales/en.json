@@ -18,7 +18,7 @@
   },
   "navbar": {
     "close-popup": "Close",
-    "donate": "Donate",
+    "donate": "Support me",
     "faq": "FAQ",
     "login-with-twitter": "Login with Twitter",
     "stats": "Stats",
@@ -171,6 +171,15 @@
       "send": "Send",
       "sent": "Sent"
     }
+  },
+  "donate": {
+    "donate-message-1": "Twitelo is completely <b>free</b> and <b>without advertisements</b>. <br>But the creation and maintenance of the website has a <b>cost</b> (time, domains, servers...)",
+    "donate-message-2": "That's why <span class=\"is-size-4\"><b>I need you !</b></span> <br>Any donation even with a very small amount is appreciated (You will also find below the donation list)",
+    "donate-crypto-message": "Send me a message on twitter (<b>@TwiteloFR</b>) if you want your name in the donation list.",
+    "paypal-donate": "Paypal",
+    "crypto-donate": "Cryptocurrencies",
+    "free-donate": "Support me for free",
+    "donations-list-title": "Donation list"
   },
   "error": {
     "error": "Error",
