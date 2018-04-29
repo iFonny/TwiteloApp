@@ -38,7 +38,7 @@
         <b-icon icon="finance"></b-icon>
         <span class="sub-menu-button">{{$t('navbar.stats')}}</span>
       </nuxt-link>
-      <a href="/auth/logout" @click.native="logout()" id="dropdown-user-button-logout" class="column button dropdown-user-button is-red">
+      <a @click="logout()" id="dropdown-user-button-logout" class="column button dropdown-user-button is-red">
         <b-icon pack="fas" icon="sign-out-alt"></b-icon>
         <span class="sub-menu-button">{{$t('navbar.user.logout')}}</span>
       </a>
@@ -96,6 +96,7 @@ export default {
     },
     async logout() {
       await this.$store.dispatch("user/logout");
+      window.location.replace('/auth/logout');
     }
   },
   notifications: {
