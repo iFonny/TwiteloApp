@@ -119,7 +119,7 @@ export default {
           name: "Bitcoin Cash",
           symbol: "BCH",
           icon: "/images/donate/bcash.png",
-          address: "Bcash. 32MB complain on memo.trash"
+          address: "Bcash. 32MB blocks complain on memo.trash"
         }
       ]
     };
