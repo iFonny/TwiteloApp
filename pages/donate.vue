@@ -116,10 +116,10 @@ export default {
           address: "DFpspE3UXQDJ2nFHgAd3LmGMzrKmyx5WP4"
         },
         {
-          name: "BCash",
+          name: "Bitcoin Cash",
           symbol: "BCH",
           icon: "/images/donate/bcash.png",
-          address: "Bcash. XD"
+          address: "Bcash. 32MB complain on memo.trash"
         }
       ]
     };
