@@ -119,7 +119,7 @@ export default {
           name: "BCash",
           symbol: "BCH",
           icon: "/images/donate/bcash.png",
-          address: "qrm40axfez6yr2hx3rlcs0d0q9a6eakmnvmk9vnllv"
+          address: "Bcash. XD"
         }
       ]
     };
