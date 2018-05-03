@@ -87,7 +87,7 @@ module.exports = {
   ],
 
   'google-analytics': {
-    id: 'UA-115012125-2'
+    id: 'UA-115012125-1'
   },
 
   axios: {
