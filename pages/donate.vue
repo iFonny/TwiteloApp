@@ -1,54 +1,56 @@
 <template>
-    <div class="container is-fluid has-text-centered donate-page">
-        <img class="twitelo-logo" src="~/static/logo.png"><br>
-        <p class="subtitle has-text-centered has-text-grey-lighter" v-html="$t('donate.donate-message-1')"></p>
-        <p class="subtitle has-text-centered has-text-grey-lighter" v-html="$t('donate.donate-message-2')"></p>
+  <div class="container is-fluid has-text-centered donate-page">
+    <img class="twitelo-logo" src="~/static/logo.png"><br>
+    <p class="subtitle has-text-centered has-text-grey-lighter" v-html="$t('donate.donate-message-1')"></p>
+    <p class="subtitle has-text-centered has-text-grey-lighter" v-html="$t('donate.donate-message-2')"></p>
 
-        <section>
-            <p class="title">{{$t('donate.paypal-donate')}}</p>
-            <ul>
-                <li class="align-vertical-center">
-                    <img class="donate-icon" src="~/static/images/donate/paypal.png">
-                    <a class="is-size-5" :href="link.paypal">{{link.paypal}}</a>
-                </li>
-            </ul>
-        </section>
-        <br>
-        <section>
-            <p class="title">{{$t('donate.crypto-donate')}}</p>
-            <p class="subtitle has-text-centered" v-html="$t('donate.donate-crypto-message')"></p>
-            <ul>
-                <li v-for="(crypto, key) in cryptos" :key="key" class="align-vertical-center">
-                    <img class="donate-icon" :src="crypto.icon">
-                    <span class="crypto-name">{{crypto.name}} ({{crypto.symbol}})</span>
-                    <a class="is-size-5">{{crypto.address}}</a>
-                </li>
-            </ul>
-        </section>
-        <br>
-        <section>
-            <p class="title">{{$t('donate.free-donate')}}</p>
+    <section>
+      <p class="title">{{$t('donate.paypal-donate')}}</p>
+      <ul>
+        <li class="align-vertical-center">
+          <img class="donate-icon" src="~/static/images/donate/paypal.png">
+          <a class="is-size-5" :href="link.paypal">{{link.paypal}}</a>
+        </li>
+      </ul>
+    </section>
+    <br>
+    <section>
+      <p class="title">{{$t('donate.crypto-donate')}}</p>
+      <p class="subtitle has-text-centered" v-html="$t('donate.donate-crypto-message')"></p>
+      <ul>
+        <li v-for="(crypto, key) in cryptos" :key="key" class="columns">
+          <div class="crypto-title column">
+            <img class="donate-icon" :src="crypto.icon">
+            <span class="crypto-name is-size-6-mobile">{{crypto.name}} ({{crypto.symbol}})</span>
+          </div>
+          <a class="is-size-5 is-size-6-mobile crypto-address column is-three-fifths">{{crypto.address}}</a>
+        </li>
+      </ul>
+    </section>
+    <br>
+    <section>
+      <p class="title">{{$t('donate.free-donate')}}</p>
 
-            <ul>
-                <li>
-                    <a :href="link.brave"><img class="donate-banner" :src="image.brave"></a>
-                </li>
-            </ul>
+      <ul>
+        <li>
+          <a :href="link.brave"><img class="donate-banner" :src="image.brave"></a>
+        </li>
+      </ul>
 
-        </section>
-        <br>
-        <section class="donations-list">
-            <p class="title">{{$t('donate.donations-list-title')}}</p>
+    </section>
+    <br>
+    <section class="donations-list">
+      <p class="title">{{$t('donate.donations-list-title')}}</p>
 
-            <ul>
-                <li v-for="donation in donations" :key="donation.id">
-                    <span>
-                        <b>{{donation.name || "Anonymous"}}</b>
-                        <a>{{donation.address ? ` (${donation.address})` : ''}}</a> - {{donation.amount}} {{donation.symbol}} ({{donation.from}})</span>
-                </li>
-            </ul>
-        </section>
-    </div>
+      <ul>
+        <li v-for="donation in donations" :key="donation.id">
+          <span>
+            <b>{{donation.name || "Anonymous"}}</b>
+            <a>{{donation.address ? ` (${donation.address})` : ''}}</a> - {{donation.amount}} {{donation.symbol}} ({{donation.from}})</span>
+        </li>
+      </ul>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -131,7 +133,8 @@ export default {
 
 <style scoped>
 .container {
-  margin: 1.5rem 3rem 1.5rem 3rem;
+  margin: 0;
+  padding: 1.5rem 3rem 1.5rem 3rem;
 }
 
 .donate-page .twitelo-logo {
@@ -150,5 +153,32 @@ export default {
 .donate-page .donate-banner {
   height: 70px;
   cursor: pointer;
+}
+
+.crypto-address {
+  text-align: left;
+  white-space: pre-wrap; /* CSS3 */
+  white-space: -moz-pre-wrap; /* Firefox */
+  white-space: -pre-wrap; /* Opera <7 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* IE */
+}
+
+.crypto-title {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+  }
+  .crypto-title {
+    justify-content: center;
+  }
+  .crypto-address {
+    text-align: center;
+  }
 }
 </style>
