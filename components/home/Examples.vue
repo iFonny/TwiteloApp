@@ -4,7 +4,7 @@
         <div class="hero-head has-text-centered">
             <div class="container bio-example-container">
                 <div class="bio-example-banner">
-                    <img class="round-pp-preview no-select" :src="$store.state.user.info ? $store.state.user.info.profile_image_url : '/images/iFonny.jpg'" onerror="/images/errors/default_profile.png">
+                    <img class="round-pp-preview no-select" src="/images/iFonny.jpg" onerror="/images/errors/default_profile.png">
                 </div>
                 <div class="bio-example-desc">
                     <p class="title is-4 has-text-white text-overflow-is-ellipsis">Joris -
