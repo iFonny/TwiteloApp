@@ -18,9 +18,13 @@
             <a target="_blank" href="https://github.com/iFonny" class="icon-footer-github">
                 <b-icon icon="github" pack="fab" size="is-small"></b-icon>
             </a>
+            <a target="_blank" href="https://discord.gg/F75CNy2" class="icon-footer-discord">
+                <b-icon icon="discord" size="is-small"></b-icon>
+            </a>
             <a target="_blank" href="https://twitter.com/iFonny_" class="icon-footer-twitter">
                 <b-icon icon="twitter" size="is-small"></b-icon>
-            </a>-
+            </a>
+            -
             <nuxt-link :to="'/about'">{{$t('home.more-informations')}}</nuxt-link>
         </p>
     </footer>
@@ -45,6 +49,10 @@ export default {
 .footer .icon-footer-github {
   margin-left: 4px;
   margin-right: 2px;
+}
+.footer .icon-footer-discord {
+  margin-right: 2px;
+  margin-left: 2px;
 }
 .footer .icon-footer-twitter {
   margin-right: 4px;

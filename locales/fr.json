@@ -181,6 +181,35 @@
     "free-donate": "Me soutenir gratuitement",
     "donations-list-title": "Liste des dons"
   },
+  "about": {
+    "about-me": "À propos de moi",
+    "links": "Liens",
+    "changelog": "Journal des modifications",
+    "contributors": "Contributeurs",
+    "more-stats": "Plus de statistiques",
+    "timeline": {
+      "whats-next": "Quelle est la prochaine étape ?",
+      "months": {
+        "january": "Janvier",
+        "february": "Février",
+        "march": "Mars",
+        "april": "Avril",
+        "may": "Mai",
+        "june": "Juin",
+        "july": "Juillet",
+        "august": "Août",
+        "september": "Septembre",
+        "october": "Octobre",
+        "november": "Novembre",
+        "december": "Décembre"
+      },
+      "changes": {
+        "first-release": "Sortie de la <b>première</b> version.",
+        "second-release": "<b>Réécriture complète</b> à partir de zéro.<br>Implémentations de <b>League Of Legends</b> et <b>Speedrun.com</b>.",
+        "whats-next": "Implementations de plus de <b>jeux</b> et <b>platformes</b>.<br>Changements d'<b>image de profil</b> et <b>tweets</b> automatiques."
+      }
+    }
+  },
   "error": {
     "error": "Erreur",
     "page-not-found": "Cette page n'a pas pu être trouvée",
