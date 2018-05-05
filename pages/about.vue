@@ -19,11 +19,30 @@
       <ul class="is-size-5">
         <li v-for="contributor in contributors" :key="contributor.username">
           <span class="has-text-weight-semibold">{{contributor.username}} - </span>
-          <span class="is-italic">{{contributor.task}} - </span>
+          <span class="is-italic">{{contributor.task[locale]}} - </span>
           <a v-for="link in contributor.links" :key="link.url" :href="link.url">
             <b-icon :pack="link.pack" :icon="link.icon" class="icon-link"></b-icon>
           </a>
         </li>
+      </ul>
+    </section>
+
+    <!-- Statistics -->
+    <section class="has-text-centered">
+      <p class="is-size-3 has-text-weight-bold has-text-centered">{{$t('navbar.statistics')}}</p>
+      <ul class="is-size-5">
+        <li v-for="(stat, statIndex) in stats" :key="statIndex">
+          <span class="has-text-weight-bold has-text-warning is-size-4">{{stat.nb}} </span>
+          <span class="has-text-weight-light">{{stat.text[locale]}} </span>
+          <span class="is-size-4" v-if="stat.bonus">|
+            <span class="has-text-weight-bold has-text-warning is-size-4">{{stat.bonus.nb}} </span>
+            <span class="has-text-weight-light is-size-5">{{stat.bonus.text[locale]}}</span>
+          </span>
+        </li>
+        <nuxt-link to="/stats" class="button button-more-stats is-light">
+          <b-icon icon="finance" size="is-small"></b-icon>
+          <span>{{$t('about.more-stats')}}</span>
+        </nuxt-link>
       </ul>
     </section>
 
@@ -87,6 +106,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   head() {
     return {
@@ -99,8 +120,17 @@ export default {
       ]
     };
   },
-  asyncData({ app }) {
+  async asyncData({ app }) {
+    let stats = [];
+    
+    try {
+      stats = (await app.$axios.$get("/api/other/stats/min")).data;
+    } catch (e) {
+      stats = [];
+    }
+
     return {
+      stats,
       twiteloLinks: [
         {
           name: "Twitter",
@@ -118,7 +148,10 @@ export default {
       contributors: [
         {
           username: "iFonny",
-          task: app.i18n.t("about.contrib.back-front-design"),
+          task: {
+            en: "Back-end / Front-end / Design",
+            fr: "Back-end / Front-end / Design"
+          },
           links: [
             {
               icon: "github",
@@ -134,7 +167,10 @@ export default {
         },
         {
           username: "Equinox",
-          task: app.i18n.t("about.contrib.mental-assistance"),
+          task: {
+            en: "Mental and visual assistance",
+            fr: "Assistance mentale et visuelle"
+          },
           links: [
             {
               icon: "github",
@@ -171,6 +207,11 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    ...mapState({
+      locale: state => state.locale
+    })
   }
 };
 </script>
@@ -221,6 +262,11 @@ export default {
 .about-link {
   margin-left: 0.4rem;
 }
+
+.button-more-stats {
+  margin-top: 0.7rem;
+}
+
 @media screen and (max-width: 768px) {
   .container {
     padding: 0rem 0.5rem 1.5rem 0.5rem;

@@ -61,7 +61,6 @@ export default {
       donations = (await app.$axios.$get("/api/other/donations")).data;
     } catch (e) {
       donations = [];
-      console.error(e);
     }
 
     return {

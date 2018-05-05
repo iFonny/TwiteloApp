@@ -186,10 +186,7 @@
     "links": "Liens",
     "changelog": "Journal des modifications",
     "contributors": "Contributeurs",
-    "contrib": {
-      "back-front-design": "Back-end / Front-end / Design :",
-      "mental-assistance": "Assistance mentale et visuelle :"
-    },
+    "more-stats": "Plus de statistiques",
     "timeline": {
       "whats-next": "Quelle est la prochaine étape ?",
       "months": {
