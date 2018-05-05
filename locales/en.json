@@ -187,8 +187,8 @@
     "changelog": "Changelog",
     "contributors": "Contributors",
     "contrib": {
-      "back-front-design": "Back-end / Front-end / Design:",
-      "mental-assistance": "Mental and visual assistance:"
+      "back-front-design": "Back-end / Front-end / Design",
+      "mental-assistance": "Mental and visual assistance"
     },
     "timeline": {
       "whats-next": "What's next?",

@@ -1,48 +1,33 @@
 <template>
   <div class="container is-fluid about-page">
 
+    <!-- Twitelo links -->
     <section class="has-text-centered">
       <img class="twitelo-logo" src="~/static/logo.png"><br>
-
       <ul class="is-size-5">
-        <li>
-          <span>Twitter</span>
-          <b-icon icon="twitter" size="is-small" class="icon-link"></b-icon>
-          <a class="about-link">https://twitter.com/twiteloFR</a>
-        </li>
-        <li>
-          <span>Discord</span>
-          <b-icon pack="fab" icon="discord" size="is-small" class="icon-link"></b-icon>
-          <a class="about-link">http://discord.gg/F75CNy2</a>
+        <li v-for="twiteloLink in twiteloLinks" :key="twiteloLink.name">
+          <span>{{twiteloLink.name}}</span>
+          <b-icon :pack="twiteloLink.pack" :icon="twiteloLink.icon" size="is-small" class="icon-link"></b-icon>
+          <a :href="twiteloLink.url" class="about-link">{{twiteloLink.url}}</a>
         </li>
       </ul>
     </section>
 
+    <!-- Contributors -->
     <section class="has-text-centered">
       <p class="is-size-3 has-text-weight-bold has-text-centered">{{$t('about.contributors')}}</p>
       <ul class="is-size-5">
-        <li>
-          <span class="is-italic">{{$t('about.contrib.back-front-design')}}
-            <span class="has-text-weight-semibold">iFonny</span>
-          </span>
-          <a>
-            <b-icon pack="fab" icon="github" class="icon-link"></b-icon>
-          </a>
-          <a class="about-link">
-            <b-icon icon="twitter"></b-icon>
-          </a>
-        </li>
-        <li>
-          <span class="is-italic">{{$t('about.contrib.mental-assistance')}}
-            <span class="has-text-weight-semibold">Equinox</span>
-          </span>
-          <a>
-            <b-icon pack="fab" icon="github" class="icon-link"></b-icon>
+        <li v-for="contributor in contributors" :key="contributor.username">
+          <span class="has-text-weight-semibold">{{contributor.username}} - </span>
+          <span class="is-italic">{{contributor.task}} - </span>
+          <a v-for="link in contributor.links" :key="link.url" :href="link.url">
+            <b-icon :pack="link.pack" :icon="link.icon" class="icon-link"></b-icon>
           </a>
         </li>
       </ul>
     </section>
 
+    <!-- Changelog -->
     <section class="timeline is-centered">
       <p class="is-size-3 has-text-weight-bold has-text-centered">{{$t('about.changelog')}}</p>
       <div class="timeline-item">
@@ -82,6 +67,7 @@
 
     <br>
 
+    <!-- About me -->
     <div class="about-me-container has-text-centered">
       <div class="about-me-banner">
         <img class="pp-preview no-select" src="/images/iFonny.png" onerror="/images/errors/default_profile.png">
@@ -89,28 +75,12 @@
       <div class="about-me-content">
         <p class="is-size-4 has-text-white text-overflow-is-ellipsis has-text-weight-bold">{{$t('about.about-me')}}</p>
         <ul class="has-text-white-ter has-text-weight-light">
-          <li>
-            <span>Website</span>
-            <b-icon pack="fas" icon="globe" size="is-small" class="icon-link"></b-icon>
-            <a class="about-link">https://ifonny.fr/</a>
-          </li>
-          <li>
-            <span>Twitter</span>
-            <b-icon icon="twitter" size="is-small" class="icon-link"></b-icon>
-            <a class="about-link">https://twitter.com/iFonny_</a>
-          </li>
-          <li>
-            <span>Github</span>
-            <b-icon pack="fab" icon="github" size="is-small" class="icon-link"></b-icon>
-            <a class="about-link">https://github.com/ifonny</a>
-          </li>
-          <li>
-            <span>Discord</span>
-            <b-icon pack="fab" icon="discord" size="is-small" class="icon-link"></b-icon>
-            <a class="about-link">http://discord.gg/6BzrEdP</a>
+          <li v-for="iFonnyLink in iFonnyLinks" :key="iFonnyLink.name">
+            <span>{{iFonnyLink.name}}</span>
+            <b-icon :pack="iFonnyLink.pack" :icon="iFonnyLink.icon" size="is-small" class="icon-link"></b-icon>
+            <a :href="iFonnyLink.url" class="about-link">{{iFonnyLink.url}}</a>
           </li>
         </ul>
-
       </div>
     </div>
   </div>
@@ -125,6 +95,79 @@ export default {
           hid: "description",
           name: "description",
           content: "More informations about Twitelo"
+        }
+      ]
+    };
+  },
+  asyncData({ app }) {
+    return {
+      twiteloLinks: [
+        {
+          name: "Twitter",
+          icon: "twitter",
+          pack: "mdi",
+          url: "https://twitter.com/TwiteloFR"
+        },
+        {
+          name: "Github",
+          icon: "github",
+          pack: "fab",
+          url: "https://discord.gg/F75CNy2"
+        }
+      ],
+      contributors: [
+        {
+          username: "iFonny",
+          task: app.i18n.t("about.contrib.back-front-design"),
+          links: [
+            {
+              icon: "github",
+              pack: "fab",
+              url: "https://github.com/ifonny"
+            },
+            {
+              icon: "twitter",
+              pack: "mdi",
+              url: "https://twitter.com/iFonny_"
+            }
+          ]
+        },
+        {
+          username: "Equinox",
+          task: app.i18n.t("about.contrib.mental-assistance"),
+          links: [
+            {
+              icon: "github",
+              pack: "fab",
+              url: "https://github.com/Equinoxbig"
+            }
+          ]
+        }
+      ],
+      iFonnyLinks: [
+        {
+          name: "Website",
+          icon: "globe",
+          pack: "fas",
+          url: "https://ifonny.fr/"
+        },
+        {
+          name: "Twitter",
+          icon: "twitter",
+          pack: "mdi",
+          url: "https://twitter.com/iFonny_"
+        },
+        {
+          name: "Github",
+          icon: "github",
+          pack: "fab",
+          url: "https://github.com/ifonny"
+        },
+        {
+          name: "Discord",
+          icon: "discord",
+          pack: "fab",
+          url: "https://discord.gg/6BzrEdP"
         }
       ]
     };
@@ -166,13 +209,13 @@ export default {
 
 .container {
   margin: 0;
-  padding: 1.5rem 3rem 1.5rem 3rem;
+  padding: 0.5rem 3rem 1.5rem 3rem;
 }
 .about-page .twitelo-logo {
   height: 100px;
 }
-.about-page .timeline {
-  padding-top: 0.5rem;
+.about-page section {
+  padding-top: 0.8rem;
 }
 
 .about-link {
@@ -180,7 +223,7 @@ export default {
 }
 @media screen and (max-width: 768px) {
   .container {
-    padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+    padding: 0rem 0.5rem 1.5rem 0.5rem;
   }
 }
 </style>
