@@ -18,8 +18,8 @@
       <p class="is-size-3 has-text-weight-bold has-text-centered">{{$t('about.contributors')}}</p>
       <ul class="is-size-5">
         <li v-for="contributor in contributors" :key="contributor.username">
-          <span class="has-text-weight-semibold">{{contributor.username}} - </span>
-          <span class="is-italic">{{contributor.task[locale]}} - </span>
+          <span class="has-text-weight-semibold">{{contributor.username}} </span>
+          <span class="is-italic">- {{contributor.task[locale]}} -</span>
           <a v-for="link in contributor.links" :key="link.url" :href="link.url">
             <b-icon :pack="link.pack" :icon="link.icon" class="icon-link"></b-icon>
           </a>
@@ -122,7 +122,7 @@ export default {
   },
   async asyncData({ app }) {
     let stats = [];
-    
+
     try {
       stats = (await app.$axios.$get("/api/other/stats/min")).data;
     } catch (e) {
