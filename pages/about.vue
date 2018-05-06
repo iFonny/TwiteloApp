@@ -18,8 +18,8 @@
       <p class="is-size-3 has-text-weight-bold has-text-centered">{{$t('about.contributors')}}</p>
       <ul class="is-size-5">
         <li v-for="contributor in contributors" :key="contributor.username">
-          <span class="has-text-weight-semibold">{{contributor.username}} - </span>
-          <span class="is-italic">{{contributor.task[locale]}} - </span>
+          <span class="has-text-weight-semibold">{{contributor.username}} </span>
+          <span class="is-italic">- {{contributor.task[locale]}} -</span>
           <a v-for="link in contributor.links" :key="link.url" :href="link.url">
             <b-icon :pack="link.pack" :icon="link.icon" class="icon-link"></b-icon>
           </a>
@@ -95,7 +95,7 @@
         <p class="is-size-4 has-text-white text-overflow-is-ellipsis has-text-weight-bold">{{$t('about.about-me')}}</p>
         <ul class="has-text-white-ter has-text-weight-light">
           <li v-for="iFonnyLink in iFonnyLinks" :key="iFonnyLink.name">
-            <span>{{iFonnyLink.name}}</span>
+            <span v-html="iFonnyLink.name"></span>
             <b-icon :pack="iFonnyLink.pack" :icon="iFonnyLink.icon" size="is-small" class="icon-link"></b-icon>
             <a :href="iFonnyLink.url" class="about-link">{{iFonnyLink.url}}</a>
           </li>
@@ -122,7 +122,7 @@ export default {
   },
   async asyncData({ app }) {
     let stats = [];
-    
+
     try {
       stats = (await app.$axios.$get("/api/other/stats/min")).data;
     } catch (e) {
@@ -200,7 +200,7 @@ export default {
           url: "https://github.com/ifonny"
         },
         {
-          name: "Discord",
+          name: "Discord <a>iFonny#6666</a>",
           icon: "discord",
           pack: "fab",
           url: "https://discord.gg/6BzrEdP"
