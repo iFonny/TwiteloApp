@@ -95,7 +95,7 @@
         <p class="is-size-4 has-text-white text-overflow-is-ellipsis has-text-weight-bold">{{$t('about.about-me')}}</p>
         <ul class="has-text-white-ter has-text-weight-light">
           <li v-for="iFonnyLink in iFonnyLinks" :key="iFonnyLink.name">
-            <span>{{iFonnyLink.name}}</span>
+            <span v-html="iFonnyLink.name"></span>
             <b-icon :pack="iFonnyLink.pack" :icon="iFonnyLink.icon" size="is-small" class="icon-link"></b-icon>
             <a :href="iFonnyLink.url" class="about-link">{{iFonnyLink.url}}</a>
           </li>
@@ -200,7 +200,7 @@ export default {
           url: "https://github.com/ifonny"
         },
         {
-          name: "Discord",
+          name: "Discord <a>iFonny#6666</a>",
           icon: "discord",
           pack: "fab",
           url: "https://discord.gg/6BzrEdP"
