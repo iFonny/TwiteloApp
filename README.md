@@ -1,17 +1,12 @@
 # Twitelo
 
-Link your twitter account and your favorite online games!
+Twitelo is a website that allows you to link your twitter account and your favorite online games or platforms.
 Display your ranks, stats, and more in your twitter profile. Updated automatically!
 
-# Required
-- Nodejs : v9.4.0
-- RethinkDB : 2.3.6
+## Contributors
 
-> npm install -g yarn
+iFonny - [Twitter @iFonny_](https://twitter.com/iFonny_) - [Discord iFonny#6666](#) - BTC : 347J8WRftcQmGg7imyF88wSzqUiXA8cPfM
 
-> npm install -g vue-cli
+## License
 
-> yarn global add nuxt
-
-
-Config file needed: secret.json (in /config/)
+Refer to the [LICENSE.md](LICENSE.md) file
