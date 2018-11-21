@@ -47,7 +47,7 @@
       "ref": "origin/beta",
       "repo": "git@github.com:iFonny/TwiteloApp.git",
       "path": "/root/www/TwiteloApp/beta/",
-      "pre-setup": "npm i -g yarn; npm i -g vue-cli; yarn global add nuxt",
+      "pre-setup": "npm i -g yarn; npm i -g vue-cli; yarn global add nuxt@1.4.0",
       "post-deploy": "cp /root/configs/TwiteloApp/secret.json ./config/; npm install; nuxt build; pm2 startOrRestart pm2-config.json --only twitelo-app-beta",
       "env": {
         "NODE_ENV": "beta"
@@ -60,7 +60,7 @@
       "ref": "origin/master",
       "repo": "git@github.com:iFonny/TwiteloApp.git",
       "path": "/root/www/TwiteloApp/production/",
-      "pre-setup": "npm i -g yarn; npm i -g vue-cli; yarn global add nuxt",
+      "pre-setup": "npm i -g yarn; npm i -g vue-cli; yarn global add nuxt@1.4.0",
       "post-deploy": "cp /root/configs/TwiteloApp/secret.json ./config/; npm install; nuxt build; pm2 startOrRestart pm2-config.json --only twitelo-app",
       "env": {
         "NODE_ENV": "production"
