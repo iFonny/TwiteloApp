@@ -1,5 +1,6 @@
 {
-  "apps": [{
+  "apps": [
+    {
       "name": "twitelo-app-beta",
       "script": "./server/app.js",
       "watch": false,
@@ -41,7 +42,7 @@
   "deploy": {
     "beta": {
       "user": "root",
-      "host": "51.254.118.165",
+      "host": "51.15.131.156",
       "key": "~/.ssh/ssh_ifo_vps",
       "ref": "origin/beta",
       "repo": "git@github.com:iFonny/TwiteloApp.git",
@@ -54,7 +55,7 @@
     },
     "production": {
       "user": "root",
-      "host": "51.254.118.165",
+      "host": "51.15.131.156",
       "key": "~/.ssh/ssh_ifo_vps",
       "ref": "origin/master",
       "repo": "git@github.com:iFonny/TwiteloApp.git",
