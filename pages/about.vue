@@ -175,7 +175,7 @@ export default {
             {
               icon: "github",
               pack: "fab",
-              url: "https://github.com/Equinoxbig"
+              url: "https://github.com/mdolr"
             }
           ]
         }
