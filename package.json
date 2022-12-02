@@ -66,5 +66,8 @@
   "optionalDependencies": {
     "bufferutil": "^3.0.3",
     "utf-8-validate": "^4.0.0"
+  },
+  "volta": {
+    "node": "9.4.0"
   }
 }
